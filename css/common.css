@@ -1,0 +1,11 @@
+.btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border:none;
+    
+    transition: 0.3s;
+
+    cursor: pointer;
+}
+
+.btn img:hover {opacity: 0.6;}
