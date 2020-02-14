@@ -1,0 +1,28 @@
+body {
+    /* set the background */
+    background-image: url("../gameAsset/td-gui/PNG/menu/bg.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    margin: 10px auto;
+    box-shadow: 5px 5px 10px -5px #000;
+    border-radius: 5px;
+}
+
+#mainMenu {
+    position: relative;
+    width: auto;
+    height: 100%;
+    margin: 10px auto;
+    top: 30%;
+    left: 50%;
+}
+
+#playBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
