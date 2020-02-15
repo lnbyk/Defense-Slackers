@@ -169,7 +169,7 @@ cost_to_build
 level(if we have time)
 attack_range
 attack_cooldown
-Bullet(class)</string>
+Bullet_list</string>
      </void>
     </void>
     <void property="methods">
@@ -365,7 +365,6 @@ Enemy Type
 game_state
 Enemy_list
 enemy_moving_path
-Bullet_list
 Tower_list
 Castle
 (or we can have all elements in one list. i don&apos;t know)</string>
