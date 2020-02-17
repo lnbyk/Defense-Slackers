@@ -33,7 +33,7 @@ body {
     box-shadow: 5px 5px 10px -5px #000;
     border-radius: 5px;
 
-    background-image: url("../gameAsset/td-tileset3/PNG/game_background_1/game_background_1.png");
+    background: url("../gameAsset/td-tileset3/PNG/game_background_1/game_background_1.png");
 }
 
 
