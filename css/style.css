@@ -17,7 +17,7 @@ body {
 #playBtn {
     position: absolute;
     left: 50%;
-    margin-right: -50%;;
+    margin-right: -50%;
     transform: translate(-50%, 100%);
 }
 
@@ -27,4 +27,24 @@ body {
     height: 100%;
 }
 
-
+/* button position for building tower */
+#tBtn0 {
+    top: 51%;
+    left: 26%;
+}
+#tBtn1 {
+    top: 60%;
+    left: 57%;
+}
+#tBtn2 {
+    top: 32%;
+    left: 48%;
+}
+#tBtn3 {
+    bottom:5%;
+    left: 54%;
+}
+#tBtn4 {
+    bottom:72%;
+    left: 15%;
+}

@@ -1,9 +1,9 @@
-$(function(){
+$(function () {
     $("#gameScreen").hide();
     /* button functionality */
 
-    $("#playBtn").click(function(){
-        $("#mainMenu").slideUp('slow', function(){
+    $("#playBtn").click(function () {
+        $("#mainMenu").slideUp('slow', function () {
             $("#gameScreen").fadeIn('slow');
         });
     });
