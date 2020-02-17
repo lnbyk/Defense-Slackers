@@ -1,11 +1,10 @@
 $(function(){
-    //this code runs after page is fully loaded
     $("#gameScreen").hide();
+    /* button functionality */
 
-    /* Button Functionality */
     $("#playBtn").click(function(){
-        $("#mainMenu").slideUp("medium",function(){
-            $("#gameScreen").fadeIn();
+        $("#mainMenu").slideUp('slow', function(){
+            $("#gameScreen").fadeIn('slow');
         });
     });
 });

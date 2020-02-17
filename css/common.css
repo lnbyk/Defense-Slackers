@@ -9,3 +9,11 @@
 }
 
 .btn img:hover {opacity: 0.6;}
+
+.fullScreen {
+    width: 100%;
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    height: auto;
+}
