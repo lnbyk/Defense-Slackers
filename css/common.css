@@ -1,14 +1,16 @@
 .btn {
     background-color: transparent;
     background-repeat: no-repeat;
-    border:none;
-    
+    border: none;
+
     transition: 0.3s;
 
     cursor: pointer;
 }
 
-.btn img:hover {opacity: 0.6;}
+.btn img:hover {
+    opacity: 0.6;
+}
 
 .fullScreen {
     width: 100%;
@@ -16,4 +18,20 @@
     display: block;
     margin: 0 auto;
     height: auto;
+}
+
+.tbtn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+
+    position: absolute;
+    height: 5%;
+    width: 5%;
+    border: none;
+    cursor: pointer;
+}
+
+.tbtn :hover {
+    background-color: greenyellow !important;
 }
