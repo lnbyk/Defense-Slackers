@@ -35,3 +35,19 @@
 .tbtn :hover {
     background-color: greenyellow !important;
 }
+
+.towerIcon {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.towerIcon img {
+    height: 25%;
+    width: 25%;
+}
+.towerIcon :hover {
+    opacity: 0.6;
+}
