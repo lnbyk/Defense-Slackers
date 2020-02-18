@@ -48,3 +48,13 @@ body {
     bottom:72%;
     left: 15%;
 }
+
+#towerSImage {
+    height: 18%;
+    width: 12%;
+}
+
+#closeTowerSelection {
+    height: 5% !important;
+    width: 5% !important;
+}
