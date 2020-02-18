@@ -14,7 +14,6 @@ $(function () {
         var position = $("#tBtn0").position();
         var width = $( window ).width() * 0.12;
         var height = $( window ).height() * 0.18;
-        alert(height);
         $("#towerSImage").css({top: position.top - height / 2, left: position.left - width / 2, position:'absolute'});
         $('#towerSelection').fadeIn('fast', function() {
             $("#closeTowerSelection").css({top: position.top - height, left: position.left + width / 2, position:'absolute'});
