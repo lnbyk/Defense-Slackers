@@ -1,5 +1,10 @@
 class Bullet extends MovingObject {
     constructor() {
-        //constructor
+        /* initilize the type, velocity, acceleration
+            damage, attack_target*/
+    }
+
+    collision() {
+
     }
 }

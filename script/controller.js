@@ -1,4 +1,6 @@
 $(function () {
+    // create game here
+    // let game = new Game();
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     /* button functionality */
