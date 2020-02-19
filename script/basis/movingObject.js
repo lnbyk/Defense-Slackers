@@ -1,9 +1,9 @@
-class MovingObject extends Element{
-    constructor(px,py) {
-        super(px,py);
+class MovingObject extends Element {
+    constructor(px, py) {
+        super(px, py);
     }
 
-    setVelocity(vx, vy){
+    setVelocity(vx, vy) {
         this.velocity = {
             x: vx,
             y: vy
@@ -11,13 +11,13 @@ class MovingObject extends Element{
     }
 
     setAcceleration(ax, ay) {
-        this.acceleration ={
+        this.acceleration = {
             x: ax,
             y: ay
         }
     }
 
-    move(){
-        
+    move() {
+
     }
 }

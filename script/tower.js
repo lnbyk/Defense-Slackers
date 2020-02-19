@@ -1,9 +1,11 @@
-class Tower extends MovingObject{
-    constructor(px, py, type, cd, cost) {
-        super(px,py);
+class Tower extends Element {
+    constructor(px, py, type) {
+        super(px, py);
         this.type = type;
-        this.cool_down = cd;
-        this.cost = cost;
+        this.damage = type[0];
+        this.cool_down = type[1];
+        this.cost = type[2];
+        this.range = type[3];
         // attack_range
         // level
         // bullet_list
@@ -31,13 +33,9 @@ class Tower extends MovingObject{
 
 
 }
-/*  
-use for test  don't delet it yet
 
-let tower = new Tower(10,10,"tower1", 1, 1000);
-tower.setVelocity(5,5);
-tower.setAcceleration(1,1);
+//use for test  don't delet it yet
+/*
+let tower = new Tower(10, 10, towerType.ARCHER);
 console.log(tower);
-tower.setVelocity(100, tower.velocity.y);
-console.log(tower.velocity);
 */

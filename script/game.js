@@ -5,7 +5,7 @@ class Game {
 
     /*set up game
     call it when click the start botton*/
-    setUp(){
+    setUp() {
         this.game_state = gameState.PLAY;
         this.gold = 0;
         /* initialize lists for Element(moving and fixed)*/
@@ -18,7 +18,7 @@ class Game {
     }
 
     /* the following four function just simply change the game_state*/
-    win(){
+    win() {
 
     }
 
@@ -26,11 +26,11 @@ class Game {
 
     }
 
-    pause(){
+    pause() {
 
     }
 
-    resume(){
+    resume() {
 
     }
 }
