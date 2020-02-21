@@ -1,3 +1,6 @@
+/* use for find the position for certain button */
+var buttonPos = ''
+
 $(function () {
     // create game here
     // let game = new Game();
@@ -13,43 +16,53 @@ $(function () {
 
     /* build tower button */
     $(".tbtn").click(function () {
-        var position = $(this).position();
-        var width = $(window).width() * 0.12;
-        var height = $(window).height() * 0.18;
-        $("#towerSImage").css({
-            top: position.top - height / 2,
-            left: position.left - width / 2,
-            position: 'absolute'
-        });
-        $('#towerSelection').fadeIn('fast', function () {
-            $("#closeTowerSelection").css({
-                top: position.top - height,
-                left: position.left + width / 2,
-                position: 'absolute'
-            });
-            $("#tower0").css({
-                top: position.top - height * 0.4,
-                left: position.left - width * 0.8,
-                position: 'absolute'
-            });
-            $("#tower1").css({
-                top: position.top - height * 0.4,
-                left: position.left - width * 0.15,
-                position: 'absolute'
-            });
-            $("#tower2").css({
-                top: position.top + height * 0.2,
-                left: position.left - width * 0.8,
-                position: 'absolute'
-            });
-            $("#tower3").css({
-                top: position.top + height * 0.2,
-                left: position.left - width * 0.12,
-                position: 'absolute'
-            });
-            $(".towerIcon").fadeIn();
-            $("#closeTowerSelection").fadeIn();
-        });
+        buttonPos = '#' + $(this).attr('id');
+        curName = $(this).attr('name');
+        switch (curName) {
+            case "pit":
+                var position = $(this).position();
+                var width = $(window).width() * 0.12;
+                var height = $(window).height() * 0.18;
+                $("#towerSImage").css({
+                    top: position.top - height / 2,
+                    left: position.left - width / 2,
+                    position: 'absolute'
+                });
+                $('#towerSelection').fadeIn('fast', function () {
+                    $("#closeTowerSelection").css({
+                        top: position.top - height,
+                        left: position.left + width / 2,
+                        position: 'absolute'
+                    });
+                    $("#tower0").css({
+                        top: position.top - height * 0.4,
+                        left: position.left - width * 0.8,
+                        position: 'absolute'
+                    });
+                    $("#tower1").css({
+                        top: position.top - height * 0.4,
+                        left: position.left - width * 0.15,
+                        position: 'absolute'
+                    });
+                    $("#tower2").css({
+                        top: position.top + height * 0.2,
+                        left: position.left - width * 0.8,
+                        position: 'absolute'
+                    });
+                    $("#tower3").css({
+                        top: position.top + height * 0.2,
+                        left: position.left - width * 0.12,
+                        position: 'absolute'
+                    });
+                    $(".towerIcon").fadeIn();
+                    $("#closeTowerSelection").fadeIn();
+                    /* choose certain tower and then change our name for the btn */
+                });
+                break;
+            case 'towerLevel0':
+                break;
+
+        }
     });
 
     /* button use to close tower selection menu */
@@ -57,6 +70,27 @@ $(function () {
         $("#towerSelection").fadeOut('fast');
         $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
+    });
+
+    $(".towerIcon").click(function () {
+        $("#towerSelection").fadeOut('fast');
+        $(".towerIcon").hide();
+        $("#closeTowerSelection").hide();
+        /*  get the image url of the tower we clicker  */
+        var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
+        var url = $(t).attr('src');
+
+        /* change the tower Id at certain postion */
+        $(buttonPos).css('width', '10%').css('height', '20%');
+        $(buttonPos).css('background', "url" + "(" + url + ") no-repeat top left").css('3%, 3%');
+        /* adjust position */
+        $(buttonPos).css({
+            top: $(buttonPos).position().top - 1.5 * $(buttonPos).height(),
+            left: $(buttonPos).position().left - $(buttonPos).width() / 2,
+            position: 'absolute'
+        });
+        $(buttonPos).attr('name', 'towerLevel0');
+        $(buttonPos).fadeIn();
     });
 
 });
