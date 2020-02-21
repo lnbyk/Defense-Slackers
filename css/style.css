@@ -21,6 +21,16 @@ body {
     transform: translate(-50%, 100%);
 }
 
+#bgmBtn {
+    position: absolute;
+    left: 1%;
+    transform: translateY(10%);
+}
+
+#backgroundMusic {
+    display: none;
+}
+
 #gameScreen {
     position: relative;
     width: auto;
@@ -32,20 +42,24 @@ body {
     top: 51%;
     left: 26%;
 }
+
 #tBtn1 {
     top: 60%;
     left: 57%;
 }
+
 #tBtn2 {
     top: 32%;
     left: 48%;
 }
+
 #tBtn3 {
-    bottom:5%;
+    bottom: 5%;
     left: 54%;
 }
+
 #tBtn4 {
-    bottom:72%;
+    bottom: 72%;
     left: 15%;
 }
 
