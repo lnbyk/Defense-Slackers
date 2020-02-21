@@ -7,7 +7,24 @@ $(function () {
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     /* button functionality */
+    /* bgm control button */
+    $("#bgmBtn").click(function () {
+        var curName = $("#bgmBtn").attr('name');
+        switch (curName) {
+            case "on":
+                $("#bgmBtn img").attr('src', "gameAsset/td-gui/PNG/menu/button_sound_off.png");
+                $("#bgmBtn").attr('name', 'off');
+                $("#backgroundMusic").get(0).pause();
+                break;
+            case "off":
+                $("#bgmBtn img").attr('src', "gameAsset/td-gui/PNG/menu/button_sound.png");
+                $("#bgmBtn").attr('name', 'on');
+                $("#backgroundMusic").get(0).play();
+                break;
+        }
+    });
 
+    /* game play button */
     $("#playBtn").click(function () {
         $("#mainMenu").slideUp('slow', function () {
             $("#gameScreen").fadeIn('slow');
