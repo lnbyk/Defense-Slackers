@@ -1,4 +1,3 @@
-let self;
 class Game {
     constructor() {
         self = this;
@@ -9,6 +8,7 @@ class Game {
     /*set up game
     call it when click the start botton*/
     setUp() {
+        let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
         this.gold = 0;
@@ -24,7 +24,8 @@ class Game {
     update() {
         switch (this.game_state) {
             case gameState.PLAY:
-                //console.log(this.game_state + " and " + "updating");
+                console.log(this.game_state + " and " + "updating");
+                
                 break;
             case gameState.PAUSE:
                 console.log(this.game_state);

@@ -1,4 +1,6 @@
 class Enemy extends MovingObject{
+    // constructor(position_x, position_y, enemyType)
+    // enemyType[health,loot]
     constructor(px,py, type) {
         super(px,py);
         this.type = type;
@@ -13,10 +15,11 @@ class Enemy extends MovingObject{
 }
 
 // for test
-
+/*
 let enemy = new Enemy(0,0, enemyType.TANK);
 let enemy2 = new Enemy(10,10, enemyType.AGILE);
 enemy.setVelocity(10,20);
 enemy.setAcceleration(1,0);
 console.log(enemy);
 console.log(enemy2);
+*/
