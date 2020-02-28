@@ -1,9 +1,10 @@
 /* use for find the position for certain button */
 var buttonPos = ''
+let game;
 
 $(function () {
     // create game here
-    // let game = new Game();
+    game = new Game();
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     /* button functionality */
@@ -29,6 +30,9 @@ $(function () {
         $("#mainMenu").slideUp('slow', function () {
             $("#gameScreen").fadeIn('slow');
         });
+
+        // game start
+        game.setUp();
     });
 
     /* build tower button */
@@ -108,6 +112,11 @@ $(function () {
         });
         $(buttonPos).attr('name', 'towerLevel0');
         $(buttonPos).fadeIn();
+        
+        // build tower in model 
+        //console.log("build tower: " + buttonPos);
+        //console.log("x: " + $(buttonPos).position().left + ", y: " + $(buttonPos).position().top);
+        game.buildTower($(buttonPos).position().left, $(buttonPos).position().top,t);
     });
 
 });
