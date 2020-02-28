@@ -1,6 +1,9 @@
 class Tower extends Element {
+    // constructor (position_x, position_y, towerType)
+    // towerType[name, damage, cool_down, cost, range]
     constructor(px, py, type) {
         super(px, py);
+        let self = this;
         this.type = type;
         this.damage = type[1];
         this.cool_down = type[2];
@@ -12,6 +15,9 @@ class Tower extends Element {
         // level
         // bullet_list
         this.bullet_list = new Array();
+
+        // set timer for this tower
+        setInterval(function() {})
     }
 
     /* count down the cool_down*/
@@ -38,6 +44,7 @@ class Tower extends Element {
 }
 
 //use for test  don't delet it yet
-
+/*
 let tower = new Tower(10, 10, towerType.ARCHER);
 console.log(tower);
+*/
