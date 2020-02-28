@@ -1,6 +1,6 @@
 class Enemy extends MovingObject{
     // constructor(position_x, position_y, enemyType)
-    // enemyType[health,loot]
+    // enemyType[health,loot]  change these info in enemyType.js
     constructor(px,py, type) {
         super(px,py);
         this.type = type;
