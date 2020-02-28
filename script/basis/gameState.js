@@ -1,6 +1,6 @@
 const gameState = {
     MAINMENU: 'mainmenu',
-    PLAY: 'play',
+    PLAY: 'playing',
     PAUSE: 'pause',
     WIN: 'win',
     LOSE: 'lose'
