@@ -9,6 +9,9 @@ class Tower extends Element {
         this.cool_down = type[2];
         this.cost = type[3];
         this.range = type[4];
+
+        this.target = 4;
+
         console.log("position: " + px + ", " + py);
         console.log(this.type);
         // attack_range
@@ -29,6 +32,7 @@ class Tower extends Element {
         if (this.timer == this.cool_down) {
             //console.log(this.timer % this.cool_down);
             this.attack();
+            this.createBullet(); // TEMP Place for test only
             this.timer = 0;
         }
     }
@@ -42,6 +46,10 @@ class Tower extends Element {
      */
     attack() {
         console.log(this.type[0] + " attack!!!!");
+    }
+
+    createBullet(){
+        this.bullet_list.push(new Bullet(this.px, this.py, this.type, this.target));
     }
 
 
