@@ -16,12 +16,15 @@ class Game {
         this.tower_list = new Array();
         this.enemy_list = new Array();
         /* set interval and call update */
-        setInterval(function(){self.update()}, 1000);
-
+        this.enemy_list.push(new Enemy(0, 0, enemyType.TANK,this.enemy_list.length));
+        setInterval(function(){self.update()}, 100); 
     }
 
     /* */
     update() {
+        this.enemy_list.forEach(function(item) {
+            item.update();
+        })
         switch (this.game_state) {
             case gameState.PLAY:
                 console.log(this.game_state + " and " + "updating");

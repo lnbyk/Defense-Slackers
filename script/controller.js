@@ -8,7 +8,7 @@ $(function () {
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     /* button functionality */
-    /* bgm control button */
+    /* bgm cont rol button */
     $("#bgmBtn").click(function () {
         var curName = $("#bgmBtn").attr('name');
         switch (curName) {
