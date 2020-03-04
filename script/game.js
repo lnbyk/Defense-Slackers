@@ -16,19 +16,24 @@ class Game {
         this.tower_list = new Array();
         this.enemy_list = new Array();
         /* set interval and call update */
-        this.enemy_list.push(new Enemy(0, 0, enemyType.TANK,this.enemy_list.length));
-        setInterval(function(){self.update()}, 100); 
+        this.enemy_list.push(new Enemy(0, 200, enemyType.TANK,this.enemy_list.length));
+        setInterval(function(){self.update()}, 30); 
     }
 
     /* */
     update() {
         this.enemy_list.forEach(function(item) {
             item.update();
-        })
+        });
+        var self = this;
         switch (this.game_state) {
             case gameState.PLAY:
-                console.log(this.game_state + " and " + "updating");
-                
+                //console.log(this.game_state + " and " + "updating");
+                 //update each tower
+                this.tower_list.forEach(function(tower) {
+                   tower.update(self.enemy_list);
+                });
+        
                 break;
             case gameState.PAUSE:
                 console.log(this.game_state);
