@@ -11,6 +11,7 @@ class Tower extends Element {
         this.range = type[4];
 
         this.target = 4;
+        this.cd_ready = false;
 
         console.log("position: " + px + ", " + py);
         console.log(this.type);
@@ -18,6 +19,8 @@ class Tower extends Element {
         // level
         // bullet_list
         this.bullet_list = new Array();
+        // keep track of the bullet img by id
+        this.bullet_id = 0;
 
         // set timer for this tower
         this.timer = 0;
@@ -31,25 +34,68 @@ class Tower extends Element {
         //console.log(this.cool_down);
         if (this.timer == this.cool_down) {
             //console.log(this.timer % this.cool_down);
-            this.attack();
-            this.createBullet(); // TEMP Place for test only
+            this.cd_ready = true;
+            //this.attack();
+            //this.createBullet(); // TEMP Place for test only
             this.timer = 0;
         }
     }
 
-    /* check if there is enemy in range */
-    inRange() {
-
+    /* check if there is enemy in range 
+        if true set the CLOSEST one as target and return true*/
+    inRange(enemy_list) {
+        var self = this;
+        var tmpDistance;
+        var minDistance = self.range;
+        var attack = false;
+        enemy_list.forEach(function(enemy) {
+            tmpDistance = enemy.getNorm(self.position.x, self.position.y);
+            //console.log("distance: " + tmpDistance);
+            if (tmpDistance < minDistance) {
+                minDistance = tmpDistance;
+                self.target = enemy;
+                attack = true;
+            }
+        });
+        return attack;
     }
 
     /* if inRange and cool_down=0 add bullet to the bullet_list
      */
-    attack() {
-        console.log(this.type[0] + " attack!!!!");
+    attack(enemy_list) {
+        if (this.inRange(enemy_list) && this.cd_ready) {
+            console.log(this.type[0] + " attack!!!!");
+            this.timer = 0;
+            this.cd_ready = false;
+
+            // add bullet to list
+            this.createBullet();
+        }
     }
 
     createBullet(){
-        this.bullet_list.push(new Bullet(this.px, this.py, this.type, this.target));
+        this.bullet_list.push(new Bullet(this.position.x, this.position.y, this.type, this.target, this.bullet_id));
+        this .bullet_id = (this.bullet_id + 1)%50;
+        console.log(this.bullet_list.length);
+    }
+
+    update(enemy_list) {
+        var self = this;
+
+        // update each bullet in bullet_list
+        this.bullet_list.forEach(function(bullet, index) {
+            //update bullet
+            bullet.update();
+
+            // if it hits the target delete it from the array and delete img
+            if (bullet.collision()) {
+                bullet.destroy_bullet();
+                self.bullet_list.splice(index, 1);
+            }
+        });
+
+        // check if attack
+        this.attack(enemy_list);
     }
 
 

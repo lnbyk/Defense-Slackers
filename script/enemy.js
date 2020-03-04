@@ -27,8 +27,8 @@ class Enemy extends MovingObject {
             'id': this.id,
             'src': './gameAsset/2d-monster-sprites/PNG/1/1_enemies_1_attack_000.png'
         }).css({
-            top: 200,
-            left: 200,
+            top: this.position.y,
+            left: this.position.x,
             position: 'absolute'
         }).
         appendTo('#gameScreen');
@@ -46,7 +46,7 @@ class Enemy extends MovingObject {
     update() {
         this.position.x += 2;  
         $('#' + this.id).css({
-            top:200,
+            top:  this.position.y,
             left: this.position.x,
             position: 'absolute'
         });
