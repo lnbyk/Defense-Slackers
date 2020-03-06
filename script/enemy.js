@@ -30,8 +30,10 @@ class Enemy extends MovingObject {
             top: this.position.y,
             left: this.position.x,
             position: 'absolute'
-        }).
-        appendTo('#gameScreen');
+        }).css({
+            'width': '10%',
+            'height': '10%'
+        }).appendTo('#gameScreen');
 
 
     }
@@ -44,9 +46,9 @@ class Enemy extends MovingObject {
 
     // update function should be constantly called when the game is on to update the position of the enemy 
     update() {
-        this.position.x += 2;  
+        this.position.x += 2;
         $('#' + this.id).css({
-            top:  this.position.y,
+            top: this.position.y,
             left: this.position.x,
             position: 'absolute'
         });
@@ -64,4 +66,4 @@ enemy.setVelocity(10, 20);
 enemy.setAcceleration(1, 0);
 console.log(enemy);
 console.log(enemy2);
-*/ 
+*/

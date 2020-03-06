@@ -7,6 +7,7 @@ $(function () {
     game = new Game();
     $("#gameScreen").hide();
     $("#towerSelection").hide();
+    $("#setting").hide();
     /* button functionality */
     /* bgm cont rol button */
     $("#bgmBtn").click(function () {
@@ -102,21 +103,66 @@ $(function () {
         var url = $(t).attr('src');
 
         /* change the tower Id at certain postion */
-        $(buttonPos).css('width', '10%').css('height', '20%');
-        $(buttonPos).css('background', "url" + "(" + url + ") no-repeat top left").css('3%, 3%');
-        /* adjust position */
-        $(buttonPos).css({
-            top: $(buttonPos).position().top - 1.5 * $(buttonPos).height(),
-            left: $(buttonPos).position().left - $(buttonPos).width() / 2,
+       // $(buttonPos).css('width', '10%').css('height', '20%');
+       // $(buttonPos).css('background', "url" + "(" + url + ") no-repeat top left").css('3%, 3%');
+
+        $('<img />').attr({
+            'id': "towerImg" + buttonPos,
+            'src': url
+        }).css({
+            top: $(buttonPos).position().top,
+            left: $(buttonPos).position().left,
             position: 'absolute'
-        });
+        }).css({
+            'transform' : 'translateY(-60%) translateX(-30%)'
+        }).appendTo('#gameScreen');
+        
+        /* adjust position */
+
         $(buttonPos).attr('name', 'towerLevel0');
         $(buttonPos).fadeIn();
-        
+
         // build tower in model 
         //console.log("build tower: " + buttonPos);
         //console.log("x: " + $(buttonPos).position().left + ", y: " + $(buttonPos).position().top);
-        game.buildTower($(buttonPos).position().left, $(buttonPos).position().top,t);
+        game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t);
+    });
+
+    $('#backMenuBtn').click(function () {
+        $('#setting').fadeIn('slow');
+        game.pause();
+        // disabled tower selection button
+        $("[id^='tBtn']").hide();
+
+        // close the setting menu
+        $('#closeSBtn').click(function () {
+            $('#setting').fadeOut('fast');
+            game.resume();
+        })
+
+        // go to main menu
+        $('#leftBtn').click(function () {
+            $('#setting').slideUp('fast', function () {
+                $("#gameScreen").slideUp('slow', function () {
+                    $("#mainMenu").fadeIn('slow');
+                });
+            })
+            game = new Game();
+            $("#gameScreen").hide();
+            $("#towerSelection").hide();
+            $("#setting").hide();
+        });
+
+        // restart button
+        $("#restartBtn").click(function () {
+            game.pause();
+            game = new Game();
+            game.setUp();
+            $('#setting').slideUp('fast', function () {
+                $('#gameScreen').fadeIn('fast');
+            })
+        })
+        $("[id^='tBtn']").show();
     });
 
 });
