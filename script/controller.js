@@ -165,4 +165,43 @@ $(function () {
         $("[id^='tBtn']").show();
     });
 
+    // pause button
+    $('#pauseGame').click(function() {
+        var curName = $(this).attr('name');
+        game.pause();
+        switch (curName) {
+            case 'on' :
+                game.pause();
+                $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_start.png");
+                $(this).attr('name', 'off');
+                break;
+            case 'off':
+                game.resume();
+                $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+                $(this).attr('name', 'on');
+                break;  
+        }
+    });
+
 });
+
+
+
+/*
+
+ $("#bgmBtn").click(function () {
+        var curName = $("#bgmBtn").attr('name');
+        switch (curName) {
+            case "on":
+                $("#bgmBtn img").attr('src', "gameAsset/td-gui/PNG/menu/button_sound_off.png");
+                $("#bgmBtn").attr('name', 'off');
+                $("#backgroundMusic").get(0).pause();
+                break;
+            case "off":
+                $("#bgmBtn img").attr('src', "gameAsset/td-gui/PNG/menu/button_sound.png");
+                $("#bgmBtn").attr('name', 'on');
+                $("#backgroundMusic").get(0).play();
+                break;
+        }
+
+*/
