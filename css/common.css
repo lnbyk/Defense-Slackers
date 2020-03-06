@@ -25,6 +25,7 @@
     background-repeat: no-repeat;
     transition: 0.3s;
 
+    z-index: 20;
     position: absolute;
     height: 5%;
     width: 5%;
@@ -48,6 +49,26 @@
     height: 25%;
     width: 25%;
 }
+
 .towerIcon :hover {
+    opacity: 0.6;
+}
+
+.menuBtn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    padding: 0;
+
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.menuBtn img {
+    height: 50% !important;
+    width: 50% !important;
+}
+
+.menuBtn :hover {
     opacity: 0.6;
 }

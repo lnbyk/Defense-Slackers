@@ -72,3 +72,54 @@ body {
     height: 5% !important;
     width: 5% !important;
 }
+
+/* button in the gameScene*/
+#backMenuBtn {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    transform: translateY(10%);
+}
+
+#windowImage {
+    position: relative;
+    background-repeat: no-repeat;
+    top: 20%;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+#setting {
+    background-image: url("../gameAsset/td-gui//PNG/settings/window_2.png");
+    z-index: 99 !important;
+    background-size: 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 20%;
+    height: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#leftBtn {
+    position: absolute;
+    left: 1%;
+    bottom: 14%;
+    transform: translateY(10%);
+}
+
+#restartBtn {
+    position: absolute;
+    right: 5%;
+    bottom: 14%;
+    transform: translateY(10%);
+}
+
+#closeSBtn {
+    position: absolute;
+    right: 1%;
+    top: 4%;
+    transform: translateY(10%);
+}
