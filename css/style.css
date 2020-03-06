@@ -81,6 +81,22 @@ body {
     transform: translateY(10%);
 }
 
+/* pause game button */
+#pauseGame {
+    position: absolute;
+    right: 12%;
+    top: 3%;
+    transform: translateY(10%), translateX(10%);
+}
+
+/* speed up the game */
+#quickGame {
+    position: absolute;
+    right: 12%;
+    top: 12%;
+    transform: translateY(10);
+}
+
 #windowImage {
     position: relative;
     background-repeat: no-repeat;
