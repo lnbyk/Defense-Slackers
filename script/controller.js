@@ -48,18 +48,20 @@ $(function () {
     })
 
     /*button use to show help menu */
-    $("#help").click(function() {
-        $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function() {
+    $("#help").click(function () {
+        $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function () {
             $("#mainHelp, #closeHelpBtn").fadeIn('fast');
         });
     });
 
     /* button use to close help menu */
-    $('#closeHelpBtn').click(function() {
-        $("#mainHelp").slideUp('slow', function() {
-            $('#closeHelpBtn').fadeOut("fast")
-            $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
-        });
+    $('#closeHelpBtn').click(function () {
+        $('#closeHelpBtn').fadeOut("fast", function () {
+            $("#mainHelp").slideUp('slow', function () {
+                $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
+            });
+        })
+
     })
 
     /* button use to change enemy icon */
