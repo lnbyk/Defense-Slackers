@@ -72,3 +72,31 @@
 .menuBtn :hover {
     opacity: 0.6;
 }
+
+/* common table setting */
+.menuTable {
+    position: fixed;
+    width: 40%;
+    height: 50%;
+
+    /* put in the center*/
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    overflow: visible;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: transparent;
+
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+    overflow: scroll;
+}
+/* common setting for table view */
+::-webkit-scrollbar {
+    width: 0px;
+    background-color: transparent; /* make scrollbar transparent */
+}

@@ -2,12 +2,19 @@
 var buttonPos = ''
 let game;
 
+/* define string replace charAt function */
+String.prototype.replaceAt = function (index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
 $(function () {
     // create game here
     game = new Game();
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     $("#setting").hide();
+    $('#mainHelp').hide();
+    $("#mainSettingMenu").hide();
+    $("#closeMainSetting, #closeHelpBtn").hide();
     /* button functionality */
     /* bgm cont rol button */
     $("#bgmBtn").click(function () {
@@ -25,6 +32,47 @@ $(function () {
                 break;
         }
     });
+
+    /*click main setting button */
+    $("#mainSetting").click(function () {
+        $("#mainSettingMenu, #closeMainSetting").fadeIn('fast');
+        $('#playBtn, #bgmBtn, #mainSetting').fadeOut('fast');
+
+    })
+
+    /*close main setting menu */
+    $('#closeMainSetting').click(function () {
+        $("#mainSettingMenu").slideUp('slow');
+        $("#closeMainSetting").hide();
+        $('#playBtn, #bgmBtn, #mainSetting').fadeIn('fast');
+    })
+
+    /*button use to show help menu */
+    $("#help").click(function() {
+        $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function() {
+            $("#mainHelp, #closeHelpBtn").fadeIn('fast');
+        });
+    });
+
+    /* button use to close help menu */
+    $('#closeHelpBtn').click(function() {
+        $("#mainHelp").slideUp('slow', function() {
+            $('#closeHelpBtn').fadeOut("fast")
+            $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
+        });
+    })
+
+    /* button use to change enemy icon */
+    $('#lastEnemy, #nextEnemy').click(function () {
+        var cur = parseInt($('#helpEnemy').attr('src').charAt(24));
+        if ($(this).attr('id') === 'lastEnemy')
+            cur = --cur < 0 ? 9 : cur;
+        else
+            cur = ++cur > 9 ? 0 : cur;
+        var nUrl = $('#helpEnemy').attr('src').replaceAt(24, cur + "");
+        $('#helpEnemy').attr('src', nUrl);
+    });
+
 
     /* game play button */
     $("#playBtn").click(function () {
@@ -103,8 +151,8 @@ $(function () {
         var url = $(t).attr('src');
 
         /* change the tower Id at certain postion */
-       // $(buttonPos).css('width', '10%').css('height', '20%');
-       // $(buttonPos).css('background', "url" + "(" + url + ") no-repeat top left").css('3%, 3%');
+        // $(buttonPos).css('width', '10%').css('height', '20%');
+        // $(buttonPos).css('background', "url" + "(" + url + ") no-repeat top left").css('3%, 3%');
 
         $('<img />').attr({
             'id': "towerImg" + buttonPos,
@@ -114,9 +162,9 @@ $(function () {
             left: $(buttonPos).position().left,
             position: 'absolute'
         }).css({
-            'transform' : 'translateY(-60%) translateX(-30%)'
+            'transform': 'translateY(-60%) translateX(-30%)'
         }).appendTo('#gameScreen');
-        
+
         /* adjust position */
 
         $(buttonPos).attr('name', 'towerLevel0');
@@ -166,11 +214,11 @@ $(function () {
     });
 
     // pause button
-    $('#pauseGame').click(function() {
+    $('#pauseGame').click(function () {
         var curName = $(this).attr('name');
         game.pause();
         switch (curName) {
-            case 'on' :
+            case 'on':
                 game.pause();
                 $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_start.png");
                 $(this).attr('name', 'off');
@@ -179,7 +227,7 @@ $(function () {
                 game.resume();
                 $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
                 $(this).attr('name', 'on');
-                break;  
+                break;
         }
     });
 

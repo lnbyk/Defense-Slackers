@@ -31,6 +31,37 @@ body {
     display: none;
 }
 
+/* setting div for main menu */
+#mainSettingMenu {
+    background-image: url('../gameAsset/td-gui/PNG/difficulty/table.png');
+}
+
+#mainHelp {
+    background-image: url("../gameAsset/td-gui/PNG/shop/table.png");
+}
+
+/* enemy image size in the help menu */
+#helpEnemy {
+    width: 30%;
+    height: 30%;
+}
+
+/* button use to close help menu */
+#closeHelpBtn {
+    position: fixed;
+    top: 29%;
+    left: 62.5%;
+    z-index: 2;
+}
+/* button use to close main setting */
+#closeMainSetting {
+    position: absolute;
+    z-index: 2;
+    top: 34%;
+    left: 61%;
+    transform: translateX(50%) translateY(50%);
+}
+
 #gameScreen {
     position: relative;
     width: auto;
@@ -74,7 +105,7 @@ body {
 }
 
 /* button in the gameScene*/
-#backMenuBtn {
+#backMenuBtn, #mainSetting{
     position: absolute;
     right: 1%;
     top: 1%;
@@ -105,6 +136,7 @@ body {
     transform: translateX(50%);
 }
 
+/* setting button in the game scene */
 #setting {
     background-image: url("../gameAsset/td-gui//PNG/settings/window_2.png");
     z-index: 99 !important;
@@ -119,6 +151,7 @@ body {
     transform: translateX(-50%) translateY(-50%);
 }
 
+/* left game button in the setting menu */
 #leftBtn {
     position: absolute;
     left: 1%;
@@ -126,6 +159,7 @@ body {
     transform: translateY(10%);
 }
 
+/* restart game button in the setting menu */
 #restartBtn {
     position: absolute;
     right: 5%;
@@ -133,6 +167,7 @@ body {
     transform: translateY(10%);
 }
 
+/* cloase button for setting menu */
 #closeSBtn {
     position: absolute;
     right: 1%;
