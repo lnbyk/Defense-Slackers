@@ -80,6 +80,7 @@ $(function () {
     $("#playBtn").click(function () {
         $("#mainMenu").slideUp('slow', function () {
             $("#gameScreen").fadeIn('slow');
+            $("#backgroundMusic").get(0).pause();
         });
 
         // game start
@@ -195,6 +196,7 @@ $(function () {
             $('#setting').slideUp('fast', function () {
                 $("#gameScreen").slideUp('slow', function () {
                     $("#mainMenu").fadeIn('slow');
+                    $("#backgroundMusic").get(0).play();
                 });
             })
             game = new Game();
