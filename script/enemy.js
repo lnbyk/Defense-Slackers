@@ -1,3 +1,6 @@
+const INIT_LIFE_SIZE  = 7;
+const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
+
 class Enemy extends MovingObject {
     constructor(px, py, type, id) {
         super(px, py);
@@ -35,7 +38,36 @@ class Enemy extends MovingObject {
             'height': '10%'
         }).appendTo('#gameScreen');
 
+        // initialize enemy life bar image
+        var lifeId = "lifebar" + this.id;
+        var lifeImg = $('<img />').attr({
+            'id': lifeId,
+            'src': './gameAsset/td-gui/PNG/interface_game/bg_bar.png'
+        }).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        }).css({
+            'width': LIFE_SIZE_PERCENTAGE,
+            'height': '2%'
 
+        }).appendTo('#gameScreen');
+        var x;// = docuemnt.querySelector('#' + lifeId);
+        ///var myImg = document.getElementById(lifeId);
+        //this.lifeWidth = myImg.clientWidth;//$('#' + lifeId).width();
+        // initialize health image
+        var healthId = "health" + this.id;
+        var healthImg = $('<img />').attr({
+            'id': healthId,
+            'src': './gameAsset/td-gui/PNG/interface_game/bar_4.png'
+        }).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        }).css({
+            'width': LIFE_SIZE_PERCENTAGE,
+            'height': '2%'
+        }).appendTo('#gameScreen');
     }
 
     collision() {
@@ -53,6 +85,41 @@ class Enemy extends MovingObject {
             position: 'absolute'
         });
         // Update tje css to show movement
+        // update life bar postion
+        $('#' + 'lifebar' + this.id).css({
+            top:  this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        });
+        // update health postion
+        $('#' + 'health' + this.id).css({
+            top:  this.position.y,
+            left: this.position.x,
+            position: 'absolute',
+        });
+
+
+    }
+
+    // input a int and change the health of the enemy 
+    setHealth(x) {
+        this.health += x;
+        //console.log("lifebar width: " + this.lifeWidth);
+        var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
+        var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
+        console.log("curlife: " + curLife);
+        $('#' + 'health' + this.id).css({
+            'width': curLife
+       });
+        
+    }
+
+    // when the enemy's health is zero delete it and img
+    destroy_enemy(){
+        $('#' + this.id).remove();
+        $('#' + 'lifebar' + this.id).remove();
+        $("#" + 'health' + this.id).remove();
+
     }
 
 }
