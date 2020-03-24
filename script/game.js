@@ -4,6 +4,8 @@ class Game {
         $("[id^='tBtn']").attr('name', 'pit');
         $("[id^='towerImg']").remove();
         $("[id^='bullet']").remove();
+        $("[id^='lifebar']").remove();
+        $("[id^='health']").remove();
         self = this;
         this.game_state = gameState.MAINMENU;
         console.log(this.game_state);
@@ -35,8 +37,13 @@ class Game {
             case gameState.PLAY:
                 //console.log(this.game_state + " and " + "updating");
                 //update each tower
-                this.enemy_list.forEach(function (item) {
+                this.enemy_list.forEach(function (item, index) {
                     item.update();
+                    // if enemy dead remove and destroy it
+                    if (item.health <= 0) {
+                        item.destroy_enemy();
+                        self.enemy_list.splice(index, 1);
+                    }
                 });
                 this.tower_list.forEach(function (tower) {
                     tower.update(self.enemy_list);

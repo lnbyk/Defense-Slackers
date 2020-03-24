@@ -4,9 +4,10 @@ class Bullet extends MovingObject {
             damage, attack_target*/
             super(px, py);
             this.type = type;
+            this.damage = type[1];
             this.target = target;
             this.id = "bullet" + Math.round(px) + Math.round(py) + id;
-            console.log("TARGET" + this.target);
+            //console.log("TARGET" + this.target);
             // initilize the velocity, scaleVelocity is from super class
             this.scaleVelcity(this.target.position.x, this.target.position.y, type[5]);
             
@@ -27,7 +28,9 @@ class Bullet extends MovingObject {
     collision() {
         // this is just a simple version NEED TO IMPROVE
         if (this.getNorm(this.target.position.x, this.target.position.y) <= 10) {
-            console.log("hit !!!!!!!!!!!!!!");
+            // reduce target's health
+            this.target.setHealth(this.damage);
+            console.log("hit!!!: health = ", this.target.health);
             return true;
         }
         return false;
