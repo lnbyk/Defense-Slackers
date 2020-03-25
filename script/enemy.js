@@ -74,11 +74,21 @@ class Enemy extends MovingObject {
 
     }
 
+    // to move just update enemy position to next index of enemyPath
+    move(enemy_path) {
+        //console.log("enemy move called");
+        // get position from enemy_path(array)
+        this.position.x = enemy_path[this.index].position.x;
+        this.position.y = enemy_path[this.index].position.y;
+        
+        // update index to get next position
+        this.index ++;
+    }
 
-
-    // update function should be constantly called when the game is on to update the position of the enemy 
-    update() {
-        this.position.x += 2;
+    // update function should be constantly called when the game is on and call function move to update postion
+    update(enemy_path) {
+        //this.position.x += 2;
+        this.move(enemy_path);
         $('#' + this.id).css({
             top: this.position.y,
             left: this.position.x,
