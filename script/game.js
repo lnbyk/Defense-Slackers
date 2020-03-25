@@ -23,6 +23,13 @@ class Game {
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
         this.enemy_list = new Array();
+
+        // call function getSpline in pathFinding.js. The function returns an array of many positons (path)
+        this.enemy_path_11 = getSpline(CONTROL_POINTS_11);
+        this.enemy_path_11.forEach(function (point) {
+            console.log(point.position.x + ", " + point.position.y);
+        })
+
         /* set interval and call update */
         this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
         setInterval(function () {
@@ -38,9 +45,9 @@ class Game {
                 //console.log(this.game_state + " and " + "updating");
                 //update each tower
                 this.enemy_list.forEach(function (item, index) {
-                    item.update();
+                    item.update(self.enemy_path_11);
                     // if enemy dead remove and destroy it
-                    if (item.health <= 0) {
+                    if (item.health <= 0 || item.index >= self.enemy_path_11.length) {
                         item.destroy_enemy();
                         self.enemy_list.splice(index, 1);
                     }
