@@ -9,6 +9,8 @@ class Game {
         self = this;
         this.game_state = gameState.MAINMENU;
         console.log(this.game_state);
+        // timer of game
+        this.timer = 0;
     }
 
     /*set up game
@@ -20,21 +22,30 @@ class Game {
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
         this.gold = 0;
+        this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
         this.enemy_list = new Array();
 
         // call function getSpline in pathFinding.js. The function returns an array of many positons (path)
         this.enemy_path_11 = getSpline(CONTROL_POINTS_11);
-        this.enemy_path_11.forEach(function (point) {
-            console.log(point.position.x + ", " + point.position.y);
-        })
+        // this.enemy_path_11.forEach(function (point) {
+        //     console.log(point.position.x + ", " + point.position.y);
+        // })
 
         /* set interval and call update */
-        this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
+        //this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
         setInterval(function () {
             self.update()
         }, 30);
+
+        // start timer
+        setInterval(function () {
+            if (self.game_state == gameState.PLAY) {
+                self.timer++;
+                self.createEnemy();
+            }
+        }, 1000);
     }
 
     /* */
@@ -57,7 +68,7 @@ class Game {
                 });
                 break;
             case gameState.PAUSE:
-                console.log(this.game_state);
+                // pause  no update
                 break;
         }
 
@@ -67,7 +78,7 @@ class Game {
         //console.log(typeS);
         switch (typeS) {
             case '#0':
-                this.tower_list.push(new Tower(px, py, towerType.ARCHER));
+                this.tower_list.push(new Tower(px, py, towerType.LIGHT));
                 break;
             case '#1':
                 this.tower_list.push(new Tower(px, py, towerType.FROZE));
@@ -84,9 +95,12 @@ class Game {
     }
 
     createEnemy() {
-
+        if (this.timer % 3 == 0 && this.timer <= 30) {
+            this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer));
+            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+    
+        }
     }
-
     /* the following four function just simply change the game_state*/
     win() {
 
@@ -98,6 +112,7 @@ class Game {
 
     pause() {
         this.game_state = gameState.PAUSE;
+        console.log(this.game_state + "the game!!!!!!");
     }
 
     resume() {
