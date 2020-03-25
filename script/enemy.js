@@ -1,5 +1,6 @@
 const INIT_LIFE_SIZE  = 7;
 const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
+const imgNum = 19;
 
 class Enemy extends MovingObject {
     constructor(px, py, type, id) {
@@ -28,7 +29,7 @@ class Enemy extends MovingObject {
         this.id = "enemy" + id;
         var img = $('<img />').attr({
             'id': this.id,
-            'src': './gameAsset/2d-monster-sprites/PNG/1/1_enemies_1_attack_000.png'
+            'src': './assets/enemyMove/1_enemies_1_walk_0.png'
         }).css({
             top: this.position.y,
             left: this.position.x,
@@ -108,6 +109,12 @@ class Enemy extends MovingObject {
             position: 'absolute',
         });
 
+
+        // enemy animation change images 
+        var cur = parseInt($('#' + this.id).attr('src').substring(36));
+        cur = ++cur > imgNum ? 0 : cur;
+        var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
+        $('#' + this.id).attr('src', nUrl);
 
     }
 
