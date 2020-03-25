@@ -1,5 +1,5 @@
 // functions in this file are used to find enemy path
-
+const SPLINE_INTERVAL = 0.007;
 // initilize critical points
 var CONTROL_POINTS_11 = new Array(new Element(175,0), new Element(175,0), new Element(250,90), new Element(400,115), 
                                     new Element(435,235), new Element(495,340), new Element(630,360), new Element(725,445),
@@ -38,7 +38,7 @@ function getSpline(control_points) {
     // });
     var t;
     var enemyPath = new Array();
-    for (t = 0; t < control_points.length - 3.0; t += 0.01) {
+    for (t = 0; t < control_points.length - 3.0; t += SPLINE_INTERVAL) {
         // get spline point and add it into enemy path
         var Spoint = getSplinePoints(t, control_points)
         enemyPath.push(Spoint);

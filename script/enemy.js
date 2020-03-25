@@ -8,6 +8,8 @@ class Enemy extends MovingObject {
         this.type = type;
         this.health = type[0];
         this.loot = type[1];
+        this.debuff = debuffType.NORMAL;
+        this.debuffTime = 0;
         // debuff
 
 
@@ -89,6 +91,17 @@ class Enemy extends MovingObject {
     // update function should be constantly called when the game is on and call function move to update postion
     update(enemy_path) {
         //this.position.x += 2;
+        
+        // if the enemy has a debuff
+        if (this.debuff != debuffType.NORMAL) {
+            this.debuffTime--;
+            if (this.debuffTime <= 0) {
+                this.debuff = debuffType.NORMAL;
+            }
+            return;
+        }
+
+        // no debuff
         this.move(enemy_path);
         $('#' + this.id).css({
             top: this.position.y,
@@ -124,11 +137,20 @@ class Enemy extends MovingObject {
         //console.log("lifebar width: " + this.lifeWidth);
         var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
         var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
-        console.log("curlife: " + curLife);
+       // console.log("curlife: " + curLife);
         $('#' + 'health' + this.id).css({
             'width': curLife
        });
         
+    }
+
+    // input a debuffType and set debuff
+    addDebuff(debuff) {
+        if (debuff != debuffType.NORMAL)  {
+            this.debuff = debuff;
+            console.log("debuff!!!!!!!!!!!: " + this.debuff);
+            this.debuffTime = debuff[1];
+        }
     }
 
     // when the enemy's health is zero delete it and img
