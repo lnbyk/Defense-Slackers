@@ -46,7 +46,7 @@ class Tower extends Element {
     /* check if there is enemy in range 
         if true set the CLOSEST one as target and return true*/
     inRange(enemy_list) {
-        if (this.target != undefined && this.target.health > 0 & this.range >= this.target.getNorm(this.position.x, this.position.y)) {
+        if (this.target != undefined && this.target.health > 0 && this.range >= this.target.getNorm(this.position.x, this.position.y)) {
             return true;
         }
 
@@ -95,7 +95,7 @@ class Tower extends Element {
             bullet.update();
 
             // if it hits the target delete it from the array and delete img
-            if (bullet.collision()) {
+            if (bullet.collision(enemy_list)) {
                 bullet.destroy_bullet();
                 self.bullet_list.splice(index, 1);
             }
