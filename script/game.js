@@ -59,6 +59,7 @@ class Game {
                     item.update(self.enemy_path_11);
                     // if enemy dead remove and destroy it
                     if (item.health <= 0 || item.index >= self.enemy_path_11.length) {
+                        item.health = 0;
                         item.destroy_enemy();
                         self.enemy_list.splice(index, 1);
                     }
@@ -84,10 +85,12 @@ class Game {
                 this.tower_list.push(new Tower(px, py, towerType.FROZE));
                 break;
             case '#2':
-                console.log("build tower #2, need define towerType");
+                this.tower_list.push(new Tower(px, py, towerType.FIRE));
+                //console.log("build tower #2, need define towerType");
                 break;
             case '#3':
-                console.log("build tower #3, need define towerType");
+                this.tower_list.push(new Tower(px, py, towerType.ARCHER));
+                //console.log("build tower #3, need define towerType");
                 break;
         }
 

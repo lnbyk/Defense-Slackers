@@ -10,6 +10,7 @@ class Enemy extends MovingObject {
         this.loot = type[1];
         this.debuff = debuffType.NORMAL;
         this.debuffTime = 0;
+        this.debuffSlow = undefined;
         // debuff
 
 
@@ -92,12 +93,8 @@ class Enemy extends MovingObject {
     update(enemy_path) {
         //this.position.x += 2;
         
-        // if the enemy has a debuff
-        if (this.debuff != debuffType.NORMAL) {
-            this.debuffTime--;
-            if (this.debuffTime <= 0) {
-                this.debuff = debuffType.NORMAL;
-            }
+        // if the enemy has a debuff effect
+        if (this.debuffEffect()) {
             return;
         }
 
@@ -146,10 +143,54 @@ class Enemy extends MovingObject {
 
     // input a debuffType and set debuff
     addDebuff(debuff) {
+        // NORMAL cannot override other debuff 
         if (debuff != debuffType.NORMAL)  {
+            if (debuff == debuffType.FROZE && this.debuff == debuffType.DIZZY) {
+                // FROZE cannot override DIZZY
+                return;
+            }
             this.debuff = debuff;
             console.log("debuff!!!!!!!!!!!: " + this.debuff);
             this.debuffTime = debuff[1];
+            this.debuffSlow = debuff[2];
+        }
+    }
+
+    // implement debuff effect on enemy
+    debuffEffect() {
+        // dizzy debuff
+        if (this.debuff == debuffType.DIZZY) {
+            this.debuffTime--;
+            if (this.debuffTime <= 0) {
+                this.debuff = debuffType.NORMAL;
+                return false;
+            }
+            return true;
+        }
+
+        // froze debuff
+        if (this.debuff == debuffType.FROZE) {
+            this.debuffTime--;
+            // if debuff time is over
+            if (this.debuffTime <= 0) {
+                this.debuff = debuffType.NORMAL;
+                return false;
+            }
+            
+            // if in debuff time
+            //console.log("debuffSLow: " + this.debuffSlow);
+            if (this.debuffSlow > this.debuff[2]/2) {
+                this.debuffSlow--;
+                return true;
+            }else if (this.debuffSlow <= this.debuff[2]/2 && this.debuffSlow != 0) {
+                this.debuffSlow--;
+                return false;
+            }
+            else {
+                this.debuffSlow = this.debuff[2];
+                return false;
+            }
+            
         }
     }
 

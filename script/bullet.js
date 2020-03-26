@@ -26,15 +26,28 @@ class Bullet extends MovingObject {
     }
 
     // check if the bullet hits the target
-    collision() {
+    collision(enemy_list) {
+        var self = this;
         // this is just a simple version NEED TO IMPROVE
         if (this.getNorm(this.target.position.x, this.target.position.y) <= 15) {
+            // set debuff
+            this.target.addDebuff(this.debuff);
+
+            // if it is a fire bullet, explode (hit every enemies in exlposion range)
+            if (this.type == towerType.FIRE) {
+                console.log("explode!!!!!!!!!!!!!!!");
+                enemy_list.forEach(function(enemy) {
+                    if (self.getNorm(enemy.position.x, enemy.position.y) <= self.type[7]) {
+                        enemy.setHealth(self.damage);
+                    }
+                });
+                return true;
+            }
+
             // reduce target's health
             this.target.setHealth(this.damage);
             console.log("hit!!!: health = ", this.target.health);
-
-            // set debuff
-            this.target.addDebuff(this.debuff);
+            
             return true;
         }
         return false;
