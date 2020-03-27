@@ -26,7 +26,7 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.gold = 0;
+        this.gold = 300;
         this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
@@ -89,11 +89,14 @@ class Game {
                         item.health = 0;
                         item.destroy_enemy();
                         self.enemy_list.splice(index, 1);
+                        self.gold += 25;
                     }
                 });
                 this.tower_list.forEach(function (tower) {
                     tower.update(self.enemy_list);
                 });
+                $('#ddiamonNum').remove();
+                $('#diamondNum').text(self.gold);
                 break;
             case gameState.PAUSE:
                 // pause  no update
@@ -104,6 +107,7 @@ class Game {
 
     buildTower(px, py, typeS) {
         //console.log(typeS);
+        this.gold -= 100;
         switch (typeS) {
             case '#0':
                 this.tower_list.push(new Tower(px, py, towerType.LIGHT));
@@ -181,6 +185,4 @@ class Game {
 
         return path;
     }
-
-
 }
