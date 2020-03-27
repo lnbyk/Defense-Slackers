@@ -1,3 +1,5 @@
+const SCREEN_HEIGHT = 864;
+const SCREEN_WIDTH = 1536;
 class Game {
     constructor() {
         $("[id^='enemy']").remove();
@@ -7,6 +9,9 @@ class Game {
         $("[id^='lifebar']").remove();
         $("[id^='health']").remove();
         self = this;
+        this.height = $(window).height();
+        this.width = $(window).width();
+        console.log("H and W: " + this.height + ", " + this.width);
         this.game_state = gameState.MAINMENU;
         console.log(this.game_state);
         // timer of game
@@ -27,12 +32,34 @@ class Game {
         this.tower_list = new Array();
         this.enemy_list = new Array();
 
+    
+        // test control_points (comment it when playing game )
+        //  drawControlPoints(CONTROL_POINTS_11);
+        //  drawControlPoints(CONTROL_POINTS_12);
+        //  drawControlPoints(CONTROL_POINTS_13);
+
         // call function getSpline in pathFinding.js. The function returns an array of many positons (path)
-        this.enemy_path_11 = getSpline(CONTROL_POINTS_11);
+        // this.enemy_path_11 = getSpline(CONTROL_POINTS_11);
+        // this.enemy_path_12 = getSpline(CONTROL_POINTS_12);
+        // this.enemy_path_13 = getSpline(CONTROL_POINTS_13);
+        this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
+        this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
+        this.enemy_path_13 = this.scalePath(CONTROL_POINTS_13);
+       
+        // $(window).resize(function() {
+        //     self.height = $(window).height();
+        //     self.width = $(window).width();
+
+        //     console.log("window resize H and W: " + self.height + ", " + self.width);
+        //     $("[id^='pp']").remove();
+        //     self.enemy_path_11 = self.scalePath(CONTROL_POINTS_11);
+        //     self.enemy_path_12 = self.scalePath(CONTROL_POINTS_12);
+        //     self.enemy_path_13 = self.scalePath(CONTROL_POINTS_13);
+
+        // });
         // this.enemy_path_11.forEach(function (point) {
         //     console.log(point.position.x + ", " + point.position.y);
         // })
-
         /* set interval and call update */
         //this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
         setInterval(function () {
@@ -99,7 +126,13 @@ class Game {
 
     createEnemy() {
         if (this.timer % 3 == 0 && this.timer <= 30) {
-            this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer));
+            this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer, this.enemy_path_11, 1));
+            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+
+            this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.TANK, this.timer, this.enemy_path_12, 2));
+            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+
+            this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
             console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
     
         }
@@ -121,4 +154,33 @@ class Game {
     resume() {
         this.game_state = gameState.PLAY;
     }
+
+    // return a scale number by SCREEN_HEIGHT and SCREEN_WIDTH
+    scaleW(x) {
+        //console.log((x/SCREEN_WIDTH) * this.width);
+        return (x/SCREEN_WIDTH) * this.width;
+    }
+
+    scaleH(y) {
+        //console.log((y/SCREEN_HEIGHT) * this.height);
+        return (y/SCREEN_HEIGHT) * this.height;
+    }
+
+    // scale getSpline and enemyPath Array
+    scalePath(control_points) {
+        self = this;
+        var path = undefined;
+        // getSpline
+        path = getSpline(control_points);
+        //scale
+        path.forEach(function(point, t) {
+            point.position.x = self.scaleW(point.position.x);
+            point.position.y = self.scaleH(point.position.y);
+            //pathFinding(point.position.x, point.position.y, t);
+        });
+
+        return path;
+    }
+
+
 }
