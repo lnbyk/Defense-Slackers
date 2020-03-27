@@ -36,7 +36,7 @@ body {
     background-image: url('../gameAsset/td-gui/PNG/difficulty/table.png');
 }
 
-#mainHelp {
+#mainHelp, #towerIntro{
     background-image: url("../gameAsset/td-gui/PNG/shop/table.png");
 }
 
@@ -68,6 +68,21 @@ body {
     height: 100%;
 }
 
+/* diamond position */
+#diamond {
+    position: absolute !important;
+    top : 4%;
+    left : 4%;
+    height: 7% !important;
+    width: 5% !important;
+}
+#diamondNum {
+    position: absolute;
+    top : 4%;
+    left: 10%;
+    font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
+    color: yellow;
+}
 /* button position for building tower */
 #tBtn0 {
     top: 51%;
