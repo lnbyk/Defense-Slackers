@@ -12,7 +12,7 @@ $(function () {
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     $("#setting").hide();
-    $('#mainHelp').hide();
+    $('#mainHelp, #towerIntro').hide();
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
     /* button functionality */
@@ -56,12 +56,18 @@ $(function () {
 
     /* button use to close help menu */
     $('#closeHelpBtn').click(function () {
-        $('#closeHelpBtn').fadeOut("fast", function () {
+        $('#closeHelpBtn, #towerIntro').fadeOut("fast", function () {
             $("#mainHelp").slideUp('slow', function () {
                 $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
             });
         })
 
+    })
+    /*button use to open tower introduction menu */
+    $('#towerType').click(function (){
+        $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function () {
+            $("#towerIntro, #closeHelpBtn").fadeIn('fast');
+        });
     })
 
     /* button use to change enemy icon */
@@ -156,6 +162,7 @@ $(function () {
         $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
         /*  get the image url of the tower we clicker  */
+        if (game.gold >= 100) {
         var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
         var url = $(t).attr('src');
 
@@ -178,11 +185,16 @@ $(function () {
 
         $(buttonPos).attr('name', 'towerLevel0');
         $(buttonPos).fadeIn();
+        game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t);
+        }  
+        else {
+            alert('money is not enough');
+        }
 
         // build tower in model 
         //console.log("build tower: " + buttonPos);
         //console.log("x: " + $(buttonPos).position().left + ", y: " + $(buttonPos).position().top);
-        game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t);
+        
     });
 
     $('#backMenuBtn').click(function () {
