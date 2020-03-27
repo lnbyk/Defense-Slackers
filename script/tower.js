@@ -9,8 +9,8 @@ class Tower extends Element {
         this.cool_down = type[2];
         this.cost = type[3];
         this.range = type[4];
-
-        this.target = 4;
+        this.debuff = type[6];
+        this.target = undefined;
         this.cd_ready = false;
 
         console.log("position: " + px + ", " + py);
@@ -23,27 +23,34 @@ class Tower extends Element {
         this.bullet_id = 0;
 
         // set timer for this tower
-        this.timer = 0;
-        setInterval(function(){self.calculateCoolDown()}, 1000);
+        this.timer = 0.0
+        setInterval(function(){
+            self.calculateCoolDown()
+        }, 100);
     }
 
     /* count down the cool_down*/
     calculateCoolDown() {
-        this.timer++;
-        //console.log(this.timer);
+        this.timer += 0.1;
+        //console.log(Math.floor(this.timer * 10)/ 10);
         //console.log(this.cool_down);
-        if (this.timer == this.cool_down) {
+        if (Math.floor(this.timer * 10)/ 10 == this.cool_down) {
             //console.log(this.timer % this.cool_down);
             this.cd_ready = true;
             //this.attack();
             //this.createBullet(); // TEMP Place for test only
-            this.timer = 0;
+            this.timer = 0.0;
         }
     }
 
     /* check if there is enemy in range 
         if true set the CLOSEST one as target and return true*/
     inRange(enemy_list) {
+        if (this.target != undefined && this.target.health > 0 && this.range >= this.target.getNorm(this.position.x, this.position.y)) {
+            return true;
+        }
+
+        //console.log("curTarget: " + this.target);
         var self = this;
         var tmpDistance;
         var minDistance = self.range;
@@ -88,7 +95,7 @@ class Tower extends Element {
             bullet.update();
 
             // if it hits the target delete it from the array and delete img
-            if (bullet.collision()) {
+            if (bullet.collision(enemy_list)) {
                 bullet.destroy_bullet();
                 self.bullet_list.splice(index, 1);
             }

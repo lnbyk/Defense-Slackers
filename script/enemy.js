@@ -1,9 +1,17 @@
+const INIT_LIFE_SIZE  = 7;
+const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
+const imgNum = 19;
+
 class Enemy extends MovingObject {
-    constructor(px, py, type, id) {
+    constructor(px, py, type, id, path, iPos) {
         super(px, py);
         this.type = type;
         this.health = type[0];
         this.loot = type[1];
+        this.debuff = debuffType.NORMAL;
+        this.debuffTime = 0;
+        this.debuffSlow = undefined;
+        this.flip = iPos == 3 ? -1 : 1;
         // debuff
 
 
@@ -17,42 +25,184 @@ class Enemy extends MovingObject {
         this.index = 0;
         // just create a empty array, this array shoud be change according to different game map 
         // not finished  --- Rubai Bian if any question please reach me 
-        this.posArray = [
-            []
-        ];
+        this.posArray = path
 
         // choose enemy image
-        this.id = "enemy" + id;
+        // make sure the id is unique
+        this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) +id;
         var img = $('<img />').attr({
             'id': this.id,
-            'src': './gameAsset/2d-monster-sprites/PNG/1/1_enemies_1_attack_000.png'
+            'src': './assets/enemyMove/1_enemies_1_walk_0.png'
         }).css({
             top: this.position.y,
             left: this.position.x,
             position: 'absolute'
         }).css({
             'width': '10%',
-            'height': '10%'
+            'height': '10%',
+        }).css({
+            'transform' : 'scaleX(' + this.flip + ' )'
         }).appendTo('#gameScreen');
 
+        // initialize enemy life bar image
+        var lifeId = "lifebar" + this.id;
+        var lifeImg = $('<img />').attr({
+            'id': lifeId,
+            'src': './gameAsset/td-gui/PNG/interface_game/bg_bar.png'
+        }).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        }).css({
+            'width': LIFE_SIZE_PERCENTAGE,
+            'height': '2%',
 
+        }).appendTo('#gameScreen');
+        var x;// = docuemnt.querySelector('#' + lifeId);
+        ///var myImg = document.getElementById(lifeId);
+        //this.lifeWidth = myImg.clientWidth;//$('#' + lifeId).width();
+        // initialize health image
+        var healthId = "health" + this.id;
+        var healthImg = $('<img />').attr({
+            'id': healthId,
+            'src': './gameAsset/td-gui/PNG/interface_game/bar_4.png'
+        }).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        }).css({
+            'width': LIFE_SIZE_PERCENTAGE,
+            'height': '2%',
+        }).appendTo('#gameScreen');
     }
 
     collision() {
 
     }
 
+    // to move just update enemy position to next index of enemyPath
+    move(enemy_path) {
+        //console.log("enemy move called");
+        // get position from enemy_path(array)
+        this.position.x = this.posArray[this.index].position.x;
+        this.position.y = this.posArray[this.index].position.y;
+        
+        // update index to get next position
+        this.index ++;
+    }
 
+    // update function should be constantly called when the game is on and call function move to update postion
+    update(enemy_path) {
+        //this.posArray = enemy_path;
+        //this.position.x += 2;
+        
+        // if the enemy has a debuff effect
+        if (this.debuffEffect()) {
+            return;
+        }
 
-    // update function should be constantly called when the game is on to update the position of the enemy 
-    update() {
-        this.position.x += 2;
+        // no debuff
+        this.move(enemy_path);
         $('#' + this.id).css({
             top: this.position.y,
             left: this.position.x,
             position: 'absolute'
         });
         // Update tje css to show movement
+        // update life bar postion
+        $('#' + 'lifebar' + this.id).css({
+            top:  this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        });
+        // update health postion
+        $('#' + 'health' + this.id).css({
+            top:  this.position.y,
+            left: this.position.x,
+            position: 'absolute',
+        });
+
+
+        // enemy animation change images 
+        var cur = parseInt($('#' + this.id).attr('src').substring(36));
+        cur = ++cur > imgNum ? 0 : cur;
+        var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
+        $('#' + this.id).attr('src', nUrl);
+
+    }
+
+    // input a int and change the health of the enemy 
+    setHealth(x) {
+        this.health += x;
+        //console.log("lifebar width: " + this.lifeWidth);
+        var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
+        var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
+       // console.log("curlife: " + curLife);
+        $('#' + 'health' + this.id).css({
+            'width': curLife
+       });
+        
+    }
+
+    // input a debuffType and set debuff
+    addDebuff(debuff) {
+        // NORMAL cannot override other debuff 
+        if (debuff != debuffType.NORMAL)  {
+            if (debuff == debuffType.FROZE && this.debuff == debuffType.DIZZY) {
+                // FROZE cannot override DIZZY
+                return;
+            }
+            this.debuff = debuff;
+            console.log("debuff!!!!!!!!!!!: " + this.debuff);
+            this.debuffTime = debuff[1];
+            this.debuffSlow = debuff[2];
+        }
+    }
+
+    // implement debuff effect on enemy
+    debuffEffect() {
+        // dizzy debuff
+        if (this.debuff == debuffType.DIZZY) {
+            this.debuffTime--;
+            if (this.debuffTime <= 0) {
+                this.debuff = debuffType.NORMAL;
+                return false;
+            }
+            return true;
+        }
+
+        // froze debuff
+        if (this.debuff == debuffType.FROZE) {
+            this.debuffTime--;
+            // if debuff time is over
+            if (this.debuffTime <= 0) {
+                this.debuff = debuffType.NORMAL;
+                return false;
+            }
+            
+            // if in debuff time
+            //console.log("debuffSLow: " + this.debuffSlow);
+            if (this.debuffSlow > this.debuff[2]/2) {
+                this.debuffSlow--;
+                return true;
+            }else if (this.debuffSlow <= this.debuff[2]/2 && this.debuffSlow != 0) {
+                this.debuffSlow--;
+                return false;
+            }
+            else {
+                this.debuffSlow = this.debuff[2];
+                return false;
+            }
+            
+        }
+    }
+
+    // when the enemy's health is zero delete it and img
+    destroy_enemy(){
+        $('#' + this.id).remove();
+        $('#' + 'lifebar' + this.id).remove();
+        $("#" + 'health' + this.id).remove();
+
     }
 
 }
