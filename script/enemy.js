@@ -3,7 +3,7 @@ const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
 const imgNum = 19;
 
 class Enemy extends MovingObject {
-    constructor(px, py, type, id) {
+    constructor(px, py, type, id, path, iPos) {
         super(px, py);
         this.type = type;
         this.health = type[0];
@@ -11,6 +11,7 @@ class Enemy extends MovingObject {
         this.debuff = debuffType.NORMAL;
         this.debuffTime = 0;
         this.debuffSlow = undefined;
+        this.flip = iPos == 3 ? -1 : 1;
         // debuff
 
 
@@ -24,12 +25,11 @@ class Enemy extends MovingObject {
         this.index = 0;
         // just create a empty array, this array shoud be change according to different game map 
         // not finished  --- Rubai Bian if any question please reach me 
-        this.posArray = [
-            []
-        ];
+        this.posArray = path
 
         // choose enemy image
-        this.id = "enemy" + id;
+        // make sure the id is unique
+        this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) +id;
         var img = $('<img />').attr({
             'id': this.id,
             'src': './assets/enemyMove/1_enemies_1_walk_0.png'
@@ -39,7 +39,9 @@ class Enemy extends MovingObject {
             position: 'absolute'
         }).css({
             'width': '10%',
-            'height': '10%'
+            'height': '10%',
+        }).css({
+            'transform' : 'scaleX(' + this.flip + ' )'
         }).appendTo('#gameScreen');
 
         // initialize enemy life bar image
@@ -53,7 +55,7 @@ class Enemy extends MovingObject {
             position: 'absolute'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
-            'height': '2%'
+            'height': '2%',
 
         }).appendTo('#gameScreen');
         var x;// = docuemnt.querySelector('#' + lifeId);
@@ -70,7 +72,7 @@ class Enemy extends MovingObject {
             position: 'absolute'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
-            'height': '2%'
+            'height': '2%',
         }).appendTo('#gameScreen');
     }
 
@@ -82,8 +84,8 @@ class Enemy extends MovingObject {
     move(enemy_path) {
         //console.log("enemy move called");
         // get position from enemy_path(array)
-        this.position.x = enemy_path[this.index].position.x;
-        this.position.y = enemy_path[this.index].position.y;
+        this.position.x = this.posArray[this.index].position.x;
+        this.position.y = this.posArray[this.index].position.y;
         
         // update index to get next position
         this.index ++;
@@ -91,6 +93,7 @@ class Enemy extends MovingObject {
 
     // update function should be constantly called when the game is on and call function move to update postion
     update(enemy_path) {
+        //this.posArray = enemy_path;
         //this.position.x += 2;
         
         // if the enemy has a debuff effect

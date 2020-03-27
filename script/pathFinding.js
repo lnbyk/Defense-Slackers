@@ -5,6 +5,16 @@ var CONTROL_POINTS_11 = new Array(new Element(175,0), new Element(175,0), new El
                                     new Element(435,235), new Element(495,340), new Element(630,360), new Element(725,445),
                                     new Element(875,405), new Element(910,305), new Element(940,205), new Element(940, 205));
 
+var CONTROL_POINTS_12 = new Array(new Element(0, 555), new Element(0, 555), new Element(135, 555),
+                                    new Element(250, 490), new Element(255, 370), new Element(365, 290), 
+                                    new Element(495, 340), new Element(630, 360), new Element(725, 445),
+                                    new Element(875, 405), new Element(910, 305), new Element(940, 205), new Element(940, 205));
+
+var CONTROL_POINTS_13 = new Array(new Element(1496, 685), new Element(1496, 685),
+                                    new Element(1365, 685), new Element(1200, 685), new Element(1045, 625),
+                                    new Element(865, 620), new Element(755, 560), new Element(725, 445),
+                                    new Element(875, 405), new Element(910, 305), new Element(940, 205), new Element(940, 205));
+
 // implement Catmull-rom Spline
 // getSplinePoints(float, array of control_points)
 function getSplinePoints(t, control_points) {
@@ -62,3 +72,12 @@ function pathFinding(x, y, id) {
     }).
     appendTo('#gameScreen');
 }
+
+// for test
+// draw all control points
+function drawControlPoints(control_points) {
+    control_points.forEach(function(point, index) {
+        pathFinding(point.position.x, point.position.y, index);
+    });
+}
+

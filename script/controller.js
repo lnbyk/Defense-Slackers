@@ -82,7 +82,7 @@ $(function () {
             $("#gameScreen").fadeIn('slow');
             $("#backgroundMusic").get(0).pause();
         });
-
+        $("[id^='tBtn']").show();
         // game start
         game.setUp();
     });
@@ -99,33 +99,39 @@ $(function () {
                 $("#towerSImage").css({
                     top: position.top - height / 2,
                     left: position.left - width / 2,
-                    position: 'absolute'
+                    position: 'absolute',
+                    'z-index' : '20'
                 });
                 $('#towerSelection').fadeIn('fast', function () {
                     $("#closeTowerSelection").css({
                         top: position.top - height,
                         left: position.left + width / 2,
-                        position: 'absolute'
+                        position: 'absolute',
+                        'z-index' : '20'
                     });
                     $("#tower0").css({
                         top: position.top - height * 0.4,
                         left: position.left - width * 0.8,
-                        position: 'absolute'
+                        position: 'absolute',
+                        'z-index' : '20'
                     });
                     $("#tower1").css({
                         top: position.top - height * 0.4,
                         left: position.left - width * 0.15,
-                        position: 'absolute'
+                        position: 'absolute',
+                        'z-index' : '20'
                     });
                     $("#tower2").css({
                         top: position.top + height * 0.2,
                         left: position.left - width * 0.8,
-                        position: 'absolute'
+                        position: 'absolute',
+                        'z-index' : '20'
                     });
                     $("#tower3").css({
                         top: position.top + height * 0.2,
                         left: position.left - width * 0.12,
-                        position: 'absolute'
+                        position: 'absolute',
+                        'z-index' : '20'
                     });
                     $(".towerIcon").fadeIn();
                     $("#closeTowerSelection").fadeIn();
@@ -215,6 +221,27 @@ $(function () {
             })
         })
         $("[id^='tBtn']").show();
+    });
+
+    // if resize window
+    $(window).resize(function() {
+        game.pause();
+        $("[id^='tBtn']").hide();
+        console.log("window resized, game restarted");
+        $("[id^='pp']").remove();
+        $("#gameScreen").slideUp('slow', function () {
+            $("#mainMenu").fadeIn('slow');
+            $("#backgroundMusic").get(0).play();
+        });
+        game = new Game();
+        game.width = $(window).width();
+        game.height = $(window).height();
+        $("#gameScreen").hide();
+        $("#towerSelection").hide();
+        $("#setting").hide();
+
+        //$("#mainMenu").fadeIn('slow');
+        //$("#backgroundMusic").get(0).play();
     });
 
     // pause button
