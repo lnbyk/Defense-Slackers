@@ -13,9 +13,14 @@ class Bullet extends MovingObject {
             this.scaleVelcity(this.target.position.x, this.target.position.y, type[5]);
             
             // initilize the image
+            var imgPath = './gameAsset/stone-tower-game-assets/PNG/40.png'
+            if (type == skillType.FIRE) {
+                imgPath = './gameAsset/stone-tower-game-assets/PNG/35.png';
+            }
+            
             var img = $('<img />').attr({
                 'id': this.id,
-                'src': './gameAsset/stone-tower-game-assets/PNG/40.png'
+                'src': imgPath
             }).css({
                 top: this.position.y,
                 left: this.position.x,

@@ -53,6 +53,33 @@
 .towerIcon :hover {
     opacity: 0.6;
 }
+/* skill and cool_down*/
+.skillBtn{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    padding: 0%;
+
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.skillBtn img{
+    height: 50%;
+    width: 50%;
+}
+.skillBtn :hover {
+    opacity: 0.8
+}
+
+.skilCdNum{
+    position: absolute;
+    bottom: 3.6%;
+    font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
+    color: red;
+    z-index: 5;
+}
+
 
 .menuBtn {
     background-color: transparent;

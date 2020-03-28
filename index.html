@@ -5,13 +5,14 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="script/basis/gameData.js"></script>
     <script src="script/basis/element.js"></script>
-    <script src="script/basis/debuffType.js"></script>
-    <script src="script/basis/towerType.js"></script>
     <script src="script/basis/movingObject.js"></script>
     <script src="script/basis/gameState.js"></script>
-    <script src="script/basis/enemyType.js"></script>
+    <script src="script/basis/skill.js"></script>
     <script src="script/controller.js"></script>
+    <script src="script/damageSkill.js"></script>
+    <script src="script/buffSkill.js"></script>
     <script src="script/game.js"></script>
     <script src="script/tower.js"></script>
     <script src="script/enemy.js"></script>
@@ -87,6 +88,14 @@
             <button id="closeSBtn" class="menuBtn"> <img src="gameAsset/td-gui/PNG/settings/button_close.png"></button>
             <button id="restartBtn" class="menuBtn"> <img src="gameAsset/td-gui/PNG/failed/button_restart.png"></button>
         </div>
+        <div id="skillCd0" class ="skilCdNum"></div>
+        <div id="skillCd1" class ="skilCdNum"></div>
+        <div id="skillCd2" class ="skilCdNum"></div>
+        <div id="skillCd3" class ="skilCdNum"></div>
+        <button id="skill0" class="skillBtn"> <img src = "gameAsset/td-gui/PNG/interface_game/ico_1.png"></button>
+        <button id="skill1" class="skillBtn"> <img src = "gameAsset/td-gui/PNG/interface_game/ico_2.png"></button>
+        <button id="skill2" class="skillBtn"> <img src = "gameAsset/td-gui/PNG/interface_game/ico_3.png"></button>
+        <button id="skill3" class="skillBtn"> <img src = "gameAsset/td-gui/PNG/interface_game/ico_6.png"></button>
         <button id="tBtn0" class="tbtn" name="pit"> <img src=''></button>
         <button id="tBtn1" class="tbtn" name="pit"></button>
         <button id="tBtn2" class="tbtn" name="pit"></button>
