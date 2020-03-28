@@ -17,22 +17,20 @@ class Game {
         console.log(this.game_state);
         // timer of game
         this.timer = 0;
+       
     }
 
     /*set up game
     call it when click the start botton*/
     setUp() {
         $("[id^='enemy']").remove();
-        $(".skilCdNum").hide();
-        $(".skillBtn").css({
-            opacity: 1
-        });
+        //$(".skilCdNum").hide();
         //$(".skilCdNum").remove();
         // clear enemy before 
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.gold = 300;
+        this.gold = 30000;
         this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
@@ -47,28 +45,14 @@ class Game {
         //  drawControlPoints(CONTROL_POINTS_12);
         //  drawControlPoints(CONTROL_POINTS_13);
 
-        // call function getSpline in pathFinding.js. The function returns an array of many positons (path)
-        // this.enemy_path_11 = getSpline(CONTROL_POINTS_11);
-        // this.enemy_path_12 = getSpline(CONTROL_POINTS_12);
-        // this.enemy_path_13 = getSpline(CONTROL_POINTS_13);
         this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
         this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
         this.enemy_path_13 = this.scalePath(CONTROL_POINTS_13);
+
+        // skillCondition element
+        this.curElement = undefined;
+        this.element = [0,0,0,0]; // [fire, ice, thunder, stone]
        
-        // $(window).resize(function() {
-        //     self.height = $(window).height();
-        //     self.width = $(window).width();
-
-        //     console.log("window resize H and W: " + self.height + ", " + self.width);
-        //     $("[id^='pp']").remove();
-        //     self.enemy_path_11 = self.scalePath(CONTROL_POINTS_11);
-        //     self.enemy_path_12 = self.scalePath(CONTROL_POINTS_12);
-        //     self.enemy_path_13 = self.scalePath(CONTROL_POINTS_13);
-
-        // });
-        // this.enemy_path_11.forEach(function (point) {
-        //     console.log(point.position.x + ", " + point.position.y);
-        // })
         /* set interval and call update */
         //this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
         setInterval(function () {
@@ -127,21 +111,33 @@ class Game {
         switch (typeS) {
             case '#0':
                 this.tower_list.push(new Tower(px, py, towerType.LIGHT));
+                this.element[2]++;
                 break;
             case '#1':
                 this.tower_list.push(new Tower(px, py, towerType.FROZE));
+                this.element[1]++;
                 break;
             case '#2':
                 this.tower_list.push(new Tower(px, py, towerType.FIRE));
-                //console.log("build tower #2, need define towerType");
+                this.element[0]++;
                 break;
             case '#3':
                 this.tower_list.push(new Tower(px, py, towerType.ARCHER));
+                this.element[3]++;
                 //console.log("build tower #3, need define towerType");
                 break;
         }
 
         console.log("tower list length: " + this.tower_list.length);
+
+        // cur element in the game
+        // var i =0;
+        // for(i = 0; i < 4; i++) {
+        //     console.log(this.element[i]);
+        // }
+
+        this.skillCondition()
+        //console.log("curElement!!!!!!!!!!!!!!! = " + this.curElement);
     }
 
     createEnemy() {
@@ -158,6 +154,36 @@ class Game {
         }
     }
 
+    // accroding to tower that palyer built, assigin value to this.curElement(FIRE, FROZE, LIGHT, STONE)
+    // call this function when build tower
+    skillCondition() {
+        if (this.tower_list.length <= 2) {
+            this.curElement = undefined;
+        }else {
+            // first and second largest element
+            var first = 0;
+            var second = -1;
+            var index;
+            for (var i = 0; i < 4; i++) {
+                if (this.element[i] > first) {
+                    second = first;
+                    first = this.element[i];
+                    index = i;
+
+                }else if (this.element[i] > second) {
+                    second = this.element[i];
+                }
+            }
+
+            if (second > 0 && first != second) {
+                this.curElement = index;
+            }else {
+                this.curElement = undefined;
+            }
+        }
+    }
+
+    // call thihs function when click skill button
     elementSkill(skill) {
         if (this.game_state == gameState.PAUSE) {
             console.log("game is pasued cannot use skill");
@@ -187,6 +213,13 @@ class Game {
         $("#skillCd0").text(this.fireSkill.cool_down-this.fireSkill.timer);
         $("#skillCd1").text(this.iceSkill.cool_down-this.iceSkill.timer);
         $("#skillCd2").text(this.thunderSkill.cool_down-this.thunderSkill.timer);
+        this.fireSkill.curElement = this.curElement;
+        this.iceSkill.curElement = this.curElement;
+        this.thunderSkill.curElement = this.curElement;
+
+        this.fireSkill.skillIconControl();
+        this.iceSkill.skillIconControl();
+        this.thunderSkill.skillIconControl();
     }
 
     /* the following four function just simply change the game_state*/
