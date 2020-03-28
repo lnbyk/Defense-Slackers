@@ -5,6 +5,7 @@ class Skill {
         this.cool_down = type[2];
         this.ready = true;
         this.curElement = undefined;
+        //this.curElement = type[3];
         this.timer = 0;
         var self = this;
         this.interval = setInterval(function() {

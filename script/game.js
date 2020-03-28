@@ -8,6 +8,8 @@ class Game {
         $("[id^='bullet']").remove();
         $("[id^='lifebar']").remove();
         $("[id^='health']").remove();
+        $("[id^='Debuff']").remove();
+        $("[id^='Buff']").remove();
         //$(".skilCdNum").remove();
         self = this;
         this.height = $(window).height();

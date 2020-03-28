@@ -5,6 +5,7 @@ class Tower extends Element {
         super(px, py);
         let self = this;
         this.type = type;
+        this.id = "tower" + Math.round(px) +Math.round(py);
         this.damage = type[1];
         this.cool_down = type[2];
         this.cost = type[3];
@@ -51,24 +52,41 @@ class Tower extends Element {
     /* check if there is enemy in range 
         if true set the CLOSEST one as target and return true*/
     inRange(enemy_list) {
-        if (this.target != undefined && this.target.health > 0 && this.range >= this.target.getNorm(this.position.x, this.position.y)) {
-            return true;
-        }
+        // if (this.target != undefined && this.target.health > 0 && this.range >= this.target.getNorm(this.position.x, this.position.y)) {
+        //     return true;
+        // }
 
         //console.log("curTarget: " + this.target);
         var self = this;
-        var tmpDistance;
-        var minDistance = self.range;
+        // attack closest enemy to tower
+        // var tmpDistance;
+        // var minDistance = self.range;
+        // var attack = false;
+        // enemy_list.forEach(function(enemy) {
+        //     tmpDistance = enemy.getNorm(self.position.x, self.position.y);
+        //     //console.log("distance: " + tmpDistance);
+        //     if (tmpDistance < minDistance) {
+        //         minDistance = tmpDistance;
+        //         self.target = enemy;
+        //         attack = true;
+        //     }
+        // });
+
+        // attack closeest enemy to home
+        var tmpDistance , distance;
+        var minDistance = 100000000;
         var attack = false;
         enemy_list.forEach(function(enemy) {
-            tmpDistance = enemy.getNorm(self.position.x, self.position.y);
-            //console.log("distance: " + tmpDistance);
-            if (tmpDistance < minDistance) {
-                minDistance = tmpDistance;
-                self.target = enemy;
-                attack = true;
+            distance = enemy.getNorm(self.position.x, self.position.y);
+            if (distance <= self.range) {
+                tmpDistance = enemy.getNorm(enemy.posArray[enemy.posArray.length - 1].position.x, enemy.posArray[enemy.posArray.length - 1].position.y);
+                if (tmpDistance < minDistance) {
+                    minDistance = tmpDistance;
+                    self.target = enemy;
+                    attack = true;
+                }
             }
-        });
+        })
         return attack;
     }
 
@@ -122,6 +140,7 @@ class Tower extends Element {
 
         // start timer
         this.buffTimer = buff[2];
+        this.showBuff();
     }
 
     buffTime() {
@@ -140,9 +159,26 @@ class Tower extends Element {
             //normal speed
             this.cool_down = this.type[2];
             this.timer = 0.0;
+            $('#' + 'BuffAttackSpeed' + this.id).remove();
         }
     }
 
+    showBuff() {
+        if (this.buff == buffType.ATTACK_SPEED) {
+            var img = $('<img />').attr({
+                'id' : "BuffAttackSpeed" + this.id,
+                'src' : 'dandao/tower_effect_icons/dizzy_tower.png'
+            }).css({
+                top: this.position.y,
+                left: this.position.x,
+                position: 'absolute'
+            }).css({
+                'height' : '6%',
+                'width' : '4%',
+                'opacity' : '0.7'
+            }).appendTo('#gameScreen');
+        }
+    }
 
 
 
