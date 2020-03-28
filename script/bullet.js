@@ -14,8 +14,16 @@ class Bullet extends MovingObject {
             
             // initilize the image
             var imgPath = './gameAsset/stone-tower-game-assets/PNG/40.png'
+            var height = '2%';
+            var width = '2%';
             if (type == skillType.FIRE) {
                 imgPath = './gameAsset/stone-tower-game-assets/PNG/35.png';
+                height = '10%';
+                width = '3%';
+            }else if (type == towerType.FIRE) {
+                imgPath = './gameAsset/stone-tower-game-assets/PNG/51.png';
+                height = '5%';
+                width = '5%';
             }
             
             var img = $('<img />').attr({
@@ -25,6 +33,9 @@ class Bullet extends MovingObject {
                 top: this.position.y,
                 left: this.position.x,
                 position: 'absolute'
+            }).css ({
+                'height' : height,
+                'width' : width
             }).
             appendTo('#gameScreen');
     

@@ -42,6 +42,7 @@ class Enemy extends MovingObject {
         }).css({
             'width': '10%',
             'height': '10%',
+            'z-index' : '2',
             'overflow' : 'hidden'
         }).css({
             'transform' : 'scaleX(' + this.flip + ' )'
@@ -59,7 +60,7 @@ class Enemy extends MovingObject {
             'overflow' : 'visible'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
-            'height': '2%',
+            'height': '1%',
 
         }).appendTo('#gameScreen');
         var x;// = docuemnt.querySelector('#' + lifeId);
@@ -76,7 +77,7 @@ class Enemy extends MovingObject {
             position: 'absolute'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
-            'height': '2%',
+            'height': '1%',
             'overflow' : 'hidden'
         }).appendTo('#gameScreen');
     }
@@ -154,6 +155,10 @@ class Enemy extends MovingObject {
 
     // input a debuffType and set debuff
     addDebuff(debuff) {
+        //if enemy is died no debuff
+        if (this.health <= 0) {
+            return;
+        }
         if (debuff == debuffType.FIRE) {
             this.fired = debuff;
             this.debuffAnimationInit();
@@ -218,19 +223,40 @@ class Enemy extends MovingObject {
             this.fired = undefined;
         }
         //freeze
-        // if (this.debuff == debuffType.FROZE) {
-        //     $('#' + 'frozenDebuff' + this.id).remove();
-        //     var img = $('<img />').attr({
-        //         'id': "frozenDebuff" + this.id,
-        //         'src': "gameAsset/magic-effects-game-sprite/PNG/freeze/1_effect_freeze_015.png"
-        //     }).css({
-        //         top: this.position.y,
-        //         left: this.position.x,
-        //         position: 'absolute'
-        //     }).css({
-        //     }).
-        //     appendTo('#gameScreen');
-        // }
+        if (this.debuff == debuffType.FROZE) {
+            $('#' + 'DebuffFrozen' + this.id).remove();
+            var img = $('<img />').attr({
+                'id': "DebuffFrozen" + this.id,
+                'src': "dandao/freeze/1_effect_freeze_016.png"
+            }).css({
+                top: this.position.y,
+                left: this.position.x,
+                position: 'absolute'
+            }).css({
+                'height' : '10%',
+                'width' :'10%',
+                'z-index' : '1'
+            }).
+            appendTo('#gameScreen');
+        }
+
+        //dizzy
+        if (this.debuff == debuffType.DIZZY) {
+            $('#' + 'DebuffDizzy' + this.id).remove();
+            var img = $('<img />').attr({
+                'id': "DebuffDizzy" + this.id,
+                'src': "dandao/dizzy/1_effect_time_014.png"
+            }).css({
+                top: this.position.y,
+                left: this.position.x,
+                position: 'absolute'
+            }).css({
+                'height' : '5%',
+                'width' :'10%',
+                'z-index' : '3'
+            }).
+            appendTo('#gameScreen');
+        }
     }
 
     debuffAnimation() {
@@ -245,14 +271,26 @@ class Enemy extends MovingObject {
                 this.fireBall = undefined;
             }
         }
-
-        // if (this.debuff == debuffType.FROZE) {
-        //     $('#' + 'frozenDebuff' + this.id).css({
-        //         top: this.position.y,
-        //         left: this.position.x,
-        //         position: 'absolute'
-        //     });
-        // }
+        // freeze
+        if (this.debuff == debuffType.FROZE) {
+            $('#' + 'DebuffFrozen' + this.id).css({
+                top: this.position.y,
+                left: this.position.x,
+                position: 'absolute'
+            });
+        }
+        //dizzy
+        if (this.debuff == debuffType.DIZZY) {
+            $('#' + 'DebuffDizzy' + this.id).css({
+                top: this.position.y,
+                left: this.position.x,
+                position: 'absolute'
+            });
+        }
+        if (this.debuff == debuffType.NORMAL) {
+            $('#' + 'DebuffFrozen' + this.id).remove();
+            $('#' + 'DebuffDizzy' + this.id).remove();
+        }
     }
 
     // when the enemy's health is zero delete it and img
@@ -260,6 +298,8 @@ class Enemy extends MovingObject {
         $('#' + this.id).remove();
         $('#' + 'lifebar' + this.id).remove();
         $("#" + 'health' + this.id).remove();
+        $('#' + 'DebuffFrozen' + this.id).remove();
+        $('#' + 'DebuffDizzy' + this.id).remove();
 
     }
 

@@ -2,7 +2,7 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const debuffType = {
     NORMAL : ['normal', 0],
-    DIZZY : ['dizzy', 90],
+    DIZZY : ['dizzy', 100],
     FROZE : ['froze', 90, 6],
     FIRE : ['fire',10]
 }
@@ -27,8 +27,8 @@ const buffType = {
 const towerType = {
     //                   0         1        2         3         4                5                   6
     // tower type and [typeName, damage, attack_cd, cost, range_radius，Bullet_velocity_scale, debuff_on_bullet]
-    ARCHER: ['archer', -35, 1, 100, 400, 20, debuffType.NORMAL],
-    FROZE: ['froze', -50, 1.5, 200, 400, 20, debuffType.FROZE],
+    ARCHER: ['archer', -45, 1, 100, 400, 20, debuffType.NORMAL],
+    FROZE: ['froze', -90, 1.5, 200, 400, 20, debuffType.FROZE],
     LIGHT: ['light', -100, 3.5, 200, 300, 30, debuffType.DIZZY],
     FIRE: ['fire', -200, 3, 200, 400, 20, debuffType.NORMAL, 100] // [7] the last one is range of the explosion
 }
@@ -45,9 +45,9 @@ const skillType = {
     //              0      1        2       3   4     5
     // skill type[name, damage, cool_down, id, buff, velocity]
     ARCHER : ['archer skill', 0, 10, 3, debuffType.NORMAL, 0],
-    FROZE : ['frozen skill', 0, 10, 1, debuffType.DIZZY, 0],
+    FROZE : ['frozen skill', -100, 10, 1, debuffType.DIZZY, 0],
     LIGHT : ['light skill', 0, 10, 2, buffType.ATTACK_SPEED, 0],
-    FIRE : ['fire skill', -500, 10, 0, debuffType.FIRE, 30, debuffType.NORMAL]
+    FIRE : ['fire skill', -500, 10, 0, debuffType.FIRE, 25, debuffType.NORMAL]
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
