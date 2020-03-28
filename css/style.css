@@ -83,6 +83,41 @@ body {
     font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
     color: yellow;
 }
+
+/*skill cool down number*/
+#skillCd0{
+    left: 5%;
+}
+#skillCd1{
+    left: 13%;
+}
+#skillCd2{
+    left: 21%;
+}
+#skillCd3{
+    left: 29%;
+}
+/* skill button */
+#skill0 {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+}
+#skill1 {
+    position: absolute;
+    bottom: 0%;
+    left: 8%;
+}
+#skill2 {
+    position: absolute;
+    bottom: 0%;
+    left: 16%;
+}
+#skill3 {
+    position: absolute;
+    bottom: 0%;
+    left: 24%;
+}
 /* button position for building tower */
 #tBtn0 {
     top: 51%;

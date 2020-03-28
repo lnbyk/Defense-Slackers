@@ -10,6 +10,7 @@ class Tower extends Element {
         this.cost = type[3];
         this.range = type[4];
         this.debuff = type[6];
+        this.buff = undefined;
         this.target = undefined;
         this.cd_ready = false;
 
@@ -24,8 +25,12 @@ class Tower extends Element {
 
         // set timer for this tower
         this.timer = 0.0
+        this.buffTimer = 0.0;
         setInterval(function(){
-            self.calculateCoolDown()
+            if (game.game_state != gameState.PAUSE) {
+                self.calculateCoolDown()
+                self.buffTime();
+            }
         }, 100);
     }
 
@@ -105,6 +110,38 @@ class Tower extends Element {
         this.attack(enemy_list);
     }
 
+    addBuff(buff) {
+        this.buff = buff;
+        if (this.buff == buffType.ATTACK_SPEED) {
+            // increase attack speed
+            this.cool_down = Math.floor((this.type[2] / this.buff[1]) * 10)/10;
+            // need to reset timer
+            this.timer = 0.0;
+            console.log("current attack cd: " + this.cool_down);
+        }
+
+        // start timer
+        this.buffTimer = buff[2];
+    }
+
+    buffTime() {
+        // if there is a buff
+        if (this.buffTimer > 0) {
+            this.buffTimer -= 0.1;
+            return;
+        }
+       
+        // buff timer over
+        // reset to zero
+        this.buffTimer = 0.0;
+ 
+        if (this.buff == buffType.ATTACK_SPEED) {
+            this.buff = undefined;
+            //normal speed
+            this.cool_down = this.type[2];
+            this.timer = 0.0;
+        }
+    }
 
 
 

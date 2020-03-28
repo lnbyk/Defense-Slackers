@@ -11,6 +11,8 @@ class Enemy extends MovingObject {
         this.debuff = debuffType.NORMAL;
         this.debuffTime = 0;
         this.debuffSlow = undefined;
+        this.fired = 0;
+        this.fireBall = undefined;
         this.flip = iPos == 3 ? -1 : 1;
         // debuff
 
@@ -40,6 +42,7 @@ class Enemy extends MovingObject {
         }).css({
             'width': '10%',
             'height': '10%',
+            'overflow' : 'hidden'
         }).css({
             'transform' : 'scaleX(' + this.flip + ' )'
         }).appendTo('#gameScreen');
@@ -52,7 +55,8 @@ class Enemy extends MovingObject {
         }).css({
             top: this.position.y,
             left: this.position.x,
-            position: 'absolute'
+            position: 'absolute',
+            'overflow' : 'visible'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '2%',
@@ -73,6 +77,7 @@ class Enemy extends MovingObject {
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '2%',
+            'overflow' : 'hidden'
         }).appendTo('#gameScreen');
     }
 
@@ -95,7 +100,8 @@ class Enemy extends MovingObject {
     update(enemy_path) {
         //this.posArray = enemy_path;
         //this.position.x += 2;
-        
+        // debuff animation
+        this.debuffAnimation();
         // if the enemy has a debuff effect
         if (this.debuffEffect()) {
             return;
@@ -129,6 +135,8 @@ class Enemy extends MovingObject {
         var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
         $('#' + this.id).attr('src', nUrl);
 
+        
+
     }
 
     // input a int and change the health of the enemy 
@@ -146,6 +154,11 @@ class Enemy extends MovingObject {
 
     // input a debuffType and set debuff
     addDebuff(debuff) {
+        if (debuff == debuffType.FIRE) {
+            this.fired = debuff;
+            this.debuffAnimationInit();
+            return;
+        }
         // NORMAL cannot override other debuff 
         if (debuff != debuffType.NORMAL)  {
             if (debuff == debuffType.FROZE && this.debuff == debuffType.DIZZY) {
@@ -156,6 +169,7 @@ class Enemy extends MovingObject {
             console.log("debuff!!!!!!!!!!!: " + this.debuff);
             this.debuffTime = debuff[1];
             this.debuffSlow = debuff[2];
+            this.debuffAnimationInit();
         }
     }
 
@@ -195,6 +209,50 @@ class Enemy extends MovingObject {
             }
             
         }
+    }
+
+    debuffAnimationInit() {
+        //fire skill debuff animation initialize
+        if (this.fired == debuffType.FIRE) {
+            this.fireBall = new Bullet(this.position.x, 0, skillType.FIRE, this, "fireBall" + this.id);
+            this.fired = undefined;
+        }
+        //freeze
+        // if (this.debuff == debuffType.FROZE) {
+        //     $('#' + 'frozenDebuff' + this.id).remove();
+        //     var img = $('<img />').attr({
+        //         'id': "frozenDebuff" + this.id,
+        //         'src': "gameAsset/magic-effects-game-sprite/PNG/freeze/1_effect_freeze_015.png"
+        //     }).css({
+        //         top: this.position.y,
+        //         left: this.position.x,
+        //         position: 'absolute'
+        //     }).css({
+        //     }).
+        //     appendTo('#gameScreen');
+        // }
+    }
+
+    debuffAnimation() {
+        // if (this.debuff == debuffType.NORMAL) {
+        //     $('#' + 'frozenDebuff' + this.id).remove();
+        // } 
+        if (this.fireBall != undefined) {
+            //console.log("update fireball???????????");
+            this.fireBall.update();
+            if (this.fireBall.collision(null) || this.health <=0) {
+                this.fireBall.destroy_bullet();
+                this.fireBall = undefined;
+            }
+        }
+
+        // if (this.debuff == debuffType.FROZE) {
+        //     $('#' + 'frozenDebuff' + this.id).css({
+        //         top: this.position.y,
+        //         left: this.position.x,
+        //         position: 'absolute'
+        //     });
+        // }
     }
 
     // when the enemy's health is zero delete it and img

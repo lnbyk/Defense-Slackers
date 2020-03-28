@@ -197,6 +197,12 @@ $(function () {
         
     });
 
+    $('.skillBtn').click(function () {
+        var skill = '#' + $(this).attr('id');
+        // call elementSkill to implement skill
+        game.elementSkill(skill);
+    });
+
     $('#backMenuBtn').click(function () {
         $('#setting').fadeIn('slow');
         game.pause();
@@ -217,6 +223,7 @@ $(function () {
                     $("#backgroundMusic").get(0).play();
                 });
             })
+            //game.cleanUp();
             game = new Game();
             $("#gameScreen").hide();
             $("#towerSelection").hide();
@@ -226,6 +233,7 @@ $(function () {
         // restart button
         $("#restartBtn").click(function () {
             game.pause();
+            //game.cleanUp();
             game = new Game();
             game.setUp();
             $('#setting').slideUp('fast', function () {
@@ -245,6 +253,7 @@ $(function () {
             $("#mainMenu").fadeIn('slow');
             $("#backgroundMusic").get(0).play();
         });
+        //game.cleanUp();
         game = new Game();
         game.width = $(window).width();
         game.height = $(window).height();

@@ -8,6 +8,7 @@ class Game {
         $("[id^='bullet']").remove();
         $("[id^='lifebar']").remove();
         $("[id^='health']").remove();
+        //$(".skilCdNum").remove();
         self = this;
         this.height = $(window).height();
         this.width = $(window).width();
@@ -22,6 +23,11 @@ class Game {
     call it when click the start botton*/
     setUp() {
         $("[id^='enemy']").remove();
+        $(".skilCdNum").hide();
+        $(".skillBtn").css({
+            opacity: 1
+        });
+        //$(".skilCdNum").remove();
         // clear enemy before 
         let self = this;
         this.game_state = gameState.PLAY;
@@ -31,7 +37,10 @@ class Game {
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
         this.enemy_list = new Array();
-
+        // initialize skills
+        this.fireSkill = new DamageSkill(skillType.FIRE);
+        this.iceSkill = new DamageSkill(skillType.FROZE);
+        this.thunderSkill = new BuffSkill(skillType.LIGHT);
     
         // test control_points (comment it when playing game )
         //  drawControlPoints(CONTROL_POINTS_11);
@@ -80,16 +89,21 @@ class Game {
         var self = this;
         switch (this.game_state) {
             case gameState.PLAY:
+                this.showSKillCD();
                 //console.log(this.game_state + " and " + "updating");
                 //update each tower
                 this.enemy_list.forEach(function (item, index) {
                     item.update(self.enemy_path_11);
                     // if enemy dead remove and destroy it
-                    if (item.health <= 0 || item.index >= self.enemy_path_11.length) {
+                    if (item.health <= 0 || item.index >= item.posArray.length) {
+                        if (item.health <= 0) {
+                            // enemy died
+                            self.gold += 25;
+                        }
                         item.health = 0;
                         item.destroy_enemy();
                         self.enemy_list.splice(index, 1);
-                        self.gold += 25;
+                        
                     }
                 });
                 this.tower_list.forEach(function (tower) {
@@ -102,6 +116,8 @@ class Game {
                 // pause  no update
                 break;
         }
+
+        
 
     }
 
@@ -131,16 +147,48 @@ class Game {
     createEnemy() {
         if (this.timer % 3 == 0 && this.timer <= 30) {
             this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer, this.enemy_path_11, 1));
-            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
 
             this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.TANK, this.timer, this.enemy_path_12, 2));
-            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
 
             this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
-            console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
     
         }
     }
+
+    elementSkill(skill) {
+        if (this.game_state == gameState.PAUSE) {
+            console.log("game is pasued cannot use skill");
+            return;
+        }
+        //console.log("click skill: " + skill);
+        switch(skill) {
+            case "#skill0":
+                //fire (damage all enemies)
+                this.fireSkill.implementSkill(this.enemy_list);
+                break;
+            case "#skill1":
+                //ice (froze all enemies (couldnot move))
+                this.iceSkill.implementSkill(this.enemy_list);
+                break;
+            case "#skill2":
+                //thunder
+                this.thunderSkill.implementSkill(this.tower_list);
+                break;
+            case "#skill3":
+                //stone
+                break;
+        }
+    }
+
+    showSKillCD() {
+        $("#skillCd0").text(this.fireSkill.cool_down-this.fireSkill.timer);
+        $("#skillCd1").text(this.iceSkill.cool_down-this.iceSkill.timer);
+        $("#skillCd2").text(this.thunderSkill.cool_down-this.thunderSkill.timer);
+    }
+
     /* the following four function just simply change the game_state*/
     win() {
 
@@ -184,5 +232,12 @@ class Game {
         });
 
         return path;
+    }
+
+    // clean up interval when restart
+    cleanUp() {
+        clearInterval(this.fireSkill.interval);
+        clearInterval(this.iceSkill.interval);
+        clearInterval(this.thunderSkill.interval);
     }
 }
