@@ -12,6 +12,7 @@ class Tower extends Element {
         this.range = type[4];
         this.debuff = type[6];
         this.buff = undefined;
+        this.buff_list = new Array();
         this.target = undefined;
         this.cd_ready = false;
 
@@ -94,7 +95,7 @@ class Tower extends Element {
      */
     attack(enemy_list) {
         if (this.inRange(enemy_list) && this.cd_ready) {
-            console.log(this.type[0] + " attack!!!!");
+            //console.log(this.type[0] + " attack!!!!");
             this.timer = 0;
             this.cd_ready = false;
 
@@ -106,7 +107,7 @@ class Tower extends Element {
     createBullet(){
         this.bullet_list.push(new Bullet(this.position.x, this.position.y, this.type, this.target, this.bullet_id));
         this .bullet_id = (this.bullet_id + 1)%50;
-        console.log(this.bullet_list.length);
+        //console.log(this.bullet_list.length);
     }
 
     update(enemy_list) {
@@ -128,46 +129,101 @@ class Tower extends Element {
         this.attack(enemy_list);
     }
 
+    // skill could add buff to tower
     addBuff(buff) {
-        this.buff = buff;
-        if (this.buff == buffType.ATTACK_SPEED) {
-            // increase attack speed
-            this.cool_down = Math.floor((this.type[2] / this.buff[1]) * 10)/10;
-            // need to reset timer
-            this.timer = 0.0;
-            console.log("current attack cd: " + this.cool_down);
+        // check if there is same buff on tower
+        this.buff_list.forEach(function(each) {
+            if (each.equal(buff)) {
+                return;
+            }
+        });
+        // no same buff
+        this.buff_list.push(new Buff(buff));
+        switch(buff) {
+            case buffType.ATTACK_SPEED:
+                // increase attack speed
+                this.cool_down = Math.floor((this.type[2] / buff[2]) * 10)/10;
+                // need to reset timer
+                this.timer = 0.0;
+                console.log("current attack cd: " + this.cool_down);
+                break;
+            case buffType.ATTACK_RANGE:
+                // increase attack range
+                this.range = this.type[4] * buff[2];
+                console.log("current attack range: " + this.range);
+                break;
         }
+        this.showBuff(buff)
+        // this.buff = buff;
+        // if (this.buff == buffType.ATTACK_SPEED) {
+        //     // increase attack speed
+        //     this.cool_down = Math.floor((this.type[2] / this.buff[2]) * 10)/10;
+        //     // need to reset timer
+        //     this.timer = 0.0;
+        //     console.log("current attack cd: " + this.cool_down);
+        // }
 
-        // start timer
-        this.buffTimer = buff[2];
-        this.showBuff();
+        // // start timer
+        // this.buffTimer = buff[1];
+        // this.showBuff();
     }
 
     buffTime() {
-        // if there is a buff
-        if (this.buffTimer > 0) {
-            this.buffTimer -= 0.1;
-            return;
-        }
+        var self = this;
+        this.buff_list.forEach(function(buff, index) {
+            buff.updateTimerBy(0.1);
+            if (buff.buffEnd()) {
+                switch (buff.type) {
+                    case buffType.ATTACK_SPEED:
+                        //back to normal speed
+                        self.cool_down = self.type[2];
+                        self.timer = 0.0;
+                        $('#' + 'BuffAttackSpeed' + self.id).remove();
+                        break;
+                    case buffType.ATTACK_RANGE:
+                        // back to normal range
+                        self.range = self.type[4];
+                        $('#' + 'BuffAttackRange' + self.id).remove();
+                        break;
+                }
+                self.buff_list.splice(index, 1);
+            }
+        });
+
+        // // if there is a buff
+        // if (this.buffTimer > 0) {
+        //     this.buffTimer -= 0.1;
+        //     return;
+        // }
        
-        // buff timer over
-        // reset to zero
-        this.buffTimer = 0.0;
+        // // buff timer over
+        // // reset to zero
+        // this.buffTimer = 0.0;
  
-        if (this.buff == buffType.ATTACK_SPEED) {
-            this.buff = undefined;
-            //normal speed
-            this.cool_down = this.type[2];
-            this.timer = 0.0;
-            $('#' + 'BuffAttackSpeed' + this.id).remove();
-        }
+        // if (this.buff == buffType.ATTACK_SPEED) {
+        //     this.buff = undefined;
+        //     //normal speed
+        //     this.cool_down = this.type[2];
+        //     this.timer = 0.0;
+        //     $('#' + 'BuffAttackSpeed' + this.id).remove();
+        // }
     }
 
-    showBuff() {
-        if (this.buff == buffType.ATTACK_SPEED) {
+    showBuff(buff) {
+        var id ="";
+        var src = "";
+        if (buff == buffType.ATTACK_SPEED) {
+            id = "BuffAttackSpeed" + this.id;
+            src = 'dandao/tower_effect_icons/dizzy_tower.png';
+        }else if (buff == buffType.ATTACK_RANGE) {
+            id = "BuffAttackRange" + this.id;
+            src = 'dandao/tower_effect_icons/4.png';
+        }
+
+        if (id != "") {
             var img = $('<img />').attr({
-                'id' : "BuffAttackSpeed" + this.id,
-                'src' : 'dandao/tower_effect_icons/dizzy_tower.png'
+                'id' : id,
+                'src' : src
             }).css({
                 top: this.position.y,
                 left: this.position.x,
@@ -180,13 +236,16 @@ class Tower extends Element {
         }
     }
 
+    // when the tower is deleted, delete other related img(bullet, buff)
+    clearUp() {
+        this.bullet_list.forEach(function(bullet) {
+            bullet.destroy_bullet();
+        });
+
+        $("#BuffAttackSpeed" + this.id).remove();
+        $("#BuffAttackRange" + this.id).remove();
+    }
 
 
 
 }
-
-//use for test  don't delet it yet
-/*
-let tower = new Tower(10, 10, towerType.ARCHER);
-console.log(tower);
-*/

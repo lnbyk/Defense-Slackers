@@ -84,6 +84,22 @@ body {
     color: yellow;
 }
 
+/*heart position*/
+#heart {
+    position: absolute !important;
+    top : 4%;
+    right : 30%;
+    height : 5% !important;
+    width : 4% !important;
+}
+#heartNum{
+    position: absolute;
+    top : 4%;
+    right: 27%;
+    font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
+    color: yellow;
+}
+
 /*skill cool down number*/
 #skillCd0{
     left: 5%;

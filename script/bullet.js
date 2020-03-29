@@ -62,7 +62,7 @@ class Bullet extends MovingObject {
 
             // reduce target's health
             this.target.setHealth(this.damage);
-            console.log("hit!!!: health = ", this.target.health);
+            //console.log("hit!!!: health = ", this.target.health);
             
             return true;
         }
