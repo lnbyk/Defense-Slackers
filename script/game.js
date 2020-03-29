@@ -19,6 +19,7 @@ class Game {
         console.log(this.game_state);
         // timer of game
         this.timer = 0;
+        imgDefault();
        
     }
 

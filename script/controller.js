@@ -8,6 +8,14 @@ var imgArray = [2, 6, 11, 16];
 String.prototype.replaceAt = function (index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
+
+function imgDefault(){
+    for (var curpos = 0; curpos < 4; curpos++) {
+        var oldUrl = $('#' + curpos).attr('src');
+        oldUrl = oldUrl.substring(0, 38) + imgArray[curpos] + ".png";
+        $('#' + curpos).attr('src', oldUrl);
+    }
+}
 $(function () {
     // create game here
     game = new Game();
@@ -223,11 +231,7 @@ $(function () {
             alert('money is not enough');
         }
 
-        for (var curpos = 0; curpos < 4; curpos++) {
-            var oldUrl = $('#' + curpos).attr('src');
-            oldUrl = oldUrl.substring(0, 38) + imgArray[curpos] + ".png";
-            $('#' + curpos).attr('src', oldUrl);
-        }
+        imgDefault();
 
         // build tower in model 
         //console.log("build tower: " + buttonPos);
