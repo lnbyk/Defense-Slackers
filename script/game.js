@@ -109,7 +109,7 @@ class Game {
 
     buildTower(px, py, typeS) {
         //console.log(typeS);
-        this.tower_list = this.tower_list.filter(a => (a.x == px && a.y == py));
+        this.tower_list = this.tower_list.filter(a => !(a.x == px && a.y == py));
         this.gold -= 100;
         switch (typeS) {
             case '#0':
