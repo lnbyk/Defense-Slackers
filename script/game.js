@@ -84,7 +84,7 @@ class Game {
                     if (item.health <= 0 || item.index >= item.posArray.length) {
                         if (item.health <= 0) {
                             // enemy died
-                            self.gold += 25;
+                            self.gold += item.type[1];
                         }
                         item.health = 0;
                         item.destroy_enemy();
@@ -109,6 +109,7 @@ class Game {
 
     buildTower(px, py, typeS) {
         //console.log(typeS);
+        this.tower_list = this.tower_list.filter(a => (a.x == px && a.y == py));
         this.gold -= 100;
         switch (typeS) {
             case '#0':
