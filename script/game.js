@@ -19,7 +19,7 @@ class Game {
         console.log(this.game_state);
         // timer of game
         this.timer = 0;
-       
+
     }
 
     /*set up game
@@ -35,8 +35,8 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.health = gameLevel.LEVEL_1[1];  // data in gameData.js
-        this.gold = gameLevel.LEVEL_1[2];    // data in gameData.js
+        this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
+        this.gold = gameLevel.LEVEL_1[2]; // data in gameData.js
         this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
@@ -46,7 +46,7 @@ class Game {
         this.iceSkill = new DamageSkill(skillType.FROZE);
         this.thunderSkill = new BuffSkill(skillType.LIGHT);
         this.stoneSkill = new BuffSkill(skillType.ARCHER);
-    
+
         // test control_points (comment it when playing game )
         //  drawControlPoints(CONTROL_POINTS_11);
         //  drawControlPoints(CONTROL_POINTS_12);
@@ -58,8 +58,8 @@ class Game {
 
         // skillCondition element
         this.curElement = undefined;
-        this.element = [0,0,0,0]; // [fire, ice, thunder, stone]
-       
+        this.element = [0, 0, 0, 0]; // [fire, ice, thunder, stone]
+
         /* set interval and call update */
         //this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
         setInterval(function () {
@@ -80,6 +80,11 @@ class Game {
         var self = this;
         switch (this.game_state) {
             case gameState.PLAY:
+                if (this.health <= 0) {
+                    self.lose();
+                    console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
+                    // change game state
+                }
                 this.showSKillCD();
                 //console.log(this.game_state + " and " + "updating");
                 //update each tower
@@ -90,14 +95,13 @@ class Game {
                         if (item.health <= 0) {
                             // enemy died
                             self.gold += 25;
-                        }else {
+                        } else {
                             self.health--;
-                            self.lose();
                         }
                         item.health = 0;
                         item.destroy_enemy();
                         self.enemy_list.splice(index, 1);
-                        
+
                     }
                 });
                 this.tower_list.forEach(function (tower) {
@@ -112,14 +116,14 @@ class Game {
                 break;
         }
 
-        
+
 
     }
 
     buildTower(px, py, typeS) {
         //console.log(typeS);
         var self = this;
-        this.tower_list.forEach(function(tower, index) {
+        this.tower_list.forEach(function (tower, index) {
             if (tower.position.x == px && tower.position.y == py) {
                 self.element[tower.type[7]]--;
                 tower.clearUp();
@@ -174,7 +178,7 @@ class Game {
 
             this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
             //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
-    
+
         }
     }
 
@@ -184,7 +188,7 @@ class Game {
         if (this.tower_list.length <= 2) {
             console.log("length < = 2");
             this.curElement = undefined;
-        }else {
+        } else {
             // first and second largest element
             var first = 0;
             var second = -1;
@@ -195,14 +199,14 @@ class Game {
                     first = this.element[i];
                     index = i;
 
-                }else if (this.element[i] > second) {
+                } else if (this.element[i] > second) {
                     second = this.element[i];
                 }
             }
 
             if (second > 0 && first != second) {
                 this.curElement = index;
-            }else {
+            } else {
                 this.curElement = undefined;
             }
         }
@@ -215,7 +219,7 @@ class Game {
             return;
         }
         //console.log("click skill: " + skill);
-        switch(skill) {
+        switch (skill) {
             case "#skill0":
                 //fire (damage all enemies)
                 this.fireSkill.implementSkill(this.enemy_list);
@@ -236,10 +240,10 @@ class Game {
     }
 
     showSKillCD() {
-        $("#skillCd0").text(this.fireSkill.cool_down-this.fireSkill.timer);
-        $("#skillCd1").text(this.iceSkill.cool_down-this.iceSkill.timer);
-        $("#skillCd2").text(this.thunderSkill.cool_down-this.thunderSkill.timer);
-        $("#skillCd3").text(this.stoneSkill.cool_down-this.stoneSkill.timer);
+        $("#skillCd0").text(this.fireSkill.cool_down - this.fireSkill.timer);
+        $("#skillCd1").text(this.iceSkill.cool_down - this.iceSkill.timer);
+        $("#skillCd2").text(this.thunderSkill.cool_down - this.thunderSkill.timer);
+        $("#skillCd3").text(this.stoneSkill.cool_down - this.stoneSkill.timer);
         this.fireSkill.curElement = this.curElement;
         this.iceSkill.curElement = this.curElement;
         this.thunderSkill.curElement = this.curElement;
@@ -252,14 +256,16 @@ class Game {
 
     /* the following four function just simply change the game_state*/
     win() {
-
+        this.game_state = gameState.PAUSE;
+        console.log(this.game_state + "the game!!!!!!");
     }
 
     lose() {
-        if (this.health <= 0) {
-            console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
-            // change game state
-        }
+        this.game_state = gameState.PAUSE;
+        console.log(this.game_state + "the game!!!!!!");
+        $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeOut('fast', function () {
+            $('#failScene').fadeIn('fast');
+        })
     }
 
     pause() {
@@ -274,12 +280,12 @@ class Game {
     // return a scale number by SCREEN_HEIGHT and SCREEN_WIDTH
     scaleW(x) {
         //console.log((x/SCREEN_WIDTH) * this.width);
-        return (x/SCREEN_WIDTH) * this.width;
+        return (x / SCREEN_WIDTH) * this.width;
     }
 
     scaleH(y) {
         //console.log((y/SCREEN_HEIGHT) * this.height);
-        return (y/SCREEN_HEIGHT) * this.height;
+        return (y / SCREEN_HEIGHT) * this.height;
     }
 
     // scale getSpline and enemyPath Array
@@ -289,7 +295,7 @@ class Game {
         // getSpline
         path = getSpline(control_points);
         //scale
-        path.forEach(function(point, t) {
+        path.forEach(function (point, t) {
             point.position.x = self.scaleW(point.position.x);
             point.position.y = self.scaleH(point.position.y);
             //pathFinding(point.position.x, point.position.y, t);
