@@ -1,5 +1,10 @@
 // all game data are here
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
+const gameLevel = {
+    //  [name,home_health, initial_gola]
+    LEVEL_1 : ["level_1", 10, 30000]
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const debuffType = {
     NORMAL : ['normal', 0],
     DIZZY : ['dizzy', 100],
@@ -19,8 +24,9 @@ const debuffType = {
 */
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const buffType = {
-    //[name, the increase time, buff_time(sec)]
-    ATTACK_SPEED: ["attack_speed_increase", 10, 5],
+    //[name, buff_time(sec), the increase time]
+    ATTACK_SPEED: ["attack_speed_increase", 5, 10],
+    ATTACK_RANGE: ["attack_range_increase", 7, 3]
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
@@ -44,7 +50,7 @@ const enemyType = {
 const skillType = {
     //              0      1        2       3   4     5
     // skill type[name, damage, cool_down, id, buff, velocity]
-    ARCHER : ['archer skill', 0, 10, 3, debuffType.NORMAL, 0],
+    ARCHER : ['archer skill', 0, 10, 3, buffType.ATTACK_RANGE, 0],
     FROZE : ['frozen skill', -100, 10, 1, debuffType.DIZZY, 0],
     LIGHT : ['light skill', 0, 10, 2, buffType.ATTACK_SPEED, 0],
     FIRE : ['fire skill', -500, 10, 0, debuffType.FIRE, 25, debuffType.NORMAL]

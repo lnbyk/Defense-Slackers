@@ -35,7 +35,8 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.gold = 30000;
+        this.health = gameLevel.LEVEL_1[1];  // data in gameData.js
+        this.gold = gameLevel.LEVEL_1[2];    // data in gameData.js
         this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
@@ -44,6 +45,7 @@ class Game {
         this.fireSkill = new DamageSkill(skillType.FIRE);
         this.iceSkill = new DamageSkill(skillType.FROZE);
         this.thunderSkill = new BuffSkill(skillType.LIGHT);
+        this.stoneSkill = new BuffSkill(skillType.ARCHER);
     
         // test control_points (comment it when playing game )
         //  drawControlPoints(CONTROL_POINTS_11);
@@ -88,6 +90,9 @@ class Game {
                         if (item.health <= 0) {
                             // enemy died
                             self.gold += 25;
+                        }else {
+                            self.health--;
+                            self.lose();
                         }
                         item.health = 0;
                         item.destroy_enemy();
@@ -100,6 +105,7 @@ class Game {
                 });
                 $('#ddiamonNum').remove();
                 $('#diamondNum').text(self.gold);
+                $('#heartNum').text(self.health);
                 break;
             case gameState.PAUSE:
                 // pause  no update
@@ -116,6 +122,7 @@ class Game {
         this.tower_list.forEach(function(tower, index) {
             if (tower.position.x == px && tower.position.y == py) {
                 self.element[tower.type[7]]--;
+                tower.clearUp();
                 self.tower_list.splice(index, 1);
             }
         })
@@ -223,6 +230,7 @@ class Game {
                 break;
             case "#skill3":
                 //stone
+                this.stoneSkill.implementSkill(this.tower_list);
                 break;
         }
     }
@@ -231,13 +239,15 @@ class Game {
         $("#skillCd0").text(this.fireSkill.cool_down-this.fireSkill.timer);
         $("#skillCd1").text(this.iceSkill.cool_down-this.iceSkill.timer);
         $("#skillCd2").text(this.thunderSkill.cool_down-this.thunderSkill.timer);
+        $("#skillCd3").text(this.stoneSkill.cool_down-this.stoneSkill.timer);
         this.fireSkill.curElement = this.curElement;
         this.iceSkill.curElement = this.curElement;
         this.thunderSkill.curElement = this.curElement;
-
+        this.stoneSkill.curElement = this.curElement;
         this.fireSkill.skillIconControl();
         this.iceSkill.skillIconControl();
         this.thunderSkill.skillIconControl();
+        this.stoneSkill.skillIconControl();
     }
 
     /* the following four function just simply change the game_state*/
@@ -246,7 +256,10 @@ class Game {
     }
 
     lose() {
-
+        if (this.health <= 0) {
+            console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
+            // change game state
+        }
     }
 
     pause() {
@@ -290,5 +303,6 @@ class Game {
         clearInterval(this.fireSkill.interval);
         clearInterval(this.iceSkill.interval);
         clearInterval(this.thunderSkill.interval);
+        clearInterval(this.stoneSkill.interval);
     }
 }
