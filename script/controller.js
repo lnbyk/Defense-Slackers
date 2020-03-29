@@ -9,7 +9,7 @@ String.prototype.replaceAt = function (index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 
-function imgDefault(){
+function imgDefault() {
     for (var curpos = 0; curpos < 4; curpos++) {
         var oldUrl = $('#' + curpos).attr('src');
         oldUrl = oldUrl.substring(0, 38) + imgArray[curpos] + ".png";
@@ -25,6 +25,7 @@ $(function () {
     $('#mainHelp, #towerIntro').hide();
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
+    $('#winScene, #failScene').hide();
     /* button functionality */
     /* bgm cont rol button */
     $("#bgmBtn").click(function () {
@@ -220,7 +221,7 @@ $(function () {
             */
             var currRank = parseInt($(buttonPos).attr('rank'));
             var currName = $(buttonPos).attr('name')
-            if (currRank < 3 && ((t.charAt(1)== currName || currName=='pit')))
+            if (currRank < 3 && ((t.charAt(1) == currName || currName == 'pit')))
                 $(buttonPos).attr('rank', currRank + 1);
             $(buttonPos).attr('name', t.charAt(1) + "");
             $(buttonPos).fadeIn();
@@ -324,6 +325,32 @@ $(function () {
                 break;
         }
     });
+
+    // fail game return to main menu
+    $('#failLevelS').click(function () {
+        $('#failScene').slideUp('fast', function () {
+            $("#gameScreen").slideUp('slow', function () {
+                $("#mainMenu").fadeIn('slow');
+                $("#backgroundMusic").get(0).play();
+            });
+        })
+        //game.cleanUp();
+        game = new Game();
+        $("#gameScreen").hide();
+        $("#towerSelection").hide();
+        $("#failScene").hide();
+    })
+
+    // fail game restart
+    $("#failLevelNext").click(function () {
+        game.pause();
+        //game.cleanUp();
+        game = new Game();
+        game.setUp();
+        $('#failScene').slideUp('fast', function () {
+            $('#gameScreen, [id^=heart], [id^=diamond]').fadeIn('fast');
+        })
+    })
 
 });
 

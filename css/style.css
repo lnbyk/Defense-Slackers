@@ -36,7 +36,8 @@ body {
     background-image: url('../gameAsset/td-gui/PNG/difficulty/table.png');
 }
 
-#mainHelp, #towerIntro{
+#mainHelp,
+#towerIntro {
     background-image: url("../gameAsset/td-gui/PNG/shop/table.png");
 }
 
@@ -53,6 +54,7 @@ body {
     left: 62.5%;
     z-index: 2;
 }
+
 /* button use to close main setting */
 #closeMainSetting {
     position: absolute;
@@ -71,14 +73,15 @@ body {
 /* diamond position */
 #diamond {
     position: absolute !important;
-    top : 4%;
-    left : 4%;
+    top: 4%;
+    left: 4%;
     height: 7% !important;
     width: 5% !important;
 }
+
 #diamondNum {
     position: absolute;
-    top : 4%;
+    top: 4%;
     left: 10%;
     font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
     color: yellow;
@@ -87,53 +90,62 @@ body {
 /*heart position*/
 #heart {
     position: absolute !important;
-    top : 4%;
-    right : 30%;
-    height : 5% !important;
-    width : 4% !important;
+    top: 4%;
+    right: 30%;
+    height: 5% !important;
+    width: 4% !important;
 }
-#heartNum{
+
+#heartNum {
     position: absolute;
-    top : 4%;
+    top: 4%;
     right: 27%;
     font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
     color: yellow;
 }
 
 /*skill cool down number*/
-#skillCd0{
+#skillCd0 {
     left: 5%;
 }
-#skillCd1{
+
+#skillCd1 {
     left: 13%;
 }
-#skillCd2{
+
+#skillCd2 {
     left: 21%;
 }
-#skillCd3{
+
+#skillCd3 {
     left: 29%;
 }
+
 /* skill button */
 #skill0 {
     position: absolute;
     bottom: 0%;
     left: 0%;
 }
+
 #skill1 {
     position: absolute;
     bottom: 0%;
     left: 8%;
 }
+
 #skill2 {
     position: absolute;
     bottom: 0%;
     left: 16%;
 }
+
 #skill3 {
     position: absolute;
     bottom: 0%;
     left: 24%;
 }
+
 /* button position for building tower */
 #tBtn0 {
     top: 51%;
@@ -171,7 +183,8 @@ body {
 }
 
 /* button in the gameScene*/
-#backMenuBtn, #mainSetting{
+#backMenuBtn,
+#mainSetting {
     position: absolute;
     right: 1%;
     top: 1%;
@@ -239,4 +252,76 @@ body {
     right: 1%;
     top: 4%;
     transform: translateY(10%);
+}
+
+/* winning menu */
+#winLevelS img,
+#winLevelNext img,
+#failLevelS img,
+#failLevelNext img {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#winScene,
+#failScene {
+    z-index: 20 !important;
+    background-image: url('../gameAsset/td-gui/PNG/win/table.png');
+    width: 30% !important;
+    height: 70% !important;
+    overflow: visible !important;
+}
+
+#winWindow,
+#failWindow {
+    position: absolute;
+    width: 70%;
+    height: 68%;
+
+    top: 57%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#winStar,
+#failStar {
+    position: absolute;
+    width: 63%;
+    height: 30%;
+
+    top: 41%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#winHeader,
+#failHeader {
+    position: absolute;
+    width: 67%;
+    height: 23%;
+    overflow: visible;
+
+    top: 11.5%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#winLevelS,
+#failLevelS {
+    position: absolute;
+    width: 22%;
+    height: 18%;
+
+    bottom: -0.5%;
+    left: 23.5%;
+}
+
+#winLevelNext,
+#failLevelNext {
+    position: absolute;
+    width: 22%;
+    height: 18%;
+
+    bottom: -0.5%;
+    right: 23.5%;
 }

@@ -53,8 +53,9 @@
 .towerIcon :hover {
     opacity: 0.6;
 }
+
 /* skill and cool_down*/
-.skillBtn{
+.skillBtn {
     background-color: transparent;
     background-repeat: no-repeat;
     border: none;
@@ -64,15 +65,16 @@
     cursor: pointer;
 }
 
-.skillBtn img{
+.skillBtn img {
     height: 50%;
     width: 50%;
 }
+
 .skillBtn :hover {
     opacity: 0.8
 }
 
-.skilCdNum{
+.skilCdNum {
     position: absolute;
     bottom: 3.6%;
     font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
@@ -122,8 +124,10 @@
     font-size: 30px;
     overflow: scroll;
 }
+
 /* common setting for table view */
 ::-webkit-scrollbar {
     width: 0px;
-    background-color: transparent; /* make scrollbar transparent */
+    background-color: transparent;
+    /* make scrollbar transparent */
 }
