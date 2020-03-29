@@ -19,7 +19,6 @@ class Game {
         console.log(this.game_state);
         // timer of game
         this.timer = 0;
-        imgDefault();
        
     }
 
@@ -85,7 +84,7 @@ class Game {
                     if (item.health <= 0 || item.index >= item.posArray.length) {
                         if (item.health <= 0) {
                             // enemy died
-                            self.gold += item.type[1];
+                            self.gold += 25;
                         }
                         item.health = 0;
                         item.destroy_enemy();
@@ -110,7 +109,13 @@ class Game {
 
     buildTower(px, py, typeS) {
         //console.log(typeS);
-        this.tower_list = this.tower_list.filter(a => !(a.x == px && a.y == py));
+        var self = this;
+        this.tower_list.forEach(function(tower, index) {
+            if (tower.position.x == px && tower.position.y == py) {
+                self.element[tower.type[7]]--;
+                self.tower_list.splice(index, 1);
+            }
+        })
         this.gold -= 100;
         switch (typeS) {
             case '#0':
@@ -134,7 +139,12 @@ class Game {
 
         console.log("tower list length: " + this.tower_list.length);
 
-        // cur element in the game
+        // this.tower_list.forEach(function(tower) {
+        //     console.log(tower.type[0]);
+        // });
+
+        // // cur element in the game
+        // console.log("element_array[fire, ice, thunder, stone]");
         // var i =0;
         // for(i = 0; i < 4; i++) {
         //     console.log(this.element[i]);
@@ -162,6 +172,7 @@ class Game {
     // call this function when build tower
     skillCondition() {
         if (this.tower_list.length <= 2) {
+            console.log("length < = 2");
             this.curElement = undefined;
         }else {
             // first and second largest element
