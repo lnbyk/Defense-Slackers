@@ -25,6 +25,9 @@ class Game {
     /*set up game
     call it when click the start botton*/
     setUp() {
+        set = new Set([]);
+        imgDefault();
+        $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();
         //$(".skilCdNum").hide();
         //$(".skilCdNum").remove();
