@@ -68,6 +68,7 @@ body {
     position: relative;
     width: auto;
     height: 100%;
+    overflow: hidden !important;
 }
 
 /* diamond position */

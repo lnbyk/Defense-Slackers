@@ -2,8 +2,9 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const gameLevel = {
     //  [name,home_health, initial_gola]
-    LEVEL_1 : ["level_1", 10, 30000]
+    LEVEL_1 : ["level_1", 10, 300]
 }
+
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const debuffType = {
     NORMAL : ['normal', 0],
@@ -33,27 +34,38 @@ const buffType = {
 const towerType = {
     //                   0         1        2         3         4                5                   6             7
     // tower type and [typeName, damage, attack_cd, cost, range_radius，Bullet_velocity_scale, debuff_on_bullet, id ]
-    ARCHER: ['archer', -45, 1, 100, 400, 20, debuffType.NORMAL,3],
-    FROZE: ['froze', -90, 1.5, 200, 400, 20, debuffType.FROZE,1],
-    LIGHT: ['light', -100, 3.5, 200, 300, 30, debuffType.DIZZY,2],
-    FIRE: ['fire', -200, 3, 200, 400, 20, debuffType.NORMAL, 0,100] // [8] the last one is range of the explosion
+    ARCHER: ['archer', -120, 1, 100, 400, 20, debuffType.NORMAL,3],
+    FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1],
+    LIGHT: ['light', -150, 4, 200, 270, 30, debuffType.DIZZY,2],
+    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0,100] // [8] the last one is range of the explosion
 }
+
+const towerSwitch = [towerType.LIGHT, towerType.FROZE, towerType.FIRE, towerType.ARCHER];
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const enemyType = {
     // type and [health, loot, velocity_x, velocity_y]
-    TANK: [1000, 200],
-    AGILE: [200, 100]
+    TANK: [1000, 50],
+    TANK_2:[1500, 50],
+    TANK_3: [2500, 75],
+    AGILE: [750, 100],
+    AGILE_2: [1225, 100]
 }
-
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
+const enemyGenerate ={
+    //[name, numbers of enemy, type]
+    PROCESS_1 : ["process 1", 10, enemyType.TANK],
+    PROCESS_2 : ["process 2", 20, enemyType.TANK_2],
+    PROCESS_3 : ["process 3", 30, enemyType.TANK_3]
+}
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const skillType = {
     //              0      1        2       3   4     5
     // skill type[name, damage, cool_down, id, buff, velocity]
-    ARCHER : ['archer skill', 0, 10, 3, buffType.ATTACK_RANGE, 0],
-    FROZE : ['frozen skill', -100, 10, 1, debuffType.DIZZY, 0],
-    LIGHT : ['light skill', 0, 10, 2, buffType.ATTACK_SPEED, 0],
-    FIRE : ['fire skill', -500, 10, 0, debuffType.FIRE, 25, debuffType.NORMAL]
+    ARCHER : ['archer skill', 0, 9, 3, buffType.ATTACK_RANGE, 0],
+    FROZE : ['frozen skill', -100, 8, 1, debuffType.DIZZY, 0],
+    LIGHT : ['light skill', 0, 25, 2, buffType.ATTACK_SPEED, 0],
+    FIRE : ['fire skill', -800, 25, 0, debuffType.FIRE, 25, debuffType.NORMAL]
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 

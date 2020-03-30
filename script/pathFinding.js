@@ -3,17 +3,17 @@ const SPLINE_INTERVAL = 0.007;
 // initilize critical points
 var CONTROL_POINTS_11 = new Array(new Element(175,0), new Element(175,0), new Element(250,90), new Element(400,115), 
                                     new Element(435,235), new Element(495,340), new Element(630,360), new Element(725,445),
-                                    new Element(875,405), new Element(910,305), new Element(940,205), new Element(940, 205));
+                                    new Element(850,380), new Element(895,295), new Element(920,195), new Element(920, 195));
 
 var CONTROL_POINTS_12 = new Array(new Element(0, 555), new Element(0, 555), new Element(135, 555),
                                     new Element(250, 490), new Element(255, 370), new Element(365, 290), 
                                     new Element(495, 340), new Element(630, 360), new Element(725, 445),
-                                    new Element(875, 405), new Element(910, 305), new Element(940, 205), new Element(940, 205));
+                                    new Element(850, 380), new Element(895, 295), new Element(920, 195), new Element(920, 195));
 
 var CONTROL_POINTS_13 = new Array(new Element(1496, 685), new Element(1496, 685),
                                     new Element(1365, 685), new Element(1200, 685), new Element(1045, 625),
                                     new Element(865, 620), new Element(755, 560), new Element(725, 445),
-                                    new Element(875, 405), new Element(910, 305), new Element(940, 205), new Element(940, 205));
+                                    new Element(850, 380), new Element(895, 295), new Element(920, 195), new Element(920, 195));
 
 // implement Catmull-rom Spline
 // getSplinePoints(float, array of control_points)
