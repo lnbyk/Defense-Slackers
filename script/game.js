@@ -29,6 +29,7 @@ class Game {
         imgDefault();
         $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();
+        $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeIn('fast');
         //$(".skilCdNum").hide();
         //$(".skilCdNum").remove();
         // clear enemy before 
@@ -37,6 +38,9 @@ class Game {
         console.log(this.game_state);
         this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
         this.gold = gameLevel.LEVEL_1[2]; // data in gameData.js
+        this.process = enemyGenerate.PROCESS_1;
+        this.enemy_counter = 0;
+        this.enemy_flag = undefined;
         this.timer = 0;
         /* initialize lists for Element(moving and fixed)*/
         this.tower_list = new Array();
@@ -48,9 +52,9 @@ class Game {
         this.stoneSkill = new BuffSkill(skillType.ARCHER);
 
         // test control_points (comment it when playing game )
-        //  drawControlPoints(CONTROL_POINTS_11);
-        //  drawControlPoints(CONTROL_POINTS_12);
-        //  drawControlPoints(CONTROL_POINTS_13);
+        // drawControlPoints(CONTROL_POINTS_11);
+        // drawControlPoints(CONTROL_POINTS_12);
+        // drawControlPoints(CONTROL_POINTS_13);
 
         this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
         this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
@@ -65,12 +69,12 @@ class Game {
         setInterval(function () {
             self.update()
         }, 30);
-
+        //this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
         // start timer
         setInterval(function () {
             if (self.game_state == gameState.PLAY) {
-                self.timer++;
                 self.createEnemy();
+                self.timer++;
             }
         }, 1000);
     }
@@ -94,7 +98,7 @@ class Game {
                     if (item.health <= 0 || item.index >= item.posArray.length) {
                         if (item.health <= 0) {
                             // enemy died
-                            self.gold += 25;
+                            self.gold += item.type[1];
                         } else {
                             self.health--;
                         }
@@ -130,25 +134,37 @@ class Game {
                 self.tower_list.splice(index, 1);
             }
         })
-        this.gold -= 100;
+        var type = undefined;
         switch (typeS) {
             case '#0':
-                this.tower_list.push(new Tower(px, py, towerType.LIGHT));
-                this.element[2]++;
+                type = towerType.LIGHT;
+                // this.tower_list.push(new Tower(px, py, towerType.LIGHT));
+                // this.element[2]++;
+                // this.gold -= towerType.LIGHT[3];
                 break;
             case '#1':
-                this.tower_list.push(new Tower(px, py, towerType.FROZE));
-                this.element[1]++;
+                type = towerType.FROZE;
+                // this.tower_list.push(new Tower(px, py, towerType.FROZE));
+                // this.element[1]++;
+                // this.gold -= towerType.FROZE[3];
                 break;
             case '#2':
-                this.tower_list.push(new Tower(px, py, towerType.FIRE));
-                this.element[0]++;
+                type = towerType.FIRE;
+                // this.tower_list.push(new Tower(px, py, towerType.FIRE));
+                // this.element[0]++;
+                // this.gold -= towerType.LIGHT[3];
                 break;
             case '#3':
-                this.tower_list.push(new Tower(px, py, towerType.ARCHER));
-                this.element[3]++;
+                type = towerType.ARCHER;
+                // this.tower_list.push(new Tower(px, py, towerType.ARCHER));
+                // this.element[3]++;
                 //console.log("build tower #3, need define towerType");
                 break;
+        }
+        if (this.gold >= type[3]) {
+            this.gold -= type[3];
+            this.tower_list.push(new Tower(px, py, type));
+            this.element[type[7]]++;
         }
 
         console.log("tower list length: " + this.tower_list.length);
@@ -169,17 +185,58 @@ class Game {
     }
 
     createEnemy() {
-        if (this.timer % 3 == 0 && this.timer <= 30) {
-            this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer, this.enemy_path_11, 1));
-            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
-
-            this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.TANK, this.timer, this.enemy_path_12, 2));
-            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
-
-            this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
-            //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
-
+        switch(this.process) {
+            case enemyGenerate.PROCESS_1:
+                if (this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+                    this.enemy_counter++;
+                    if (this.enemy_counter >= this.process[1]) {
+                        this.enemy_counter = 0;
+                        this.process = enemyGenerate.PROCESS_2;
+                        this.enemy_flag = false;
+                        console.log("enter " + this.process[0]);
+                    }
+                }
+                break;
+            case enemyGenerate.PROCESS_2:
+                if (this.enemy_list.length < 4) {
+                    this.enemy_flag = true;
+                }
+                if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+                    this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE, this.timer, this.enemy_path_12, 2));
+                    this.enemy_counter += 2;
+                    if (this.enemy_counter >= this.process[1]) {
+                        this.enemy_counter = 0;
+                        this.process = enemyGenerate.PROCESS_3;
+                        console.log("enter " + this.process[0]);
+                        this.enemy_flag = false;
+                    }
+                }
+                break;
+            case enemyGenerate.PROCESS_3:
+                if (this.enemy_list.length < 4) {
+                    this.enemy_flag = true;
+                }
+                if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+                    this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE_2, this.timer, this.enemy_path_12, 2));
+                    this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, this.process[2], this.timer, this.enemy_path_13, 3));
+                    this.enemy_counter += 3;
+                }
+                break;
         }
+        // if (this.timer % 3 == 0 && this.timer <= 30) {
+        //     this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer, this.enemy_path_11, 1));
+        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+
+        //     //this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.TANK, this.timer, this.enemy_path_12, 2));
+        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+
+        //     //this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
+        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+        // }
+
     }
 
     // accroding to tower that palyer built, assigin value to this.curElement(FIRE, FROZE, LIGHT, STONE)

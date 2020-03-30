@@ -1,4 +1,4 @@
-const INIT_LIFE_SIZE  = 7;
+const INIT_LIFE_SIZE  = 5;
 const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
 const imgNum = 19;
 
@@ -13,6 +13,7 @@ class Enemy extends MovingObject {
         this.debuffSlow = undefined;
         this.fired = 0;
         this.fireBall = undefined;
+        this.iPos = iPos
         this.flip = iPos == 3 ? -1 : 1;
         // debuff
 
@@ -40,8 +41,8 @@ class Enemy extends MovingObject {
             left: this.position.x,
             position: 'absolute'
         }).css({
-            'width': '10%',
-            'height': '10%',
+            'width': '7%',
+            'height': '7%',
             'z-index' : '2',
             'overflow' : 'hidden'
         }).css({
@@ -80,6 +81,7 @@ class Enemy extends MovingObject {
             'height': '1%',
             'overflow' : 'hidden'
         }).appendTo('#gameScreen');
+        //this.black_hand_egg();
     }
 
     collision() {
@@ -88,13 +90,27 @@ class Enemy extends MovingObject {
 
     // to move just update enemy position to next index of enemyPath
     move(enemy_path) {
+        //console.log("print index: " + this.index );
+        if (this.index >= 800 && this.iPos == 3) {
+            $('#' + this.id).css({
+                'transform' : 'scaleX(1)'
+            });
+        }
         //console.log("enemy move called");
         // get position from enemy_path(array)
         this.position.x = this.posArray[this.index].position.x;
         this.position.y = this.posArray[this.index].position.y;
         
         // update index to get next position
-        this.index ++;
+        if (this.type == enemyType.AGILE || this.type == enemyType.AGILE_2) {
+            if (this.index + 3 < this.posArray.length) {
+                this.index += 3;
+            }else {
+                this.index ++;
+            }
+        }else {
+            this.index ++;
+        }
     }
 
     // update function should be constantly called when the game is on and call function move to update postion
@@ -107,7 +123,7 @@ class Enemy extends MovingObject {
         if (this.debuffEffect()) {
             return;
         }
-
+        //this.upEgg();
         // no debuff
         this.move(enemy_path);
         $('#' + this.id).css({
@@ -115,6 +131,7 @@ class Enemy extends MovingObject {
             left: this.position.x,
             position: 'absolute'
         });
+        
         // Update tje css to show movement
         // update life bar postion
         $('#' + 'lifebar' + this.id).css({
@@ -233,8 +250,8 @@ class Enemy extends MovingObject {
                 left: this.position.x,
                 position: 'absolute'
             }).css({
-                'height' : '10%',
-                'width' :'10%',
+                'height' : '8%',
+                'width' :'8%',
                 'z-index' : '1'
             }).
             appendTo('#gameScreen');
@@ -251,8 +268,8 @@ class Enemy extends MovingObject {
                 left: this.position.x,
                 position: 'absolute'
             }).css({
-                'height' : '5%',
-                'width' :'10%',
+                'height' : '4%',
+                'width' :'8%',
                 'z-index' : '3'
             }).
             appendTo('#gameScreen');
@@ -300,7 +317,34 @@ class Enemy extends MovingObject {
         $("#" + 'health' + this.id).remove();
         $('#' + 'DebuffFrozen' + this.id).remove();
         $('#' + 'DebuffDizzy' + this.id).remove();
+        $('#'+"enemyBlackHand" + this.id).remove();
 
     }
 
+    black_hand_egg() {
+        var img = $('<img />').attr({
+            'id': "enemyBlackHand" + this.id,
+            'src': './egg/black_hand.jpg'
+        }).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+        }).css({
+            'width': '6%',
+            'height': '6%',
+            'z-index' : '2',
+            'overflow' : 'hidden'
+        }).css({
+            'transform' : 'scaleX(' + this.flip + ' )'
+        }).appendTo('#gameScreen');
+    }
+
+    upEgg() {
+        $('#'+"enemyBlackHand" + this.id).css({
+            top: this.position.y,
+            left: this.position.x,
+            position: 'absolute'
+
+        });
+    }
 }

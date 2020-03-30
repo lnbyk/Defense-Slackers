@@ -189,8 +189,10 @@ $(function () {
         $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
         /*  get the image url of the tower we clicker  */
-        if (game.gold >= 100) {
-            var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
+        var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
+       // console.log(towerSwitch[parseInt(t.charAt(1))][0]);
+        if (game.gold >= towerSwitch[parseInt(t.charAt(1))][3]) {
+            
             var nextNum = parseInt($(t).attr('src').charAt(38, -4)) + parseInt($(buttonPos).attr('rank'));
             var url = $(t).attr('src');
             url.replaceAt(38, nextNum);
