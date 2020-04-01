@@ -25,7 +25,7 @@ $(function () {
     $('#mainHelp, #towerIntro').hide();
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
-    $('#winScene, #failScene').hide();
+    $('#winScene, #failScene, #popUpWindow').hide();
     /* button functionality */
     /* bgm cont rol button */
     $("#bgmBtn").click(function () {
@@ -231,7 +231,19 @@ $(function () {
 
             /* adjust position */
         } else {
-            alert('money is not enough');
+            $('<div> not enough diamond </div>').attr({
+                'id' : 'diamondAlert',
+                'text' : 'not enough diamond'
+            }).css({
+                position : 'absolute',
+                top: '30%',
+                left: '20%',
+                'tranform' : 'translateX(50%) translateY(-50%)' 
+            }).appendTo('#popUpWindow');
+            $('#popUpWindow').fadeIn('fast', function(){
+                $("[id^='tBtn']").hide();
+                game.pause();
+            })
         }
 
         imgDefault();
@@ -351,6 +363,13 @@ $(function () {
         game.setUp();
         $('#failScene').slideUp('fast', function () {
             $('#gameScreen, [id^=heart], [id^=diamond]').fadeIn('fast');
+        })
+    })
+
+    $('#closePopUpWindow').click(function() {
+        $('#popUpWindow').fadeOut('fast', function() {
+            $("[id^='tBtn']").show();
+            game.resume();
         })
     })
 
