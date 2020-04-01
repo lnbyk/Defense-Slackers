@@ -38,9 +38,25 @@ body {
 
 #mainHelp,
 #towerIntro {
+    color: burlywood;
     background-image: url("../gameAsset/td-gui/PNG/shop/table.png");
 }
 
+#towerIntro img {
+    position: absolute;
+    width: 20%;
+    height: 28%;
+    left : 20% ;
+}
+
+[id^=skilgif] {
+    width: 60% !important;
+    height: 20% !important;
+}
+[id^=tttnnn] {
+    width: 10% !important;
+    height: 10% !important;
+}
 /* enemy image size in the help menu */
 #helpEnemy {
     width: 30%;
