@@ -89,6 +89,9 @@ class Game {
                     console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
                     // change game state
                 }
+                if (this.process == enemyGenerate.PROCESS_3 && this.enemy_list.length == 0) {
+                    self.win();
+                }
                 this.showSKillCD();
                 //console.log(this.game_state + " and " + "updating");
                 //update each tower
@@ -315,6 +318,9 @@ class Game {
     win() {
         this.game_state = gameState.PAUSE;
         console.log(this.game_state + "the game!!!!!!");
+        $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeOut('fast', function () {
+            $('#winScene').fadeIn('fast');
+        })
     }
 
     lose() {
