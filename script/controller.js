@@ -329,8 +329,8 @@ $(function () {
     });
 
     // fail game return to main menu
-    $('#failLevelS').click(function () {
-        $('#failScene').slideUp('fast', function () {
+    $('#failLevelS, #winLevelS').click(function () {
+        $('#failScene, #winScene').slideUp('fast', function () {
             $("#gameScreen").slideUp('slow', function () {
                 $("#mainMenu").fadeIn('slow');
                 $("#backgroundMusic").get(0).play();
