@@ -36,8 +36,8 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
-        this.gold = gameLevel.LEVEL_1[2]; // data in gameData.js
+        this.health = gameLevel.Test[1]; // data in gameData.js
+        this.gold = gameLevel.Test[2]; // data in gameData.js
         this.process = enemyGenerate.PROCESS_1;
         this.enemy_counter = 0;
         this.enemy_flag = undefined;

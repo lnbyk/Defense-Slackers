@@ -44,9 +44,18 @@ body {
 
 #towerIntro img {
     position: absolute;
-    width: 20% !important;
-    height: 28% !important;
-    left : 20% !important;
+    width: 20%;
+    height: 28%;
+    left : 20% ;
+}
+
+[id^=skilgif] {
+    width: 60% !important;
+    height: 20% !important;
+}
+[id^=tttnnn] {
+    width: 10% !important;
+    height: 10% !important;
 }
 /* enemy image size in the help menu */
 #helpEnemy {
