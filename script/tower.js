@@ -1,13 +1,14 @@
 class Tower extends Element {
     // constructor (position_x, position_y, towerType)
     // towerType[name, damage, cool_down, cost, range] change these info in towerType.js
-    constructor(px, py, type) {
+    constructor(px, py, type, level) {
         super(px, py);
         let self = this;
         this.type = type;
         this.id = "tower" + Math.round(px) +Math.round(py);
-        this.damage = type[1];
-        this.cool_down = type[2];
+        this.level = level;
+        this.damage = type[1] - level[0]; // increase level according to level
+        this.cool_down = type[2] - level[1]; // decrease cd according to level
         this.cost = type[3];
         this.range = type[4];
         this.debuff = type[6];
@@ -17,7 +18,7 @@ class Tower extends Element {
         this.cd_ready = false;
 
         console.log("position: " + px + ", " + py);
-        console.log(this.type);
+        console.log(this.type[0] + ", " + this.damage +", " + this.cool_down);
         // attack_range
         // level
         // bullet_list
@@ -105,7 +106,7 @@ class Tower extends Element {
     }
 
     createBullet(){
-        this.bullet_list.push(new Bullet(this.position.x, this.position.y, this.type, this.target, this.bullet_id));
+        this.bullet_list.push(new Bullet(this.position.x, this.position.y, this.type, this.target, this.bullet_id, this.damage));
         this .bullet_id = (this.bullet_id + 1)%50;
         //console.log(this.bullet_list.length);
     }
@@ -142,7 +143,7 @@ class Tower extends Element {
         switch(buff) {
             case buffType.ATTACK_SPEED:
                 // increase attack speed
-                this.cool_down = Math.floor((this.type[2] / buff[2]) * 10)/10;
+                this.cool_down = Math.floor((this.cool_down / buff[2]) * 10)/10;
                 // need to reset timer
                 this.timer = 0.0;
                 console.log("current attack cd: " + this.cool_down);
@@ -176,7 +177,7 @@ class Tower extends Element {
                 switch (buff.type) {
                     case buffType.ATTACK_SPEED:
                         //back to normal speed
-                        self.cool_down = self.type[2];
+                        self.cool_down = self.type[2] - self.level[1];
                         self.timer = 0.0;
                         $('#' + 'BuffAttackSpeed' + self.id).remove();
                         break;

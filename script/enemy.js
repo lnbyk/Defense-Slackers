@@ -163,7 +163,7 @@ class Enemy extends MovingObject {
         //console.log("lifebar width: " + this.lifeWidth);
         var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
         var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
-       // console.log("curlife: " + curLife);
+       //console.log("curlife: " + curLife);
         $('#' + 'health' + this.id).css({
             'width': curLife
        });
@@ -236,7 +236,7 @@ class Enemy extends MovingObject {
     debuffAnimationInit() {
         //fire skill debuff animation initialize
         if (this.fired == debuffType.FIRE) {
-            this.fireBall = new Bullet(this.position.x, 0, skillType.FIRE, this, "fireBall" + this.id);
+            this.fireBall = new Bullet(this.position.x, 0, skillType.FIRE, this, "fireBall" + this.id, skillType.FIRE[1]);
             this.fired = undefined;
         }
         //freeze

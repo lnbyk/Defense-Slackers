@@ -109,6 +109,7 @@ $(function () {
 
     /* build tower button */
     $(".tbtn").click(function () {
+        imgDefault();
         buttonPos = '#' + $(this).attr('id');
         curName = $(this).attr('name');
         curRank = $(this).attr('rank')
@@ -222,12 +223,15 @@ $(function () {
             }).appendTo('#gameScreen').click();
             */
             var currRank = parseInt($(buttonPos).attr('rank'));
-            var currName = $(buttonPos).attr('name')
-            if (currRank < 3 && ((t.charAt(1) == currName || currName == 'pit')))
+            var currName = $(buttonPos).attr('name');
+
+            if (currRank < 3 && ((t.charAt(1) == currName || currName == 'pit'))){
                 $(buttonPos).attr('rank', currRank + 1);
-            $(buttonPos).attr('name', t.charAt(1) + "");
+            }
+            $(buttonPos ).attr('name', t.charAt(1) + "");
+            console.log("Rank and Name: " + $(buttonPos).attr('rank') +", " + $(buttonPos).attr('name'));
             $(buttonPos).fadeIn();
-            game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t);
+            game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t, $(buttonPos).attr('rank'));
 
             /* adjust position */
         } else {

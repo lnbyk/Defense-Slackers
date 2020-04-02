@@ -1,10 +1,10 @@
 class Bullet extends MovingObject {
-    constructor(px, py, type, target, id) {
+    constructor(px, py, type, target, id, damage) {
         /* initilize the type, velocity, acceleration
             damage, attack_target*/
             super(px, py);
             this.type = type;
-            this.damage = type[1];
+            this.damage = damage;
             this.target = target;
             this.id = "bullet" + Math.round(px) + Math.round(py) + id;
             this.debuff = type[6];
@@ -53,7 +53,7 @@ class Bullet extends MovingObject {
             if (this.type == towerType.FIRE) {
                 console.log("explode!!!!!!!!!!!!!!!");
                 enemy_list.forEach(function(enemy) {
-                    if (self.getNorm(enemy.position.x, enemy.position.y) <= self.type[8]) {
+                    if (self.getNorm(enemy.position.x, enemy.position.y) <= self.type[9]) {
                         enemy.setHealth(self.damage);
                     }
                 });
