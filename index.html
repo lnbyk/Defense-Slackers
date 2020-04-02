@@ -4,6 +4,7 @@
     <title>Defense Slackers</title>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/towerSMenu.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script/basis/gameData.js"></script>
     <script src="script/basis/buff.js"></script>
@@ -134,25 +135,25 @@
         <button id="tBtn2" class="tbtn" name="pit" rank='0'></button>
         <button id="tBtn3" class="tbtn" name="pit" rank='0'></button>
         <button id="tBtn4" class="tbtn" name="pit" rank='0'></button>
-        <div id="towerSelection">
-            <img src="gameAsset/stone-tower-game-assets/PNG/53.png" id="towerSImage">
-            <button id="closeTowerSelection" class="btn">
-                <img src="gameAsset/td-gui/PNG/settings/button_close.png">
-            </button>
-            <!--different tower button will create different tower-->
-            <button id="tower0" class="towerIcon">
-                <img id="0" src="gameAsset/magic-tower-game-assets/PNG/2.png">
-            </button>
-            <button id="tower1" class="towerIcon">
-                <img id="1" src="gameAsset/magic-tower-game-assets/PNG/6.png">
-            </button>
-            <button id="tower2" class="towerIcon">
-                <img id="2" src="gameAsset/magic-tower-game-assets/PNG/11.png">
-            </button>
-            <button id="tower3" class="towerIcon">
-                <img id="3" src="gameAsset/magic-tower-game-assets/PNG/16.png">
-            </button>
-        </div>
+    </div>
+
+    <div id="towerSelection" class='menuTable'>
+        <button id="closeTowerSelection" class="btn">
+            <img src="gameAsset/td-gui/PNG/settings/button_close.png">
+        </button>
+        <!--different tower button will create different tower-->
+        <button id="tower0" class="btn">
+            <img id="0" src="gameAsset/magic-tower-game-assets/PNG/2.png">
+        </button>
+        <button id="tower1" class="btn">
+            <img id="1" src="gameAsset/magic-tower-game-assets/PNG/6.png">
+        </button>
+        <button id="tower2" class="btn">
+            <img id="2" src="gameAsset/magic-tower-game-assets/PNG/11.png">
+        </button>
+        <button id="tower3" class="btn">
+            <img id="3" src="gameAsset/magic-tower-game-assets/PNG/16.png">
+        </button>
     </div>
     <div id='winScene' class='menuTable'>
         <img id='winWindow' src='gameAsset/td-gui/PNG/win/window.png'>

@@ -128,45 +128,13 @@ $(function () {
         // switch (curRank) {
         //case '0':
         var position = $(this).position();
-        var width = $(window).width() * 0.12;
-        var height = $(window).height() * 0.18;
-        $("#towerSImage").css({
-            top: position.top - height / 2,
-            left: position.left - width / 2,
-            position: 'absolute',
-            'z-index': '20'
-        });
-        $('#towerSelection').fadeIn('fast', function () {
-            $("#closeTowerSelection").css({
-                top: position.top - height,
-                left: position.left + width / 2,
-                position: 'absolute',
-                'z-index': '20'
-            });
-            $("#tower0").css({
-                top: position.top - height * 0.4,
-                left: position.left - width * 0.8,
-                position: 'absolute',
-                'z-index': '20'
-            });
-            $("#tower1").css({
-                top: position.top - height * 0.4,
-                left: position.left - width * 0.15,
-                position: 'absolute',
-                'z-index': '20'
-            });
-            $("#tower2").css({
-                top: position.top + height * 0.2,
-                left: position.left - width * 0.8,
-                position: 'absolute',
-                'z-index': '20'
-            });
-            $("#tower3").css({
-                top: position.top + height * 0.2,
-                left: position.left - width * 0.12,
-                position: 'absolute',
-                'z-index': '20'
-            });
+        var width = $(window).width()
+        var height = $(window).height()
+        $('#towerSelection').css({
+            top : position.top * 1.1,
+            left : position.left * 1.05,
+            tranform: 'translateX(-50%) translateY(-50%)'
+        }).fadeIn('fast', function () {
             $(".towerIcon").fadeIn();
             $("#closeTowerSelection").fadeIn();
             /* choose certain tower and then change our name for the btn */
@@ -185,7 +153,7 @@ $(function () {
         $("#closeTowerSelection").hide();
     });
 
-    $(".towerIcon").click(function () {
+    $("#tower0, #tower1, #tower2, #tower3").click(function () {
         $("#towerSelection").fadeOut('fast');
         $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
@@ -206,10 +174,12 @@ $(function () {
             var imgId = 'towerImg' + buttonPos.substring(1);
             if (!set.has(buttonPos)) {
                 appendImg(imgId, $(buttonPos).position().top, $(buttonPos).position().left, '-60%', '-30%', '#gameScreen', 'absolute', url);
-                set.add(buttonPos)
+                set.add(buttonPos);
             } else {
                 $('#' + imgId).attr('src', url);
             }
+
+            console.log($("#" + imgId).width());
             /*
             var record = $('<img />').attr({
                 'id': imgId,
