@@ -127,7 +127,7 @@ class Game {
 
     }
 
-    buildTower(px, py, typeS) {
+    buildTower(px, py, typeS, l) {
         //console.log(typeS);
         var self = this;
         this.tower_list.forEach(function (tower, index) {
@@ -138,27 +138,32 @@ class Game {
             }
         })
         var type = undefined;
+        var level = undefined;
         switch (typeS) {
             case '#0':
                 type = towerType.LIGHT;
+                level = towerLevel.LIGHT[l];
                 // this.tower_list.push(new Tower(px, py, towerType.LIGHT));
                 // this.element[2]++;
                 // this.gold -= towerType.LIGHT[3];
                 break;
             case '#1':
                 type = towerType.FROZE;
+                level = towerLevel.FROZE[l];
                 // this.tower_list.push(new Tower(px, py, towerType.FROZE));
                 // this.element[1]++;
                 // this.gold -= towerType.FROZE[3];
                 break;
             case '#2':
                 type = towerType.FIRE;
+                level = towerLevel.FIRE[l];
                 // this.tower_list.push(new Tower(px, py, towerType.FIRE));
                 // this.element[0]++;
                 // this.gold -= towerType.LIGHT[3];
                 break;
             case '#3':
                 type = towerType.ARCHER;
+                level = towerLevel.ARCHER[l];
                 // this.tower_list.push(new Tower(px, py, towerType.ARCHER));
                 // this.element[3]++;
                 //console.log("build tower #3, need define towerType");
@@ -166,7 +171,8 @@ class Game {
         }
         if (this.gold >= type[3]) {
             this.gold -= type[3];
-            this.tower_list.push(new Tower(px, py, type));
+            //console.log("what is:" + level);
+            this.tower_list.push(new Tower(px, py, type, level));
             this.element[type[7]]++;
         }
 

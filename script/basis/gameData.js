@@ -32,20 +32,33 @@ const buffType = {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
-const towerType = {
-    //                   0         1        2         3         4                5                   6             7
-    // tower type and [typeName, damage, attack_cd, cost, range_radius，Bullet_velocity_scale, debuff_on_bullet, id ]
-    ARCHER: ['archer', -120, 1, 100, 400, 20, debuffType.NORMAL,3],
-    FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1],
-    LIGHT: ['light', -150, 4, 200, 270, 30, debuffType.DIZZY,2],
-    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0,100] // [8] the last one is range of the explosion
+const towerLevel = {
+    //                   level_1                         2                 3
+    // [name, [damage_increase, speed_increase], [damage, speed ], [damage, speed]]
+    // new damage = level[damage] + old damage
+    // new cd = old cd - level[cd]
+    // NOTE: do not change all tower speed under 1 sec 
+    ARCHER : ["archer level", [0,0], [25, 0], [50, 0]],  
+    FROZE : ["froze level", [0,0], [35, 0], [70, 0.5]],   
+    LIGHT : ["light level", [0,0], [70, 0.5], [140, 1]],
+    FIRE : ["fire level", [0,0], [50, 1], [100, 2]]
 }
+
+const towerType = {
+    //                   0         1        2         3         4                5                   6            7    8
+    // tower type and [typeName, damage, attack_cd, cost, range_radius，Bullet_velocity_scale, debuff_on_bullet, id, level]
+    ARCHER: ['archer', -120, 1, 100, 400, 20, debuffType.NORMAL,3, towerLevel.ARCHER],
+    FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1, towerLevel.FROZE],
+    LIGHT: ['light', -150, 4, 200, 270, 30, debuffType.DIZZY,2, towerLevel.LIGHT],
+    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,150] // [9] the last one is range of the explosion
+}
+
 
 const towerSwitch = [towerType.LIGHT, towerType.FROZE, towerType.FIRE, towerType.ARCHER];
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const enemyType = {
-    // type and [health, loot, velocity_x, velocity_y]
+    // type and [health, loot]
     TANK: [1000, 50],
     TANK_2:[1500, 50],
     TANK_3: [2500, 75],
