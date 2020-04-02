@@ -40,6 +40,8 @@ body {
 #towerIntro {
     color: burlywood;
     background-image: url("../gameAsset/td-gui/PNG/shop/table.png");
+    width: 40% !important;
+    height: 50% !important;
 }
 
 #towerIntro img {
@@ -372,7 +374,7 @@ body {
 }
 
 /* help menu button align */
-#towerType {
+#help {
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
@@ -380,7 +382,7 @@ body {
     width: 20%;
     height: 20%;
 }
-#help {
+#towerType {
     position: absolute;
     transform: translateX(-50%);
     left:50%;
