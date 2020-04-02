@@ -107,42 +107,43 @@ body {
 /*heart position*/
 #heart {
     position: absolute !important;
-    top: 4%;
-    right: 30%;
-    height: 5% !important;
+    top: 3%;
+    right: 34%;
+    height: 6% !important;
     width: 4% !important;
 }
 
 #heartNum {
     position: absolute;
-    top: 4%;
-    right: 27%;
+    top: 5.5%;
+    right: 26%;
     font-size: calc((.3em + 1vmin) + (.3em + 1vmax));
     color: yellow;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 /*skill cool down number*/
 #skillCd0 {
-    left: 5%;
+    left: 4%;
 }
 
 #skillCd1 {
-    left: 13%;
+    left: 11%;
 }
 
 #skillCd2 {
-    left: 21%;
+    left: 18.5%;
 }
 
 #skillCd3 {
-    left: 29%;
+    left: 26%;
 }
 
 /* skill button */
 #skill0 {
     position: absolute;
     bottom: 0%;
-    left: 0%;
+    left: 1%;
 }
 
 #skill1 {
@@ -154,14 +155,15 @@ body {
 #skill2 {
     position: absolute;
     bottom: 0%;
-    left: 16%;
+    left: 15.5%;
 }
 
 #skill3 {
     position: absolute;
     bottom: 0%;
-    left: 24%;
+    left: 23%;
 }
+
 
 /* button position for building tower */
 #tBtn0 {
@@ -360,4 +362,11 @@ body {
     bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/*  tower selection menu */ 
+#towerSelection {
+    background-image: url('../gameAsset/stone-tower-game-assets/PNG/53.png');
+    width: 13%;
+    height: 18%;
 }

@@ -1,0 +1,43 @@
+#towerSelection {
+    z-index: 30;
+    position:absolute;
+    background-image: url('../gameAsset/stone-tower-game-assets/PNG/53.png');
+    width: 13%!important;;
+    height: 18%!important;;
+    overflow: visible;
+}
+
+[id^=tower]{
+    position: absolute;
+    height: 25%;
+    width: 25%;
+}
+#tower0 {
+    left: 5.5%;
+    top: 8%;
+}
+#tower1 {
+    right: 5.5%;
+    top: 8%;
+}
+#tower2 {
+    left: 5.5%;
+    bottom: 8%;
+}
+#tower3 {
+    right: 5.5%;
+    bottom: 8%;
+}
+
+#closeTowerSelection {
+    position: absolute;
+    height: 25% !important;
+    width: 25% !important;
+    right: -17%;
+    top: -15%;
+}
+
+#closeTowerSelection img, #tower0 img, #tower1 img, #tower2 img, #tower3 img{
+    width:100%;
+    height: 100%;
+}
