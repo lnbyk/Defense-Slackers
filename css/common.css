@@ -1,3 +1,7 @@
+html {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
 .btn {
     background-color: transparent;
     background-repeat: no-repeat;
@@ -135,6 +139,7 @@
     background-color: transparent;
     /* make scrollbar transparent */
 }
+
 
 [id^=towerImg] {
     width: 12% !important;
