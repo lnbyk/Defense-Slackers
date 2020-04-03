@@ -56,9 +56,11 @@ $(function () {
 
     /*close main setting menu */
     $('#closeMainSetting').click(function () {
-        $("#mainSettingMenu").slideUp('slow');
-        $("#closeMainSetting").hide();
-        $('#playBtn, #bgmBtn, #mainSetting').fadeIn('fast');
+        $("#closeMainSetting").hide(function() {
+            $("#mainSettingMenu").slideUp('slow', function() {
+                $('#playBtn, #bgmBtn, #mainSetting').fadeIn('fast');
+            });
+        });
     });
 
     $('#closeLevelMenu').click(function() {
@@ -77,7 +79,7 @@ $(function () {
     /* button use to close help menu */
     $('#closeHelpBtn').click(function () {
         $('#closeHelpBtn, #towerIntro').fadeOut("fast", function () {
-            $("#mainHelp").slideUp('slow', function () {
+            $("#mainHelp").slideUp('fast', function () {
                 $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
             });
         })
