@@ -272,7 +272,7 @@ $(function () {
         $("#restartBtn").click(function () {
             game.pause();
             //game.cleanUp();
-            $("#" + "popUpWindow").fadeOut();
+             $("#" + "popUpWindow").fadeOut();
             game = new Game();
             game.setUp();
             $('#setting').slideUp('fast', function () {
@@ -371,8 +371,9 @@ $(function () {
         $('#popUpWindow').fadeOut('fast', function () {
             $("[id^='tBtn']").show();
             game.resume();
-            $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+             $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
             $('#pauseGame').attr('name', 'on');
+
         })
     })
 
