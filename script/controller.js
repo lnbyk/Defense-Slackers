@@ -132,7 +132,7 @@ $(function () {
         var width = $(window).width()
         var height = $(window).height()
         $('#towerSelection').css({
-            top : position.top * 1.1,
+            top : position.top * 1,
             left : position.left * 1.05,
             tranform: 'translateX(-50%) translateY(-50%)'
         }).fadeIn('fast', function () {

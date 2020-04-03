@@ -1,4 +1,4 @@
-const INIT_LIFE_SIZE  = 5;
+const INIT_LIFE_SIZE = 5;
 const LIFE_SIZE_PERCENTAGE = INIT_LIFE_SIZE.toString() + '%';
 const imgNum = 19;
 
@@ -15,6 +15,7 @@ class Enemy extends MovingObject {
         this.fireBall = undefined;
         this.iPos = iPos
         this.flip = iPos == 3 ? -1 : 1;
+        this.die = 0;
         // debuff
 
 
@@ -32,7 +33,7 @@ class Enemy extends MovingObject {
 
         // choose enemy image
         // make sure the id is unique
-        this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) +id;
+        this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) + id;
         var img = $('<img />').attr({
             'id': this.id,
             'src': './assets/enemyMove/1_enemies_1_walk_0.png'
@@ -43,10 +44,10 @@ class Enemy extends MovingObject {
         }).css({
             'width': '7%',
             'height': '7%',
-            'z-index' : '2',
-            'overflow' : 'hidden'
+            'z-index': '2',
+            'overflow': 'hidden'
         }).css({
-            'transform' : 'scaleX(' + this.flip + ' )'
+            'transform': 'scaleX(' + this.flip + ' )'
         }).appendTo('#gameScreen');
 
         // initialize enemy life bar image
@@ -58,13 +59,13 @@ class Enemy extends MovingObject {
             top: this.position.y,
             left: this.position.x,
             position: 'absolute',
-            'overflow' : 'visible'
+            'overflow': 'visible'
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
 
         }).appendTo('#gameScreen');
-        var x;// = docuemnt.querySelector('#' + lifeId);
+        var x; // = docuemnt.querySelector('#' + lifeId);
         ///var myImg = document.getElementById(lifeId);
         //this.lifeWidth = myImg.clientWidth;//$('#' + lifeId).width();
         // initialize health image
@@ -79,7 +80,7 @@ class Enemy extends MovingObject {
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
-            'overflow' : 'hidden'
+            'overflow': 'hidden'
         }).appendTo('#gameScreen');
         //this.black_hand_egg();
     }
@@ -93,23 +94,23 @@ class Enemy extends MovingObject {
         //console.log("print index: " + this.index );
         if (this.index >= 800 && this.iPos == 3) {
             $('#' + this.id).css({
-                'transform' : 'scaleX(1)'
+                'transform': 'scaleX(1)'
             });
         }
         //console.log("enemy move called");
         // get position from enemy_path(array)
         this.position.x = this.posArray[this.index].position.x;
         this.position.y = this.posArray[this.index].position.y;
-        
+
         // update index to get next position
         if (this.type == enemyType.AGILE || this.type == enemyType.AGILE_2) {
             if (this.index + 3 < this.posArray.length) {
                 this.index += 3;
-            }else {
-                this.index ++;
+            } else {
+                this.index++;
             }
-        }else {
-            this.index ++;
+        } else {
+            this.index++;
         }
     }
 
@@ -125,36 +126,50 @@ class Enemy extends MovingObject {
         }
         //this.upEgg();
         // no debuff
-        this.move(enemy_path);
+        if (this.die == 0)
+            this.move(enemy_path);
         $('#' + this.id).css({
             top: this.position.y,
             left: this.position.x,
             position: 'absolute'
         });
-        
+
         // Update tje css to show movement
         // update life bar postion
         $('#' + 'lifebar' + this.id).css({
-            top:  this.position.y,
+            top: this.position.y,
             left: this.position.x,
             position: 'absolute'
         });
         // update health postion
         $('#' + 'health' + this.id).css({
-            top:  this.position.y,
+            top: this.position.y,
             left: this.position.x,
             position: 'absolute',
         });
 
 
-        // enemy animation change images 
-        var cur = parseInt($('#' + this.id).attr('src').substring(36));
-        cur = ++cur > imgNum ? 0 : cur;
-        var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
-        $('#' + this.id).attr('src', nUrl);
-
-        
-
+        if (this.health == 0) {
+            var dUrl = $('#' + this.id).attr('src').substring(0, 31) + 'die_0.png';
+            $('#' + this.id).attr('src', dUrl);
+            this.die = 1;
+            this.health = -1000;
+        }
+        if (this.die == 0) {
+            // enemy animation change images 
+            var cur = parseInt($('#' + this.id).attr('src').substring(36));
+            cur = ++cur > imgNum ? 0 : cur;
+            var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
+            $('#' + this.id).attr('src', nUrl);
+        } else if (Math.abs(this.die) == 1) {
+            var cur = parseInt($('#' + this.id).attr('src').substring(35));
+            console.log(cur);
+            cur = ++cur > imgNum ? cur-- : cur;
+            var nUrl = $('#' + this.id).attr('src').substring(0, 35) + cur + '.png';
+            $('#' + this.id).attr('src', nUrl);
+            if (cur == 19)
+                this.die = -1;
+        }
     }
 
     // input a int and change the health of the enemy 
@@ -163,11 +178,11 @@ class Enemy extends MovingObject {
         //console.log("lifebar width: " + this.lifeWidth);
         var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
         var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
-       //console.log("curlife: " + curLife);
+        //console.log("curlife: " + curLife);
         $('#' + 'health' + this.id).css({
             'width': curLife
-       });
-        
+        });
+
     }
 
     // input a debuffType and set debuff
@@ -182,7 +197,7 @@ class Enemy extends MovingObject {
             return;
         }
         // NORMAL cannot override other debuff 
-        if (debuff != debuffType.NORMAL)  {
+        if (debuff != debuffType.NORMAL) {
             if (debuff == debuffType.FROZE && this.debuff == debuffType.DIZZY) {
                 // FROZE cannot override DIZZY
                 return;
@@ -215,21 +230,20 @@ class Enemy extends MovingObject {
                 this.debuff = debuffType.NORMAL;
                 return false;
             }
-            
+
             // if in debuff time
             //console.log("debuffSLow: " + this.debuffSlow);
-            if (this.debuffSlow > this.debuff[2]/2) {
+            if (this.debuffSlow > this.debuff[2] / 2) {
                 this.debuffSlow--;
                 return true;
-            }else if (this.debuffSlow <= this.debuff[2]/2 && this.debuffSlow != 0) {
+            } else if (this.debuffSlow <= this.debuff[2] / 2 && this.debuffSlow != 0) {
                 this.debuffSlow--;
                 return false;
-            }
-            else {
+            } else {
                 this.debuffSlow = this.debuff[2];
                 return false;
             }
-            
+
         }
     }
 
@@ -250,9 +264,9 @@ class Enemy extends MovingObject {
                 left: this.position.x,
                 position: 'absolute'
             }).css({
-                'height' : '8%',
-                'width' :'8%',
-                'z-index' : '1'
+                'height': '8%',
+                'width': '8%',
+                'z-index': '1'
             }).
             appendTo('#gameScreen');
         }
@@ -268,9 +282,9 @@ class Enemy extends MovingObject {
                 left: this.position.x,
                 position: 'absolute'
             }).css({
-                'height' : '4%',
-                'width' :'8%',
-                'z-index' : '3'
+                'height': '4%',
+                'width': '8%',
+                'z-index': '3'
             }).
             appendTo('#gameScreen');
         }
@@ -283,7 +297,7 @@ class Enemy extends MovingObject {
         if (this.fireBall != undefined) {
             //console.log("update fireball???????????");
             this.fireBall.update();
-            if (this.fireBall.collision(null) || this.health <=0) {
+            if (this.fireBall.collision(null) || this.health <= 0) {
                 this.fireBall.destroy_bullet();
                 this.fireBall = undefined;
             }
@@ -311,13 +325,13 @@ class Enemy extends MovingObject {
     }
 
     // when the enemy's health is zero delete it and img
-    destroy_enemy(){
+    destroy_enemy() {
         $('#' + this.id).remove();
         $('#' + 'lifebar' + this.id).remove();
         $("#" + 'health' + this.id).remove();
         $('#' + 'DebuffFrozen' + this.id).remove();
         $('#' + 'DebuffDizzy' + this.id).remove();
-        $('#'+"enemyBlackHand" + this.id).remove();
+        $('#' + "enemyBlackHand" + this.id).remove();
 
     }
 
@@ -332,15 +346,15 @@ class Enemy extends MovingObject {
         }).css({
             'width': '6%',
             'height': '6%',
-            'z-index' : '2',
-            'overflow' : 'hidden'
+            'z-index': '2',
+            'overflow': 'hidden'
         }).css({
-            'transform' : 'scaleX(' + this.flip + ' )'
+            'transform': 'scaleX(' + this.flip + ' )'
         }).appendTo('#gameScreen');
     }
 
     upEgg() {
-        $('#'+"enemyBlackHand" + this.id).css({
+        $('#' + "enemyBlackHand" + this.id).css({
             top: this.position.y,
             left: this.position.x,
             position: 'absolute'
