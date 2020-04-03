@@ -101,7 +101,12 @@ class Tower extends Element {
             this.cd_ready = false;
 
             // add bullet to list
+            
+            
+            $('#towerASound').get(0).pause();
             this.createBullet();
+            $('#towerASound').get(0).play();
+            
         }
     }
 
