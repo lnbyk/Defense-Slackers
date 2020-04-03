@@ -3,6 +3,7 @@ var buttonPos = ''
 let game;
 var set = new Set([]);
 var imgArray = [2, 6, 11, 16];
+var gameSpeed = 1;
 
 /* define string replace charAt function */
 String.prototype.replaceAt = function (index, replacement) {
@@ -312,6 +313,24 @@ $(function () {
                 $(this).attr('name', 'on');
                 break;
         }
+    });
+
+    // quickGame button
+    $("#quickGame").click(function() {
+        gameSpeed = gameSpeed == 1 ? 2 : 1; 
+        $("#quickGame").css({
+            opacity : gameSpeed/2
+        });
+        console.log("game speed: " + gameSpeed);
+        game.resetGameInterval();
+        game.resetTimeInterval();
+        game.tower_list.forEach(function(tower) {
+            tower.resetTimeInterval();
+        });
+        game.fireSkill.resetTimeInterval();
+        game.iceSkill.resetTimeInterval();
+        game.thunderSkill.resetTimeInterval();
+        game.stoneSkill.resetTimeInterval();
     });
 
     // fail game return to main menu

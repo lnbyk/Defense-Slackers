@@ -29,7 +29,7 @@ class Tower extends Element {
         // set timer for this tower
         this.timer = 0.0
         this.buffTimer = 0.0;
-        setInterval(function(){
+        this.timeInterval = setInterval(function(){
             if (game.game_state != gameState.PAUSE) {
                 self.calculateCoolDown()
                 self.buffTime();
@@ -247,6 +247,15 @@ class Tower extends Element {
         $("#BuffAttackRange" + this.id).remove();
     }
 
-
+    resetTimeInterval() {
+        var self = this;
+        clearInterval(this.timeInterval);
+        this.timeInterval = setInterval(function(){
+            if (game.game_state != gameState.PAUSE) {
+                self.calculateCoolDown()
+                self.buffTime();
+            }
+        }, 100/gameSpeed);
+    }
 
 }

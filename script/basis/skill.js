@@ -79,4 +79,14 @@ class Skill {
             });
         }
     }
+
+    resetTimeInterval() {
+        var self = this;
+        clearInterval(this.interval);
+        this.interval = setInterval(function() {
+            if (game.game_state != gameState.PAUSE) {
+                self.calculateCoolDown();
+            }
+        }, 1000/gameSpeed);
+    }
 }
