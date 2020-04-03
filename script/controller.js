@@ -28,6 +28,7 @@ $(function () {
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
     $('#winScene, #failScene, #popUpWindow').hide();
+
     /* button functionality */
     /* bgm cont rol button */
     $("#bgmBtn").click(function () {

@@ -1,6 +1,4 @@
-html {
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-}
+body { -ms-overflow-style: none; }
 
 .btn {
     background-color: transparent;
