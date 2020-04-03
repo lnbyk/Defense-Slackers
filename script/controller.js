@@ -24,7 +24,7 @@ $(function () {
     $("#gameScreen").hide();
     $("#towerSelection").hide();
     $("#setting").hide();
-    $('#mainHelp, #towerIntro').hide();
+    $('#mainHelp, #towerIntro, #levelSMenu').hide();
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
     $('#winScene, #failScene, #popUpWindow').hide();
@@ -52,14 +52,20 @@ $(function () {
         $("#mainSettingMenu, #closeMainSetting").fadeIn('fast');
         $('#playBtn, #bgmBtn, #mainSetting').fadeOut('fast');
 
-    })
+    });
 
     /*close main setting menu */
     $('#closeMainSetting').click(function () {
         $("#mainSettingMenu").slideUp('slow');
         $("#closeMainSetting").hide();
         $('#playBtn, #bgmBtn, #mainSetting').fadeIn('fast');
-    })
+    });
+
+    $('#closeLevelMenu').click(function() {
+        $("#levelSMenu").fadeOut('fast', function() {
+            $('#mainMenu').fadeIn('fast');
+        });
+    });
 
     /*button use to show help menu */
     $("#help").click(function () {
@@ -76,13 +82,13 @@ $(function () {
             });
         })
 
-    })
+    });
     /*button use to open tower introduction menu */
     $('#towerType').click(function () {
         $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function () {
             $("#towerIntro, #closeHelpBtn").fadeIn('fast');
         });
-    })
+    });
 
     /* button use to change enemy icon */
     $('#lastEnemy, #nextEnemy').click(function () {
@@ -99,13 +105,25 @@ $(function () {
     /* game play button */
     $("#playBtn").click(function () {
         $("#mainMenu").slideUp('slow', function () {
-            $("#gameScreen").fadeIn('slow');
-            $("#backgroundMusic").get(0).pause();
+            $("#levelSMenu").fadeIn('slow');
         });
-        $("[id^='tBtn']").show();
-        // game start
-        game.setUp();
     });
+
+    $('[id^=level]').click(function () {
+        var curLevel = $(this).attr('id');
+        switch (curLevel) {
+            case 'level1':
+                $("#mainMenu").slideUp('slow', function () {
+                    $("#gameScreen").fadeIn('slow');
+                    $("#backgroundMusic").get(0).pause();
+                });
+                $("[id^='tBtn']").show();
+                break;
+            default:
+                return;
+        }
+        game.setUp();
+    })
 
 
 
@@ -272,7 +290,7 @@ $(function () {
         $("#restartBtn").click(function () {
             game.pause();
             //game.cleanUp();
-             $("#" + "popUpWindow").fadeOut();
+            $("#" + "popUpWindow").fadeOut();
             game = new Game();
             game.setUp();
             $('#setting').slideUp('fast', function () {
@@ -371,13 +389,13 @@ $(function () {
         $('#popUpWindow').fadeOut('fast', function () {
             $("[id^='tBtn']").show();
             game.resume();
-             $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+            $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
             $('#pauseGame').attr('name', 'on');
 
         })
     })
 
-    $(":button").click(function() {
+    $(":button").click(function () {
         $('#btnClick').get(0).play();
     })
 
