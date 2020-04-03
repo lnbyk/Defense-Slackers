@@ -247,9 +247,11 @@ $(function () {
         // close the setting menu
         $('#closeSBtn').click(function () {
             $('#setting').fadeOut('fast');
+            $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+            $('#pauseGame').attr('name', 'on');
             game.resume();
         })
-
+        $("#" + "popUpWindow").fadeOut();
         // go to main menu
         $('#leftBtn').click(function () {
             $('#setting').slideUp('fast', function () {
@@ -269,6 +271,7 @@ $(function () {
         $("#restartBtn").click(function () {
             game.pause();
             //game.cleanUp();
+            $("#" + "popUpWindow").fadeOut();
             game = new Game();
             game.setUp();
             $('#setting').slideUp('fast', function () {
@@ -367,6 +370,8 @@ $(function () {
         $('#popUpWindow').fadeOut('fast', function () {
             $("[id^='tBtn']").show();
             game.resume();
+            $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+            $('#pauseGame').attr('name', 'on');
         })
     })
 
