@@ -36,7 +36,7 @@ class Enemy extends MovingObject {
         this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) + id;
         var img = $('<img />').attr({
             'id': this.id,
-            'src': './assets/enemyMove/1_enemies_1_walk_0.png'
+            'src': "./assets/enemyMove/" + (Math.floor(Math.random() * 4) + 1) + "_enemies_1_walk_0.png"
         }).css({
             top: this.position.y,
             left: this.position.x,
@@ -121,6 +121,29 @@ class Enemy extends MovingObject {
         // debuff animation
         this.debuffAnimation();
         // if the enemy has a debuff effect
+
+        if (this.health == 0) {
+            var dUrl = $('#' + this.id).attr('src').substring(0, 31) + 'die_0.png';
+            $('#' + this.id).attr('src', dUrl);
+            this.die = 1;
+            this.health = -1000;
+        }
+        if (this.die == 0) {
+            // enemy animation change images 
+            var cur = parseInt($('#' + this.id).attr('src').substring(36));
+            cur = ++cur > imgNum ? 0 : cur;
+            var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
+            $('#' + this.id).attr('src', nUrl);
+        } else if (Math.abs(this.die) == 1) {
+            var cur = parseInt($('#' + this.id).attr('src').substring(35));
+            //console.log(cur);
+            cur = ++cur > imgNum ? cur-- : cur;
+            var nUrl = $('#' + this.id).attr('src').substring(0, 35) + cur + '.png';
+            $('#' + this.id).attr('src', nUrl);
+            if (cur == 19)
+                this.die = -1;
+        }
+
         if (this.debuffEffect()) {
             return;
         }
@@ -149,32 +172,12 @@ class Enemy extends MovingObject {
         });
 
 
-        if (this.health == 0) {
-            var dUrl = $('#' + this.id).attr('src').substring(0, 31) + 'die_0.png';
-            $('#' + this.id).attr('src', dUrl);
-            this.die = 1;
-            this.health = -1000;
-        }
-        if (this.die == 0) {
-            // enemy animation change images 
-            var cur = parseInt($('#' + this.id).attr('src').substring(36));
-            cur = ++cur > imgNum ? 0 : cur;
-            var nUrl = $('#' + this.id).attr('src').substring(0, 36) + cur + '.png';
-            $('#' + this.id).attr('src', nUrl);
-        } else if (Math.abs(this.die) == 1) {
-            var cur = parseInt($('#' + this.id).attr('src').substring(35));
-            console.log(cur);
-            cur = ++cur > imgNum ? cur-- : cur;
-            var nUrl = $('#' + this.id).attr('src').substring(0, 35) + cur + '.png';
-            $('#' + this.id).attr('src', nUrl);
-            if (cur == 19)
-                this.die = -1;
-        }
+       
     }
 
     // input a int and change the health of the enemy 
     setHealth(x) {
-        this.health += x;
+        this.health = this.health + x >= 0 ?  this.health + x : 0;
         //console.log("lifebar width: " + this.lifeWidth);
         var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
         var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';

@@ -51,9 +51,9 @@ class Bullet extends MovingObject {
 
             // if it is a fire bullet, explode (hit every enemies in exlposion range)
             if (this.type == towerType.FIRE) {
-                console.log("explode!!!!!!!!!!!!!!!");
+                //console.log("explode!!!!!!!!!!!!!!!");
                 enemy_list.forEach(function(enemy) {
-                    if (self.getNorm(enemy.position.x, enemy.position.y) <= self.type[9]) {
+                    if (self.getNorm(enemy.position.x, enemy.position.y) <= self.type[9] && enemy.health > 0) {
                         enemy.setHealth(self.damage);
                     }
                 });
