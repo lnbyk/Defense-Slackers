@@ -2,7 +2,7 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const gameLevel = {
     //  [name,home_health, initial_gola]
-    LEVEL_1 : ["level_1", 10, 31000],
+    LEVEL_1 : ["level_1", 10, 300],
     Test : ["test", 1000, 10000]
 }
 
@@ -76,10 +76,10 @@ const enemyGenerate ={
 const skillType = {
     //              0      1        2       3   4     5
     // skill type[name, damage, cool_down, id, buff, velocity]
-    ARCHER : ['archer skill', 0, 9, 3, buffType.ATTACK_RANGE, 0],
-    FROZE : ['frozen skill', -100, 8, 1, debuffType.DIZZY, 0],
-    LIGHT : ['light skill', 0, 25, 2, buffType.ATTACK_SPEED, 0],
-    FIRE : ['fire skill', -800, 25, 0, debuffType.FIRE, 25, debuffType.NORMAL]
+    ARCHER : ['archer skill', 0, 9, 3, buffType.ATTACK_RANGE, 0,undefined, "stoneSound"],
+    FROZE : ['frozen skill', -100, 9, 1, debuffType.DIZZY, 0, undefined, "freezeSound"],
+    LIGHT : ['light skill', 0, 25, 2, buffType.ATTACK_SPEED, 0, undefined, "speedUpGame"],
+    FIRE : ['fire skill', -800, 25, 0, debuffType.FIRE, 25, debuffType.NORMAL, 'LargeFireball']
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 

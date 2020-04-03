@@ -37,8 +37,8 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.health = gameLevel.Test[1]; // data in gameData.js
-        this.gold = gameLevel.Test[2]; // data in gameData.js
+        this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
+        this.gold = gameLevel.LEVEL_1[2]; // data in gameData.js
         this.process = enemyGenerate.PROCESS_1;
         this.enemy_counter = 0;
         this.enemy_flag = undefined;
@@ -292,22 +292,22 @@ class Game {
         switch (skill) {
             case "#skill0":
                 //fire (damage all enemies)
-                $('#LargeFireball').get(0).play();
+               // $('#LargeFireball').get(0).play();
                 this.fireSkill.implementSkill(this.enemy_list);
                 break;
             case "#skill1":
                 //ice (froze all enemies (couldnot move))
-                $('#freezeSound').get(0).play();
+                //$('#freezeSound').get(0).play();
                 this.iceSkill.implementSkill(this.enemy_list);
                 break;
             case "#skill2":
                 //thunder
-                $('#speedUpGame').get(0).play();
+               // $('#speedUpGame').get(0).play();
                 this.thunderSkill.implementSkill(this.tower_list);
                 break;
             case "#skill3":
                 //stone
-                $('#stoneSound').get(0).play();
+                //$('#stoneSound').get(0).play();
                 this.stoneSkill.implementSkill(this.tower_list);
                 break;
         }

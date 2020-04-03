@@ -28,7 +28,7 @@ class Skill {
         if (this.ready) {
             // use the skill
             this.skillEffect(list);
-
+            $('#' + this.type[7]).get(0).play();
             // start cool down
             this.ready = false;
 
