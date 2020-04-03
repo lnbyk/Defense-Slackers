@@ -369,12 +369,6 @@ body {
     transform: translateX(-50%);
 }
 
-/*  tower selection menu */
-#towerSelection {
-    background-image: url('../gameAsset/archer-tower-game-assets/PNG/towerSUpdate.png');
-    width: 13%;
-    height: 18%;
-}
 
 /* help menu button align */
 #help {
