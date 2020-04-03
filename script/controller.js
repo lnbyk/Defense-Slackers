@@ -4,6 +4,7 @@ let game;
 var set = new Set([]);
 var imgArray = [2, 6, 11, 16];
 var gameSpeed = 1;
+var cccname;
 
 /* define string replace charAt function */
 String.prototype.replaceAt = function (index, replacement) {
@@ -111,21 +112,27 @@ $(function () {
     /* build tower button */
     $(".tbtn").click(function () {
         imgDefault();
+        if($('#' + cccname).length != 0)
+            $('#' +cccname).show();
         buttonPos = '#' + $(this).attr('id');
         curName = $(this).attr('name');
         curRank = $(this).attr('rank')
         if (curName != 'pit') {
             for (var curpos = 0; curpos < 4; curpos++) {
                 var oldUrl = $('#' + curpos).attr('src');
-                if (curName == curpos) {
+                if (curName == curpos && curRank < 3) {
                     oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank)) + '.png';
-                } else if (parseInt(curRank) > 0) {
+                } 
+                else if(curName == curpos && curRank == 3) {
+                    $('#tower' + curpos).hide();
+                }
+                else if (parseInt(curRank) > 0) {
                     oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank) - 1) + '.png';
                 }
                 $('#' + curpos).attr('src', oldUrl);
             }
         }
-
+        cccname = 'tower' + curName;
         // switch (curRank) {
         //case '0':
         var position = $(this).position();
@@ -136,7 +143,6 @@ $(function () {
             left : position.left * 1.05,
             tranform: 'translateX(-50%) translateY(-50%)'
         }).fadeIn('fast', function () {
-            $(".towerIcon").fadeIn();
             $("#closeTowerSelection").fadeIn();
             /* choose certain tower and then change our name for the btn */
         });
@@ -145,18 +151,17 @@ $(function () {
         //     break;
         //
         //}
+
     });
 
     /* button use to close tower selection menu */
     $("#closeTowerSelection").click(function () {
         $("#towerSelection").fadeOut('fast');
-        $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
     });
 
     $("#tower0, #tower1, #tower2, #tower3").click(function () {
         $("#towerSelection").fadeOut('fast');
-        $(".towerIcon").hide();
         $("#closeTowerSelection").hide();
         /*  get the image url of the tower we clicker  */
         var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
