@@ -21,6 +21,9 @@ class Game {
         // timer of game
         this.timer = 0;
         gameSpeed = 1;
+        $("#quickGame").css({
+            opacity: gameSpeed / 2
+        });
     }
 
     /*set up game
@@ -30,6 +33,7 @@ class Game {
         imgDefault();
         $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
         $('#pauseGame').attr('name', 'on');
+
         $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();
         $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeIn('fast');
