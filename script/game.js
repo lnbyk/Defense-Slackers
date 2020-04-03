@@ -290,18 +290,22 @@ class Game {
         switch (skill) {
             case "#skill0":
                 //fire (damage all enemies)
+                $('#LargeFireball').get(0).play();
                 this.fireSkill.implementSkill(this.enemy_list);
                 break;
             case "#skill1":
                 //ice (froze all enemies (couldnot move))
+                $('#freezeSound').get(0).play();
                 this.iceSkill.implementSkill(this.enemy_list);
                 break;
             case "#skill2":
                 //thunder
+                $('#speedUpGame').get(0).play();
                 this.thunderSkill.implementSkill(this.tower_list);
                 break;
             case "#skill3":
                 //stone
+                $('#stoneSound').get(0).play();
                 this.stoneSkill.implementSkill(this.tower_list);
                 break;
         }
@@ -326,6 +330,7 @@ class Game {
     win() {
         this.game_state = gameState.PAUSE;
         console.log(this.game_state + "the game!!!!!!");
+        $('#wingame').get(0).play();
         $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeOut('fast', function () {
             $('#winScene').fadeIn('fast');
         })
@@ -334,6 +339,7 @@ class Game {
     lose() {
         this.game_state = gameState.PAUSE;
         console.log(this.game_state + "the game!!!!!!");
+        $('#losegame').get(0).play();
         $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeOut('fast', function () {
             $('#failScene').fadeIn('fast');
         })

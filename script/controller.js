@@ -338,6 +338,7 @@ $(function () {
 
     // fail game return to main menu
     $('#failLevelS, #winLevelS').click(function () {
+        $('#wingame').get(0).pause();
         $('#failScene, #winScene').slideUp('fast', function () {
             $("#gameScreen").slideUp('slow', function () {
                 $("#mainMenu").fadeIn('slow');
@@ -367,6 +368,10 @@ $(function () {
             $("[id^='tBtn']").show();
             game.resume();
         })
+    })
+
+    $(":button").click(function() {
+        $('#btnClick').get(0).play();
     })
 
 });
