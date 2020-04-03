@@ -97,8 +97,10 @@ class Game {
                 //update each tower
                 this.enemy_list.forEach(function (item, index) {
                     item.update(self.enemy_path_11);
+                    if (item.health <= 0 && item.health != -1000)
+                        item.health = 0;
                     // if enemy dead remove and destroy it
-                    if (item.health <= 0 || item.index >= item.posArray.length) {
+                    if (item.die == -1 || item.index >= item.posArray.length) {
                         if (item.health <= 0) {
                             // enemy died
                             self.gold += item.type[1];

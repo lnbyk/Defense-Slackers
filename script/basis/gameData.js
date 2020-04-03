@@ -50,7 +50,7 @@ const towerType = {
     ARCHER: ['archer', -120, 1, 100, 400, 20, debuffType.NORMAL,3, towerLevel.ARCHER],
     FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1, towerLevel.FROZE],
     LIGHT: ['light', -150, 4, 200, 270, 30, debuffType.DIZZY,2, towerLevel.LIGHT],
-    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,150] // [9] the last one is range of the explosion
+    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,125] // [9] the last one is range of the explosion
 }
 
 
