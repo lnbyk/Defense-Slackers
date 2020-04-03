@@ -112,8 +112,8 @@ $(function () {
     /* build tower button */
     $(".tbtn").click(function () {
         imgDefault();
-        if($('#' + cccname).length != 0)
-            $('#' +cccname).show();
+        if ($('#' + cccname).length != 0)
+            $('#' + cccname).show();
         buttonPos = '#' + $(this).attr('id');
         curName = $(this).attr('name');
         curRank = $(this).attr('rank')
@@ -122,11 +122,9 @@ $(function () {
                 var oldUrl = $('#' + curpos).attr('src');
                 if (curName == curpos && curRank < 3) {
                     oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank)) + '.png';
-                } 
-                else if(curName == curpos && curRank == 3) {
+                } else if (curName == curpos && curRank == 3) {
                     $('#tower' + curpos).hide();
-                }
-                else if (parseInt(curRank) > 0) {
+                } else if (parseInt(curRank) > 0) {
                     oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank) - 1) + '.png';
                 }
                 $('#' + curpos).attr('src', oldUrl);
@@ -139,8 +137,8 @@ $(function () {
         var width = $(window).width()
         var height = $(window).height()
         $('#towerSelection').css({
-            top : position.top * 1,
-            left : position.left * 1.05,
+            top: position.top * 1,
+            left: position.left * 1.05,
             tranform: 'translateX(-50%) translateY(-50%)'
         }).fadeIn('fast', function () {
             $("#closeTowerSelection").fadeIn();
@@ -165,9 +163,9 @@ $(function () {
         $("#closeTowerSelection").hide();
         /*  get the image url of the tower we clicker  */
         var t = '#' + $(this).attr('id').charAt($(this).attr('id').length - 1);
-       // console.log(towerSwitch[parseInt(t.charAt(1))][0]);
+        // console.log(towerSwitch[parseInt(t.charAt(1))][0]);
         if (game.gold >= towerSwitch[parseInt(t.charAt(1))][3]) {
-            
+
             var nextNum = parseInt($(t).attr('src').charAt(38, -4)) + parseInt($(buttonPos).attr('rank'));
             var url = $(t).attr('src');
             url.replaceAt(38, nextNum);
@@ -201,26 +199,26 @@ $(function () {
             var currRank = parseInt($(buttonPos).attr('rank'));
             var currName = $(buttonPos).attr('name');
 
-            if (currRank < 3 && ((t.charAt(1) == currName || currName == 'pit'))){
+            if (currRank < 3 && ((t.charAt(1) == currName || currName == 'pit'))) {
                 $(buttonPos).attr('rank', currRank + 1);
             }
-            $(buttonPos ).attr('name', t.charAt(1) + "");
-            console.log("Rank and Name: " + $(buttonPos).attr('rank') +", " + $(buttonPos).attr('name'));
+            $(buttonPos).attr('name', t.charAt(1) + "");
+            console.log("Rank and Name: " + $(buttonPos).attr('rank') + ", " + $(buttonPos).attr('name'));
             $(buttonPos).fadeIn();
             game.buildTower($(buttonPos).position().left, $(buttonPos).position().top, t, $(buttonPos).attr('rank'));
 
             /* adjust position */
         } else {
             $('<div> not enough diamond </div>').attr({
-                'id' : 'diamondAlert',
-                'text' : 'not enough diamond'
+                'id': 'diamondAlert',
+                'text': 'not enough diamond'
             }).css({
-                position : 'absolute',
+                position: 'absolute',
                 top: '30%',
                 left: '20%',
-                'tranform' : 'translateX(50%) translateY(-50%)' 
+                'tranform': 'translateX(50%) translateY(-50%)'
             }).appendTo('#popUpWindow');
-            $('#popUpWindow').fadeIn('fast', function(){
+            $('#popUpWindow').fadeIn('fast', function () {
                 $("[id^='tBtn']").hide();
                 game.pause();
             })
@@ -321,15 +319,15 @@ $(function () {
     });
 
     // quickGame button
-    $("#quickGame").click(function() {
-        gameSpeed = gameSpeed == 1 ? 2 : 1; 
+    $("#quickGame").click(function () {
+        gameSpeed = gameSpeed == 1 ? 2 : 1;
         $("#quickGame").css({
-            opacity : gameSpeed/2
+            opacity: gameSpeed / 2
         });
         console.log("game speed: " + gameSpeed);
         game.resetGameInterval();
         game.resetTimeInterval();
-        game.tower_list.forEach(function(tower) {
+        game.tower_list.forEach(function (tower) {
             tower.resetTimeInterval();
         });
         game.fireSkill.resetTimeInterval();
@@ -364,8 +362,8 @@ $(function () {
         })
     })
 
-    $('#closePopUpWindow').click(function() {
-        $('#popUpWindow').fadeOut('fast', function() {
+    $('#closePopUpWindow').click(function () {
+        $('#popUpWindow').fadeOut('fast', function () {
             $("[id^='tBtn']").show();
             game.resume();
         })

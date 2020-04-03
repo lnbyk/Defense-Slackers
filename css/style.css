@@ -48,17 +48,19 @@ body {
     position: absolute;
     width: 20%;
     height: 28%;
-    left : 20% ;
+    left: 20%;
 }
 
 [id^=skilgif] {
     width: 60% !important;
     height: 20% !important;
 }
+
 [id^=tttnnn] {
     width: 10% !important;
     height: 10% !important;
 }
+
 /* enemy image size in the help menu */
 #helpEnemy {
     width: 30%;
@@ -226,7 +228,7 @@ body {
     right: 12%;
     top: 12%;
     transform: translateY(10);
-    opacity : 0.5;
+    opacity: 0.5;
 }
 
 #windowImage {
@@ -280,8 +282,8 @@ body {
 #winLevelS img,
 #winLevelNext img,
 #failLevelS img,
-#failLevelNext img, 
-#closePopUpWindow img{
+#failLevelNext img,
+#closePopUpWindow img {
     width: 100% !important;
     height: 100% !important;
 }
@@ -367,9 +369,9 @@ body {
     transform: translateX(-50%);
 }
 
-/*  tower selection menu */ 
+/*  tower selection menu */
 #towerSelection {
-    background-image: url('../gameAsset/stone-tower-game-assets/PNG/53.png');
+    background-image: url('../gameAsset/archer-tower-game-assets/PNG/towerSUpdate.png');
     width: 13%;
     height: 18%;
 }
@@ -383,15 +385,18 @@ body {
     width: 20%;
     height: 20%;
 }
+
 #towerType {
     position: absolute;
     transform: translateX(-50%);
-    left:50%;
+    left: 50%;
     top: 30%;
     width: 20%;
     height: 20%;
 }
-#towerType img, #help img{
+
+#towerType img,
+#help img {
     width: 100%;
     height: 100%;
 }
