@@ -188,7 +188,7 @@ class Enemy extends MovingObject {
                 return;
             }
             this.debuff = debuff;
-            console.log("debuff!!!!!!!!!!!: " + this.debuff);
+            //console.log("debuff!!!!!!!!!!!: " + this.debuff);
             this.debuffTime = debuff[1];
             this.debuffSlow = debuff[2];
             this.debuffAnimationInit();

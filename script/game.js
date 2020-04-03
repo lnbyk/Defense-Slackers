@@ -19,7 +19,7 @@ class Game {
         console.log(this.game_state);
         // timer of game
         this.timer = 0;
-
+        gameSpeed = 1;
     }
 
     /*set up game
@@ -66,12 +66,12 @@ class Game {
 
         /* set interval and call update */
         //this.enemy_list.push(new Enemy(0, 200, enemyType.TANK, this.enemy_list.length));
-        setInterval(function () {
+        this.gameInterval = setInterval(function () {
             self.update()
         }, 30);
         //this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
         // start timer
-        setInterval(function () {
+        this. timeInterval = setInterval(function () {
             if (self.game_state == gameState.PLAY) {
                 self.createEnemy();
                 self.timer++;
@@ -379,5 +379,26 @@ class Game {
         clearInterval(this.iceSkill.interval);
         clearInterval(this.thunderSkill.interval);
         clearInterval(this.stoneSkill.interval);
+    }
+
+    // reset gameInterval
+    resetGameInterval () {
+        var self = this;
+        clearInterval(this.gameInterval);
+        this.gameInterval = setInterval(function () {
+            self.update();
+        }, 30/gameSpeed);
+    }
+
+    // reset timeInterval
+    resetTimeInterval() {
+        var self = this;
+        clearInterval(this.timeInterval);
+        this. timeInterval = setInterval(function () {
+            if (self.game_state == gameState.PLAY) {
+                self.createEnemy();
+                self.timer++;
+            }
+        }, 1000/gameSpeed);
     }
 }

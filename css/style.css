@@ -226,6 +226,7 @@ body {
     right: 12%;
     top: 12%;
     transform: translateY(10);
+    opacity : 0.5;
 }
 
 #windowImage {
