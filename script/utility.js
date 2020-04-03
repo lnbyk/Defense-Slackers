@@ -8,6 +8,7 @@ function appendImg(id, x, y, rx, ry, des, pos, url, w, h) {
             left: y,
             position: pos,
         }).css({
+            'z-index' : '11',
             'width': '20%',
             'height': '20%',
         }).css({

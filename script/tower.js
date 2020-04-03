@@ -82,7 +82,7 @@ class Tower extends Element {
             distance = enemy.getNorm(self.position.x, self.position.y);
             if (distance <= self.range) {
                 tmpDistance = enemy.getNorm(enemy.posArray[enemy.posArray.length - 1].position.x, enemy.posArray[enemy.posArray.length - 1].position.y);
-                if (tmpDistance < minDistance) {
+                if (tmpDistance < minDistance && enemy.health > 0) {
                     minDistance = tmpDistance;
                     self.target = enemy;
                     attack = true;
