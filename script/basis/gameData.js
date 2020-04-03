@@ -2,7 +2,7 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const gameLevel = {
     //  [name,home_health, initial_gola]
-    LEVEL_1 : ["level_1", 10, 300],
+    LEVEL_1 : ["level_1", 10, 31000],
     Test : ["test", 1000, 10000]
 }
 
@@ -41,16 +41,16 @@ const towerLevel = {
     ARCHER : ["archer level", [0,0], [25, 0], [50, 0]],  
     FROZE : ["froze level", [0,0], [35, 0], [70, 0.5]],   
     LIGHT : ["light level", [0,0], [70, 0.5], [140, 1]],
-    FIRE : ["fire level", [0,0], [50, 1], [100, 2]]
+    FIRE : ["fire level", [0,0], [25, 0.5], [50, 1]]
 }
 
 const towerType = {
     //                   0         1        2         3         4                5                   6            7    8
     // tower type and [typeName, damage, attack_cd, cost, range_radius，Bullet_velocity_scale, debuff_on_bullet, id, level]
-    ARCHER: ['archer', -120, 1, 100, 400, 20, debuffType.NORMAL,3, towerLevel.ARCHER],
+    ARCHER: ['archer', -150, 1, 100, 400, 20, debuffType.NORMAL,3, towerLevel.ARCHER],
     FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1, towerLevel.FROZE],
-    LIGHT: ['light', -150, 4, 200, 270, 30, debuffType.DIZZY,2, towerLevel.LIGHT],
-    FIRE: ['fire', -350, 4, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,125] // [9] the last one is range of the explosion
+    LIGHT: ['light', -90, 4, 200, 270, 30, debuffType.DIZZY,2, towerLevel.LIGHT],
+    FIRE: ['fire', -300, 5, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,125] // [9] the last one is range of the explosion
 }
 
 
