@@ -238,7 +238,7 @@ class Tower extends Element {
                 'height' : '6%',
                 'width' : '4%',
                 'opacity' : '0.7',
-                'z-index' : 31
+                'z-index' : 19
             }).appendTo('#gameScreen');
         }
     }
