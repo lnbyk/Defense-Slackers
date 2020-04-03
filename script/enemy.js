@@ -122,7 +122,8 @@ class Enemy extends MovingObject {
         this.debuffAnimation();
         // if the enemy has a debuff effect
 
-        if (this.health == 0) {
+        if (this.health == 0 && this.die == 0) {
+            console.log("die");
             var dUrl = $('#' + this.id).attr('src').substring(0, 31) + 'die_0.png';
             $('#' + this.id).attr('src', dUrl);
             this.die = 1;
@@ -178,6 +179,7 @@ class Enemy extends MovingObject {
     // input a int and change the health of the enemy 
     setHealth(x) {
         this.health = this.health + x >= 0 ?  this.health + x : 0;
+        //this.health += x;
         //console.log("lifebar width: " + this.lifeWidth);
         var ratio = (this.health / this.type[0]); //* this.lifeWidth; 
         var curLife = (INIT_LIFE_SIZE * ratio).toString() + '%';
