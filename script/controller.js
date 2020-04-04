@@ -21,7 +21,7 @@ function imgDefault() {
 $(function () {
     // create game here
     game = new Game();
-    $("#gameScreen").hide();
+    $("[id^=gameScreen]").hide();
     $("#towerSelection").hide();
     $("#setting").hide();
     $('#mainHelp, #towerIntro, #levelSMenu').hide();
