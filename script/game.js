@@ -22,9 +22,10 @@ class Game {
         // timer of game
         this.timer = 0;
         gameSpeed = 1;
-        $("#quickGame").css({
+        $("[id^=quickGame]").css({
             opacity: gameSpeed / 2
         });
+        this.level = undefined;
     }
 
     /*set up game
@@ -45,9 +46,10 @@ class Game {
         let self = this;
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
-        this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
-        this.gold = gameLevel.Test[2]; // data in gameData.js
-        this.process = enemyGenerate.PROCESS_1;
+        this.health = this.level[1]; // data in gameData.js
+        this.gold = this.level[2]; // data in gameData.js
+        this.process = this.level[4][0]; // the first process of this level
+        this.processIndex = 0;
         this.enemy_counter = 0;
         this.enemy_flag = undefined;
         this.timer = 0;
@@ -61,10 +63,16 @@ class Game {
         this.stoneSkill = new BuffSkill(skillType.ARCHER);
 
         // test control_points (comment it when playing game )
-        // drawControlPoints(CONTROL_POINTS_11);
-        // drawControlPoints(CONTROL_POINTS_12);
+        //drawControlPoints(CONTROL_POINTS_21);
+        //drawControlPoints(CONTROL_POINTS_22);
+        //this.scalePath(CONTROL_POINTS_21);
+        //this.scalePath(CONTROL_POINTS_22);
+        //drawControlPoints(CONTROL_POINTS_12);
         // drawControlPoints(CONTROL_POINTS_13);
-
+        this.path_list = new Array();
+        for (var i = 0; i < this.level[3].length; i++) {
+            this.path_list.push(this.scalePath(this.level[3][i]));
+        }
         this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
         this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
         this.enemy_path_13 = this.scalePath(CONTROL_POINTS_13);
@@ -80,7 +88,7 @@ class Game {
         }, 30);
         //this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
         // start timer
-        this. timeInterval = setInterval(function () {
+        this.timeInterval = setInterval(function () {
             if (self.game_state == gameState.PLAY) {
                 self.createEnemy();
                 self.timer++;
@@ -99,7 +107,7 @@ class Game {
                     console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
                     // change game state
                 }
-                if (this.process == enemyGenerate.PROCESS_3 && this.enemy_list.length == 0) {
+                if (this.process == enemyGenerate.END && this.enemy_list.length == 0) {
                     self.win();
                 }
                 this.showSKillCD();
@@ -206,56 +214,113 @@ class Game {
     }
 
     createEnemy() {
-        switch(this.process) {
-            case enemyGenerate.PROCESS_1:
-                if (this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
-                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
-                    this.enemy_counter++;
-                    if (this.enemy_counter >= this.process[1]) {
-                        this.enemy_counter = 0;
-                        this.process = enemyGenerate.PROCESS_2;
-                        this.enemy_flag = false;
-                        console.log("enter " + this.process[0]);
-                    }
-                }
-                break;
-            case enemyGenerate.PROCESS_2:
-                if (this.enemy_list.length < 4) {
-                    this.enemy_flag = true;
-                }
-                if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
-                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
-                    this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE, this.timer, this.enemy_path_12, 2));
-                    this.enemy_counter += 2;
-                    if (this.enemy_counter >= this.process[1]) {
-                        this.enemy_counter = 0;
-                        this.process = enemyGenerate.PROCESS_3;
-                        console.log("enter " + this.process[0]);
-                        this.enemy_flag = false;
-                    }
-                }
-                break;
-            case enemyGenerate.PROCESS_3:
-                if (this.enemy_list.length < 4) {
-                    this.enemy_flag = true;
-                }
-                if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
-                    this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
-                    this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE_2, this.timer, this.enemy_path_12, 2));
-                    this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, this.process[2], this.timer, this.enemy_path_13, 3));
-                    this.enemy_counter += 3;
-                }
-                break;
+        // new new version
+        if (this.process == enemyGenerate.END)
+            return;
+        var firstProcess = this.level[4][0];
+        if (this.process == firstProcess || this.enemy_list.length < 4) {
+            this.enemy_flag = true;
         }
-        // if (this.timer % 3 == 0 && this.timer <= 30) {
-        //     this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, enemyType.TANK, this.timer, this.enemy_path_11, 1));
-        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+        console.log(this.enemy_flag + ", " + this.timer + ", " + this.enemy_counter + ", " + this.process[1]);
+        if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+            console.log("here");
+            var maxPath =  Math.min(this.level[3].length, parseInt(this.process[0].slice(-1)));
+            console.log("wtffwtf!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + maxPath);
+            for (var i = 0; i < maxPath; i++) {
+                var enemy_init_x = this.path_list[i][0].x;
+                var enemy_init_y = this.path_list[i][0].y;
+                var cur_path = this.path_list[i];
+                var enemyT = this.process[2][(i + 1) % 2];
+                console.log((i + 1) % 2);
+                this.enemy_list.push(new Enemy(enemy_init_x, enemy_init_y, enemyT, this.timer, cur_path, i + 1));
+                this.enemy_counter++;
+            }
+            if (this.enemy_counter >= this.process[1]) {
+                this.enemy_counter = 0;
+                this.processIndex++;
+                this.process = this.level[4][this.processIndex];
+                this.enemy_flag = false;
+                console.log("enter " + this.process);
+            }
 
-        //     //this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.TANK, this.timer, this.enemy_path_12, 2));
-        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+        }
 
-        //     //this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, enemyType.TANK, this.timer, this.enemy_path_13, 3));
-        //     //console.log("numbers of enemy: " + this.enemy_list.length + "!!!!!!!!!!!!!!!!!!");
+        //new version
+        // switch (this.level) {
+        //     case gameLevel.LEVEL_1:
+        //         if (this.process == enemyGenerate.END)
+        //             return;
+        //         var firstProcess = this.level[4][0];
+        //         if (this.process == firstProcess || this.enemy_list.length < 4) {
+        //             this.enemy_flag = true;
+        //         }
+        //         console.log(this.enemy_flag + ", " + this.timer + ", " + this.enemy_counter + ", " + this.process[1]);
+        //         if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+        //             console.log("here");
+        //             var maxPath = parseInt(this.process[0].slice(-1)) % (this.level[4].length + 1);
+        //             for (var i = 0; i < maxPath; i++) {
+        //                 var enemy_init_x = this.path_list[i][0].x;
+        //                 var enemy_init_y = this.path_list[i][0].y;
+        //                 var cur_path = this.path_list[i];
+        //                 var enemyT = this.process[2][(i+1) % 2];
+        //                 console.log((i+1) %2);
+        //                 this.enemy_list.push(new Enemy(enemy_init_x, enemy_init_y, enemyT, this.timer, cur_path, i + 1));
+        //                 this.enemy_counter++;
+        //             }
+        //             if (this.enemy_counter >= this.process[1]) {
+        //                 this.enemy_counter = 0;
+        //                 this.processIndex++;
+        //                 this.process = this.level[4][this.processIndex];
+        //                 this.enemy_flag = false;
+        //                 console.log("enter " + this.process);
+        //             }
+
+        //         }
+
+        //         break;
+        // }
+
+
+        // switch(this.process) {
+        //     case enemyGenerate.PROCESS_1:
+        //         if (this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+        //             this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+        //             this.enemy_counter++;
+        //             if (this.enemy_counter >= this.process[1]) {
+        //                 this.enemy_counter = 0;
+        //                 this.process = enemyGenerate.PROCESS_2;
+        //                 this.enemy_flag = false;
+        //                 console.log("enter " + this.process[0]);
+        //             }
+        //         }
+        //         break;
+        //     case enemyGenerate.PROCESS_2:
+        //         if (this.enemy_list.length < 4) {
+        //             this.enemy_flag = true;
+        //         }
+        //         if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+        //             this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+        //             this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE, this.timer, this.enemy_path_12, 2));
+        //             this.enemy_counter += 2;
+        //             if (this.enemy_counter >= this.process[1]) {
+        //                 this.enemy_counter = 0;
+        //                 this.process = enemyGenerate.PROCESS_3;
+        //                 console.log("enter " + this.process[0]);
+        //                 this.enemy_flag = false;
+        //             }
+        //         }
+        //         break;
+        //     case enemyGenerate.PROCESS_3:
+        //         if (this.enemy_list.length < 4) {
+        //             this.enemy_flag = true;
+        //         }
+        //         if (this.enemy_flag && this.timer % 3 == 0 && this.enemy_counter < this.process[1]) {
+        //             this.enemy_list.push(new Enemy(this.enemy_path_11[0].position.x, this.enemy_path_11[0].position.y, this.process[2], this.timer, this.enemy_path_11, 1));
+        //             this.enemy_list.push(new Enemy(this.enemy_path_12[0].position.x, this.enemy_path_12[0].position.y, enemyType.AGILE_2, this.timer, this.enemy_path_12, 2));
+        //             this.enemy_list.push(new Enemy(this.enemy_path_13[0].position.x, this.enemy_path_13[0].position.y, this.process[2], this.timer, this.enemy_path_13, 3));
+        //             this.enemy_counter += 3;
+        //         }
+        //         break;
         // }
 
     }
@@ -302,7 +367,7 @@ class Game {
         switch (skill) {
             case "#skill0":
                 //fire (damage all enemies)
-               // $('#LargeFireball').get(0).play();
+                // $('#LargeFireball').get(0).play();
                 this.fireSkill.implementSkill(this.enemy_list);
                 break;
             case "#skill1":
@@ -312,7 +377,7 @@ class Game {
                 break;
             case "#skill2":
                 //thunder
-               // $('#speedUpGame').get(0).play();
+                // $('#speedUpGame').get(0).play();
                 this.thunderSkill.implementSkill(this.tower_list);
                 break;
             case "#skill3":
@@ -402,23 +467,23 @@ class Game {
     }
 
     // reset gameInterval
-    resetGameInterval () {
+    resetGameInterval() {
         var self = this;
         clearInterval(this.gameInterval);
         this.gameInterval = setInterval(function () {
             self.update();
-        }, 30/gameSpeed);
+        }, 30 / gameSpeed);
     }
 
     // reset timeInterval
     resetTimeInterval() {
         var self = this;
         clearInterval(this.timeInterval);
-        this. timeInterval = setInterval(function () {
+        this.timeInterval = setInterval(function () {
             if (self.game_state == gameState.PLAY) {
                 self.createEnemy();
                 self.timer++;
             }
-        }, 1000/gameSpeed);
+        }, 1000 / gameSpeed);
     }
 }

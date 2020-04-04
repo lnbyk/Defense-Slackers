@@ -116,12 +116,16 @@ $(function () {
         var curLevel = $(this).attr('id');
         switch (curLevel) {
             case 'level1':
+                game.level = gameLevel.LEVEL_1;
                 break;
-            case 'level2':          
+            case 'level2': 
+                game.level = gameLevel.LEVEL_2;         
                 break;
             case 'level3':
+                game.level = gameLevel.LEVEL_2;     
                 break;
             case 'level4':
+                game.level = gameLevel.LEVEL_2;     
                 break;
             default:
                 return;
@@ -306,7 +310,9 @@ $(function () {
             game.pause();
             //game.cleanUp();
             $("#" + "popUpWindow").fadeOut();
+            var level = game.level;
             game = new Game();
+            game.level = level;
             game.setUp();
             $('#setting').slideUp('fast', function () {
                 $("#" + curGameLevel).fadeIn('fast');
@@ -358,7 +364,7 @@ $(function () {
     // quickGame button
     $("[id^=quickGame").click(function () {
         gameSpeed = gameSpeed == 1 ? 2 : 1;
-        $("#quickGame").css({
+        $("[id^=quickGame]").css({
             opacity: gameSpeed / 2
         });
         console.log("game speed: " + gameSpeed);

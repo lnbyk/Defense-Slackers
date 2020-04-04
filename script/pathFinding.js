@@ -15,6 +15,10 @@ var CONTROL_POINTS_13 = new Array(new Element(1496, 685), new Element(1496, 685)
                                     new Element(865, 620), new Element(755, 560), new Element(725, 445),
                                     new Element(850, 380), new Element(895, 295), new Element(920, 195), new Element(920, 195));
 
+var CONTROL_POINTS_21 = new Array(new Element(0, 465), new Element (0, 465), new Element(150, 465), new Element(300, 465), new Element(450, 465), new Element(600, 465), new Element(750, 465),
+                                    new Element(890, 490), new Element(1020, 530), new Element(1170, 520), new Element(1230, 410), new Element(1270, 300), new Element(1390,255), new Element(1520, 255), new Element(1520, 255));
+var CONTROL_POINTS_22 = new Array(new Element(470, 860), new Element(470,860), new Element(470, 740), new Element(470, 620), new Element(500, 515), new Element(600, 465), new Element(750, 465),
+                                    new Element(890, 490), new Element(1020, 530), new Element(1170, 520), new Element(1230, 410), new Element(1270, 300), new Element(1390,255), new Element(1520, 255), new Element(1520, 255)); 
 // implement Catmull-rom Spline
 // getSplinePoints(float, array of control_points)
 function getSplinePoints(t, control_points) {
