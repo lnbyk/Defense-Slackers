@@ -33,6 +33,8 @@ class Enemy extends MovingObject {
 
         // choose enemy image
         // make sure the id is unique
+
+        console.log(curGameLevel);
         this.id = "enemy" + Math.round(this.posArray[0].position.x) + Math.round(this.posArray[0].position.y) + id;
         var img = $('<img />').attr({
             'id': this.id,
@@ -48,7 +50,7 @@ class Enemy extends MovingObject {
             'overflow': 'hidden'
         }).css({
             'transform': 'scaleX(' + this.flip + ' )'
-        }).appendTo('#gameScreen');
+        }).appendTo("#" + curGameLevel);
 
         // initialize enemy life bar image
         var lifeId = "lifebar" + this.id;
@@ -64,7 +66,7 @@ class Enemy extends MovingObject {
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
 
-        }).appendTo('#gameScreen');
+        }).appendTo("#" + curGameLevel);
         var x; // = docuemnt.querySelector('#' + lifeId);
         ///var myImg = document.getElementById(lifeId);
         //this.lifeWidth = myImg.clientWidth;//$('#' + lifeId).width();
@@ -81,7 +83,7 @@ class Enemy extends MovingObject {
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
             'overflow': 'hidden'
-        }).appendTo('#gameScreen');
+        }).appendTo("#" + curGameLevel);
         //this.black_hand_egg();
     }
 
@@ -273,7 +275,7 @@ class Enemy extends MovingObject {
                 'width': '8%',
                 'z-index': '1'
             }).
-            appendTo('#gameScreen');
+            appendTo("#" + curGameLevel);
         }
 
         //dizzy
@@ -291,7 +293,7 @@ class Enemy extends MovingObject {
                 'width': '8%',
                 'z-index': '3'
             }).
-            appendTo('#gameScreen');
+            appendTo("#" + curGameLevel);
         }
     }
 
@@ -355,7 +357,7 @@ class Enemy extends MovingObject {
             'overflow': 'hidden'
         }).css({
             'transform': 'scaleX(' + this.flip + ' )'
-        }).appendTo('#gameScreen');
+        }).appendTo("#" + curGameLevel);
     }
 
     upEgg() {

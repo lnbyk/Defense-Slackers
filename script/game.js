@@ -35,6 +35,7 @@ class Game {
         $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
         $('#pauseGame').attr('name', 'on');
 
+        $('#skillScreen').fadeIn('fast');
         $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();
         $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeIn('fast');
@@ -45,7 +46,7 @@ class Game {
         this.game_state = gameState.PLAY;
         console.log(this.game_state);
         this.health = gameLevel.LEVEL_1[1]; // data in gameData.js
-        this.gold = gameLevel.LEVEL_1[2]; // data in gameData.js
+        this.gold = gameLevel.Test[2]; // data in gameData.js
         this.process = enemyGenerate.PROCESS_1;
         this.enemy_counter = 0;
         this.enemy_flag = undefined;
@@ -126,8 +127,8 @@ class Game {
                     tower.update(self.enemy_list);
                 });
                 $('#ddiamonNum').remove();
-                $('#diamondNum').text(self.gold);
-                $('#heartNum').text(self.health);
+                $("[id^=diamondNum]").text(self.gold);
+                $('[id^=heartNum]').text(self.health);
                 break;
             case gameState.PAUSE:
                 // pause  no update
@@ -296,6 +297,8 @@ class Game {
             return;
         }
         //console.log("click skill: " + skill);
+        skill = skill.substring(0, 7);
+        console.log(skill);
         switch (skill) {
             case "#skill0":
                 //fire (damage all enemies)
@@ -321,10 +324,10 @@ class Game {
     }
 
     showSKillCD() {
-        $("#skillCd0").text(this.fireSkill.cool_down - this.fireSkill.timer);
-        $("#skillCd1").text(this.iceSkill.cool_down - this.iceSkill.timer);
-        $("#skillCd2").text(this.thunderSkill.cool_down - this.thunderSkill.timer);
-        $("#skillCd3").text(this.stoneSkill.cool_down - this.stoneSkill.timer);
+        $("[id^=skillCd0]").text(this.fireSkill.cool_down - this.fireSkill.timer);
+        $("[id^=skillCd1]").text(this.iceSkill.cool_down - this.iceSkill.timer);
+        $("[id^=skillCd2]").text(this.thunderSkill.cool_down - this.thunderSkill.timer);
+        $("[id^=skillCd3]").text(this.stoneSkill.cool_down - this.stoneSkill.timer);
         this.fireSkill.curElement = this.curElement;
         this.iceSkill.curElement = this.curElement;
         this.thunderSkill.curElement = this.curElement;
