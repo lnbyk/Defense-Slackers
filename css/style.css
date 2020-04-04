@@ -174,9 +174,11 @@ body {
 
 
 /* button position for building tower */
-[id^=tBtn] {
+/*[id^=tBtn] {
     background-color: brown;
 }
+
+*/
 #tBtn0 {
     top: 51%;
     left: 26%;
