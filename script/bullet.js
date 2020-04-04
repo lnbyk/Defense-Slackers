@@ -37,7 +37,7 @@ class Bullet extends MovingObject {
                 'height' : height,
                 'width' : width
             }).
-            appendTo('#gameScreen');
+            appendTo("#" + curGameLevel);
     
     }
 

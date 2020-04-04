@@ -5,6 +5,7 @@ var set = new Set([]);
 var imgArray = [2, 6, 11, 16];
 var gameSpeed = 1;
 var cccname;
+var curGameLevel;
 
 /* define string replace charAt function */
 String.prototype.replaceAt = function (index, replacement) {
@@ -27,7 +28,7 @@ $(function () {
     $('#mainHelp, #towerIntro, #levelSMenu').hide();
     $("#mainSettingMenu").hide();
     $("#closeMainSetting, #closeHelpBtn").hide();
-    $('#winScene, #failScene, #popUpWindow').hide();
+    $('#winScene, #failScene, #popUpWindow, #skillScreen').hide();
 
     /* button functionality */
     /* bgm cont rol button */
@@ -56,15 +57,15 @@ $(function () {
 
     /*close main setting menu */
     $('#closeMainSetting').click(function () {
-        $("#closeMainSetting").hide(function() {
-            $("#mainSettingMenu").slideUp('slow', function() {
+        $("#closeMainSetting").hide(function () {
+            $("#mainSettingMenu").slideUp('slow', function () {
                 $('#playBtn, #bgmBtn, #mainSetting').fadeIn('fast');
             });
         });
     });
 
-    $('#closeLevelMenu').click(function() {
-        $("#levelSMenu").fadeOut('fast', function() {
+    $('#closeLevelMenu').click(function () {
+        $("#levelSMenu").fadeOut('fast', function () {
             $('#mainMenu').fadeIn('fast');
         });
     });
@@ -111,19 +112,28 @@ $(function () {
         });
     });
 
-    $('[id^=level]').click(function () {
+    $('[id^=level]').click('on', function () {
         var curLevel = $(this).attr('id');
         switch (curLevel) {
             case 'level1':
-                $("#mainMenu").slideUp('slow', function () {
-                    $("#gameScreen").fadeIn('slow');
-                    $("#backgroundMusic").get(0).pause();
-                });
-                $("[id^='tBtn']").show();
+                break;
+            case 'level2':          
+                break;
+            case 'level3':
+                break;
+            case 'level4':
                 break;
             default:
                 return;
         }
+        var curLevelRank = (parseInt(curLevel.charAt(5))) - 1;
+        curGameLevel = "gameScreen" + curLevelRank;
+        setPitPosition(curLevelRank);
+        $("#mainMenu, #levelSMenu").fadeOut('slow', function () {
+            $("#" + curGameLevel).fadeIn('slow');
+            $("#backgroundMusic").get(0).pause();
+        });
+        $("[id^=tBtn]").show();
         game.setUp();
     })
 
@@ -131,12 +141,15 @@ $(function () {
 
 
     /* build tower button */
-    $(".tbtn").click(function () {
+    $('[id^=gameScreen').on( 'click', 'button', function () {
+        if( ! $(this).hasClass('tbtn'))
+            return;
         imgDefault();
         if ($('#' + cccname).length != 0)
             $('#' + cccname).show();
         buttonPos = '#' + $(this).attr('id');
         curName = $(this).attr('name');
+        console.log(curName);
         curRank = $(this).attr('rank')
         if (curName != 'pit') {
             for (var curpos = 0; curpos < 4; curpos++) {
@@ -198,7 +211,7 @@ $(function () {
 
             var imgId = 'towerImg' + buttonPos.substring(1);
             if (!set.has(buttonPos)) {
-                appendImg(imgId, $(buttonPos).position().top, $(buttonPos).position().left, '-60%', '-30%', '#gameScreen', 'absolute', url);
+                appendImg(imgId, $(buttonPos).position().top, $(buttonPos).position().left, '-60%', '-30%', "#" + curGameLevel, 'absolute', url);
                 set.add(buttonPos);
             } else {
                 $('#' + imgId).attr('src', url);
@@ -215,7 +228,7 @@ $(function () {
                 position: 'absolute'
             }).css({
                 'transform': 'translateY(-60%) translateX(-30%)'
-            }).appendTo('#gameScreen').click();
+            }).appendTo("#" + curGameLevel).click();
             */
             var currRank = parseInt($(buttonPos).attr('rank'));
             var currName = $(buttonPos).attr('name');
@@ -259,7 +272,7 @@ $(function () {
         game.elementSkill(skill);
     });
 
-    $('#backMenuBtn').click(function () {
+    $('[id^=backMenuBtn]').click(function () {
         $('#setting').fadeIn('slow');
         game.pause();
         // disabled tower selection button
@@ -268,22 +281,22 @@ $(function () {
         // close the setting menu
         $('#closeSBtn').click(function () {
             $('#setting').fadeOut('fast');
-            $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
-            $('#pauseGame').attr('name', 'on');
+            $('[id^=pauseGame] img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
+            $('[id^=pauseGame]').attr('name', 'on');
             game.resume();
         })
         $("#" + "popUpWindow").fadeOut();
         // go to main menu
         $('#leftBtn').click(function () {
             $('#setting').slideUp('fast', function () {
-                $("#gameScreen").slideUp('slow', function () {
+                $("#" + curGameLevel).slideUp('slow', function () {
                     $("#mainMenu").fadeIn('slow');
                     $("#backgroundMusic").get(0).play();
                 });
             })
             //game.cleanUp();
             game = new Game();
-            $("#gameScreen").hide();
+            $("#" + curGameLevel).hide();
             $("#towerSelection").hide();
             $("#setting").hide();
         });
@@ -296,7 +309,7 @@ $(function () {
             game = new Game();
             game.setUp();
             $('#setting').slideUp('fast', function () {
-                $('#gameScreen').fadeIn('fast');
+                $("#" + curGameLevel).fadeIn('fast');
             })
         })
         $("[id^='tBtn']").show();
@@ -308,7 +321,7 @@ $(function () {
         $("[id^='tBtn']").hide();
         console.log("window resized, game restarted");
         $("[id^='pp']").remove();
-        $("#gameScreen").slideUp('slow', function () {
+        $("#" + curGameLevel).slideUp('slow', function () {
             $("#mainMenu").fadeIn('slow');
             $("#backgroundMusic").get(0).play();
         });
@@ -316,7 +329,7 @@ $(function () {
         game = new Game();
         game.width = $(window).width();
         game.height = $(window).height();
-        $("#gameScreen").hide();
+        $("#" + curGameLevel).hide();
         $("#towerSelection").hide();
         $("#setting").hide();
 
@@ -325,7 +338,7 @@ $(function () {
     });
 
     // pause button
-    $('#pauseGame').click(function () {
+    $('[id^=pauseGame]').click(function () {
         var curName = $(this).attr('name');
         game.pause();
         switch (curName) {
@@ -343,7 +356,7 @@ $(function () {
     });
 
     // quickGame button
-    $("#quickGame").click(function () {
+    $("[id^=quickGame").click(function () {
         gameSpeed = gameSpeed == 1 ? 2 : 1;
         $("#quickGame").css({
             opacity: gameSpeed / 2
@@ -364,14 +377,14 @@ $(function () {
     $('#failLevelS, #winLevelS').click(function () {
         $('#wingame').get(0).pause();
         $('#failScene, #winScene').slideUp('fast', function () {
-            $("#gameScreen").slideUp('slow', function () {
+            $("#" + curGameLevel).slideUp('slow', function () {
                 $("#mainMenu").fadeIn('slow');
                 $("#backgroundMusic").get(0).play();
             });
         })
         //game.cleanUp();
         game = new Game();
-        $("#gameScreen").hide();
+        $("#" + curGameLevel).hide();
         $("#towerSelection").hide();
         $("#failScene").hide();
     })
@@ -397,7 +410,7 @@ $(function () {
         })
     })
 
-    $(":button").click(function () {
+    $("body").on("click", 'button' , function () {
         $('#btnClick').get(0).play();
     })
 

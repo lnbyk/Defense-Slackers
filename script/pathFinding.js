@@ -70,7 +70,7 @@ function pathFinding(x, y, id) {
         left: x,
         position: 'absolute'
     }).
-    appendTo('#gameScreen');
+    appendTo("#" + curGameLevel);
 }
 
 // for test

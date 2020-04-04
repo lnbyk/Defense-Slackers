@@ -1,6 +1,7 @@
 class Skill {
     //constructor(skillType)
     constructor(type) {
+        this.curNumNum = 0;
         this.type = type;
         this.cool_down = type[2];
         this.ready = true;
@@ -13,11 +14,13 @@ class Skill {
                 self.calculateCoolDown();
             }
         }, 1000);
-
-        $("#skill" + this.type[3]).css({
+        
+        this.curNumNum = parseInt(curGameLevel.charAt(10));
+        console.log(this.curNumNum);
+        $("#skill" + this.type[3] +  this.curNumNum).css({
             opacity: 0.5
         });
-        $("#skillCd" + this.type[3]).hide();
+        $("#skillCd" + this.type[3] + this.curNumNum).hide();
     }
 
     implementSkill(list) {
@@ -33,8 +36,8 @@ class Skill {
             this.ready = false;
 
             //show cool down
-            $("#skillCd" + this.type[3]).show();
-            $("#skill" +this.type[3]).css({
+            $("#skillCd" + this.type[3] + this.curNumNum).show();
+            $("#skill" +this.type[3] + this.curNumNum).css({
                 opacity : 0.5
             });
 
@@ -54,9 +57,9 @@ class Skill {
                 this.timer = 0;
                 this.ready = true;
                 //hide cool down
-                $("#skillCd" + this.type[3]).hide();
+                $("#skillCd" + this.type[3] + this.curNumNum).hide();
                 if (this.curElement == this.type[3]) {
-                    $("#skill" +this.type[3]).css({
+                    $("#skill" +this.type[3] + this.curNumNum).css({
                         opacity : 1
                     });
                 }
@@ -70,11 +73,11 @@ class Skill {
 
     skillIconControl() {
         if (this.curElement != this.type[3]) {
-            $("#skill" + this.type[3]).css({
+            $("#skill" + this.type[3] + this.curNumNum).css({
                 opacity: 0.5
             });
         }else if (this.ready && this.curElement == this.type[3]){
-            $("#skill" + this.type[3]).css({
+            $("#skill" + this.type[3] + this.curNumNum).css({
                 opacity: 1
             });
         }

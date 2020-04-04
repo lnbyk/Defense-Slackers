@@ -88,7 +88,7 @@ body {
     transform: translateX(50%) translateY(50%);
 }
 
-#gameScreen {
+[id^=gameScreen]{
     position: relative;
     width: auto;
     height: 100%;
@@ -96,7 +96,7 @@ body {
 }
 
 /* diamond position */
-#diamond {
+[id^=diamondd] {
     position: absolute !important;
     top: 4%;
     left: 4%;
@@ -104,7 +104,7 @@ body {
     width: 5% !important;
 }
 
-#diamondNum {
+[id^=diamondNum] {
     position: absolute;
     top: 4%;
     left: 10%;
@@ -113,7 +113,7 @@ body {
 }
 
 /*heart position*/
-#heart {
+[id^=heartt] {
     position: absolute !important;
     top: 3%;
     right: 34%;
@@ -121,7 +121,7 @@ body {
     width: 4% !important;
 }
 
-#heartNum {
+[id^=heartNum] {
     position: absolute;
     top: 5.5%;
     right: 26%;
@@ -131,42 +131,41 @@ body {
 }
 
 /*skill cool down number*/
-#skillCd0 {
+[id^=skillCd0] {
     left: 4%;
 }
 
-#skillCd1 {
+[id^=skillCd1] {
     left: 11%;
 }
 
-#skillCd2 {
+[id^=skillCd2] {
     left: 18.5%;
 }
 
-#skillCd3 {
+[id^=skillCd3]{
     left: 26%;
 }
 
 /* skill button */
-#skill0 {
+[id^=skill0] {
     position: absolute;
     bottom: 0%;
     left: 1%;
 }
 
-#skill1 {
+[id^=skill1] {
     position: absolute;
     bottom: 0%;
     left: 8%;
 }
 
-#skill2 {
+[id^=skill2] {
     position: absolute;
     bottom: 0%;
     left: 15.5%;
 }
-
-#skill3 {
+[id^=skill3] {
     position: absolute;
     bottom: 0%;
     left: 23%;
@@ -177,8 +176,8 @@ body {
 /*[id^=tBtn] {
     background-color: brown;
 }
-
 */
+
 #tBtn0 {
     top: 51%;
     left: 26%;
@@ -215,7 +214,7 @@ body {
 }
 
 /* button in the gameScene*/
-#backMenuBtn,
+[id^=backMenuBtn],
 #mainSetting {
     position: absolute;
     width: 10%;
@@ -226,7 +225,7 @@ body {
 }
 
 /* pause game button */
-#pauseGame {
+[id^=pauseGame] {
     position: absolute;
     right: 12%;
     top: 3%;
@@ -234,7 +233,7 @@ body {
 }
 
 /* speed up the game */
-#quickGame {
+[id^=quickGame] {
     position: absolute;
     right: 12%;
     top: 12%;
@@ -252,7 +251,7 @@ body {
 
 /* setting button in the game scene */
 #setting {
-    background-image: url("../gameAsset/td-gui//PNG/settings/window_2.png");
+    background-image: url("../gameAsset/td-gui//PNG/settings/table.png");
     z-index: 99 !important;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -270,19 +269,49 @@ body {
     height: 25%;
 }
 
+#settingMusic, #settingSound{
+    position: absolute;
+    font-size: calc((.3em + 0.5vmin) + (.3em + 0.8vmax));
+    z-index: 20;
+    color: gray;
+    left: 12%;
+    top: 11%;
+}
+
+#settingSound {
+    top: 28% !important;
+} 
+
+#settingMusicBtn, #settingSoundBtn{
+    position: absolute;
+    width: 30% !important;
+    height: 20% !important;
+    top: 9%;
+    left: 43%;
+}
+
+#settingSoundBtn {
+    top: 28% !important;
+}
+#settingWindow{
+    position: absolute;
+    top: 37%;
+    width:87%;
+    height: 58%;
+    transform: translateX(-50%) translateY(-50%);
+}
 #leftBtn {
     position: absolute;
 
     left: 13%;
-    bottom: 14%;
+    bottom: 9%;
     transform: translateY(10%);
 }
-
 /* restart game button in the setting menu */
 #restartBtn {
     position: absolute;
     right: 13%;
-    bottom: 14%;
+    bottom: 9%;
     transform: translateY(10%);
 }
 
@@ -291,8 +320,8 @@ body {
     width: 25% !important;
     height: 20% !important;
     position: absolute;
-    right: 4%;
-    top: 4%;
+    right: 0%;
+    top: 0%;
     transform: translateY(10%);
 }
 
@@ -411,4 +440,20 @@ body {
 #help img {
     width: 100%;
     height: 100%;
+}
+
+
+
+/* bg3 decor align */
+#bg31, #bg32 {
+    z-index: 12;
+    position: absolute;
+    width: 6%;
+    height: 15%;
+    left:32.5%;
+    top: 60.5%;
+}
+#bg32{
+    left:48.5% !important;
+    top: 81%!important;
 }
