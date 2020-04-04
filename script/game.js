@@ -11,6 +11,7 @@ class Game {
         $("[id^='Debuff']").remove();
         $("[id^='Buff']").remove();
         $('#bgm').get(0).pause();
+        $('#levelSMenu').hide();
         //$(".skilCdNum").remove();
         self = this;
         this.height = $(window).height();
