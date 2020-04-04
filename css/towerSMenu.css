@@ -1,29 +1,35 @@
 #towerSelection {
     z-index: 30;
-    position:absolute;
+    position: absolute;
     background-image: url('../gameAsset/archer-tower-game-assets/PNG/towerSUpdate.png');
-    width: 13%!important;;
-    height: 18%!important;;
+    width: 13% !important;
+    ;
+    height: 18% !important;
+    ;
     overflow: visible;
 }
 
-[id^=tower]{
+[id^=tower] {
     position: absolute;
     height: 25%;
     width: 25%;
 }
+
 #tower0 {
     left: 5.5%;
     top: 8%;
 }
+
 #tower1 {
     right: 5.5%;
     top: 8%;
 }
+
 #tower2 {
     left: 5.5%;
     bottom: 8%;
 }
+
 #tower3 {
     right: 5.5%;
     bottom: 8%;
@@ -37,7 +43,160 @@
     top: -15%;
 }
 
-#closeTowerSelection img, #tower0 img, #tower1 img, #tower2 img, #tower3 img{
-    width:100%;
+#closeTowerSelection img,
+#tower0 img,
+#tower1 img,
+#tower2 img,
+#tower3 img {
+    width: 100%;
     height: 100%;
+}
+
+
+/* level selectio menu */
+#levelSMenu {
+    background-image: url('../assets/tableMenu/table.png');
+    width: 65% !important;
+    height: 65% !important;
+    overflow: visible;
+}
+
+#levelHeader {
+    position: absolute;
+    width: 34%;
+    height: 22%;
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+#levelSMenu button {
+    background-image: url('../assets/tableMenu/btton_empty.png');
+    background-size: 100% 100%;
+    width: 18%;
+    height: 25%;
+}
+
+#level1 {
+    position: absolute;
+    left: 8%;
+    top: 26%;
+}
+
+#level2 {
+    position: absolute;
+    left: 30%;
+    top: 26%;
+}
+
+#level3 {
+    position: absolute;
+    right: 30%;
+    top: 26%;
+}
+
+#level4 {
+    position: absolute;
+    right: 8%;
+    top: 26%;
+}
+
+#level5 {
+    position: absolute;
+    left: 8%;
+    bottom: 20%;
+}
+
+#level6 {
+    position: absolute;
+    left: 30%;
+    bottom: 20%;
+}
+
+#level7 {
+    position: absolute;
+    right: 30%;
+    bottom: 20%;
+}
+
+#level8 {
+    position: absolute;
+    right: 8%;
+    bottom: 20%;
+}
+
+#num1 {
+    left: 15.5%;
+    top: 31%;
+}
+
+#num2 {
+    left: 37.5%;
+    top: 31%;
+}
+
+#num3 {
+    left: 59.5%;
+    top: 31%;
+}
+
+#num4 {
+    left: 81.5%;
+    top: 31%;
+}
+
+#num5 {
+    left: 15.5%;
+    top: 60%;
+}
+
+#num6 {
+    left: 37.5%;
+    top: 60%;
+}
+
+#num7 {
+    left: 59.5%;
+    top: 60%;
+}
+
+#num8 {
+    left: 81.5%;
+    top: 60%;
+}
+
+.numSize {
+    position: absolute;
+    height: 9%;
+    width: 2.5%;
+}
+
+#leftLevelMenu,
+#rightLevelMenu {
+    position: absolute;
+    width: 14% !important;
+    height: 22% !important;
+}
+
+#leftLevelMenu {
+    background-image: url('../assets/tableMenu/button_left.png') !important;
+    left: 21%;
+    bottom: -7%;
+}
+
+#rightLevelMenu {
+    background-image: url('../assets/tableMenu/button_right.png') !important;
+    right: 21%;
+    bottom: -7%;
+}
+
+#closeLevelMenu {
+    background-image: url('../assets/tableMenu/button_close.png') !important;
+    width: 10% !important;
+    height: 15% !important;
+    position: absolute;
+    width: 8%;
+    height: 18;
+    right: 4%;
+    top: 6%;
 }
