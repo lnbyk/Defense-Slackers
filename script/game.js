@@ -33,9 +33,12 @@ class Game {
     setUp() {
         set = new Set([]);
         imgDefault();
+        $('audio').each(function() {
+            $(this).get(0).volume = 1.0;
+        });
         $('#pauseGame img').attr('src', "gameAsset/td-gui/PNG/interface_game/button_pause.png");
-        $('#pauseGame').attr('name', 'on');
-
+        $('#settingMusicBtn img, #settingSoundBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_on.png");
+        $('#pauseGame, #settingSoundBtn, #settingMusicBtn').attr('name', 'on');
         $('#skillScreen').fadeIn('fast');
         $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();

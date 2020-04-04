@@ -227,8 +227,8 @@
         <button id="leftBtn" class="btn"> <img src="gameAsset/td-gui/PNG/failed/button_left.png"> </button>
         <button id="closeSBtn" class="btn"> <img src="gameAsset/td-gui/PNG/settings/button_close.png"></button>
         <button id="restartBtn" class="btn"> <img src="gameAsset/td-gui/PNG/failed/button_restart.png"></button>
-        <button id="settingMusicBtn" class="btn"> <img src="gameAsset/td-gui/PNG/settings/button_on.png"> </button>
-        <button id="settingSoundBtn" class="btn"> <img src="gameAsset/td-gui/PNG/settings/button_on.png"> </button>
+        <button id="settingMusicBtn" class="btn" name="on"> <img src="gameAsset/td-gui/PNG/settings/button_on.png"> </button>
+        <button id="settingSoundBtn" class="btn" name="on"> <img src="gameAsset/td-gui/PNG/settings/button_on.png"> </button>
     </div>
 
     <div id="towerSelection" class='menuTable'>
@@ -273,28 +273,28 @@
 <audio id="backgroundMusic" controls autoplay loop>
     <source src="audio/mainMenuMusic.mp3">
 </audio>
-<audio id="LargeFireball">
+<audio id="LargeFireball" class="gameSound">
     <source src="audio/LargeFireball.mp3">
 </audio>
-<audio id="freezeSound">
+<audio id="freezeSound" class="gameSound">
     <source src="audio/freeze.mp3">
 </audio>
-<audio id="speedUpGame">
+<audio id="speedUpGame" class="gameSound">
     <source src="audio/speedUpGame.mp3">
 </audio>
-<audio id="stoneSound">
+<audio id="stoneSound" class="gameSound">
     <source src="audio/stoneSound.mp3">
 </audio>
-<audio id="towerASound">
+<audio id="towerASound" class="gameSound">
     <source src="audio/towerASound.mp3">
 </audio>
-<audio id="wingame">
+<audio id="wingame" class="gameSound">
     <source src='audio/winSound.mp3'>
 </audio>
-<audio id="losegame">
+<audio id="losegame" class="gameSound">
     <source src='audio/loseSound.mp3'>
 </audio>
-<audio id="btnClick">
+<audio id="btnClick" class="gameSound">
     <source src='audio/btnClick.mp3'>
 </audio>
 <audio id="bgm" loop>
