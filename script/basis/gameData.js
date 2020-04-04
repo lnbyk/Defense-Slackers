@@ -14,6 +14,10 @@ const debuffType = {
     FIRE : ['fire',10]
 }
 
+const towerPos = [
+    ["51% 26%", "60% 57%", "32% 48%", "90%, 54%", "23%, 15%"],
+    ["43% 29.5%", "51.5% 67%", "77% 19.5%", "77% 42%"]
+];
 /*
  if we have DIZZY : ['dizzy', 2]
  which means next two updates won't update this enemy
