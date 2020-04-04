@@ -1,8 +1,36 @@
 // all game data are here
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
+const levelPath = {
+    LEVEL_1 : [CONTROL_POINTS_11, CONTROL_POINTS_12, CONTROL_POINTS_13],
+    LEVEL_2 : [CONTROL_POINTS_21, CONTROL_POINTS_22]
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
+const enemyType = {
+    // type and [health, loot]
+    TANK: [1000, 50],
+    TANK_2:[1500, 50],
+    TANK_3: [2500, 75],
+    AGILE: [750, 100],
+    AGILE_2: [1225, 100]
+}
+
+const enemyGenerate ={
+    //[name, numbers of enemy, type]
+    PROCESS_1 : ["process 1", 10, [undefined, enemyType.TANK]],
+    PROCESS_2 : ["process 2", 20, [enemyType.AGILE, enemyType.TANK_2]],
+    PROCESS_3 : ["process 3", 30, [enemyType.AGILE_2, enemyType.TANK_3]],
+    END : ["end"]
+}
+
+const levelProcess = {
+    LEVEL_1 : [enemyGenerate.PROCESS_1, enemyGenerate.PROCESS_2, enemyGenerate.PROCESS_3, enemyGenerate.END],
+    LEVEL_2 : [enemyGenerate.PROCESS_1, enemyGenerate.PROCESS_2, enemyGenerate.PROCESS_3, enemyGenerate.END]
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const gameLevel = {
     //  [name,home_health, initial_gola]
-    LEVEL_1 : ["level_1", 10, 300],
+    LEVEL_1 : ["level_1", 100000, 300, levelPath.LEVEL_1, levelProcess.LEVEL_1],
+    LEVEL_2 : ["level_2", 100000, 300, levelPath.LEVEL_2, levelProcess.LEVEL_2],
     Test : ["test", 1000, 10000]
 }
 
@@ -56,28 +84,13 @@ const towerType = {
     ARCHER: ['archer', -150, 1, 100, 400, 20, debuffType.NORMAL,3, towerLevel.ARCHER],
     FROZE: ['froze', -90, 1.5, 150, 400, 20, debuffType.FROZE,1, towerLevel.FROZE],
     LIGHT: ['light', -90, 4, 200, 270, 30, debuffType.DIZZY,2, towerLevel.LIGHT],
-    FIRE: ['fire', -300, 5, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,125] // [9] the last one is range of the explosion
+    FIRE: ['fire', -300, 4.5, 300, 300, 20, debuffType.NORMAL, 0, towerLevel.FIRE,125] // [9] the last one is range of the explosion
 }
 
 
 const towerSwitch = [towerType.LIGHT, towerType.FROZE, towerType.FIRE, towerType.ARCHER];
 
-/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
-const enemyType = {
-    // type and [health, loot]
-    TANK: [1000, 50],
-    TANK_2:[1500, 50],
-    TANK_3: [2500, 75],
-    AGILE: [750, 100],
-    AGILE_2: [1225, 100]
-}
-/*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
-const enemyGenerate ={
-    //[name, numbers of enemy, type]
-    PROCESS_1 : ["process 1", 10, enemyType.TANK],
-    PROCESS_2 : ["process 2", 20, enemyType.TANK_2],
-    PROCESS_3 : ["process 3", 30, enemyType.TANK_3]
-}
+
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const skillType = {
     //              0      1        2       3   4     5
