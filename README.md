@@ -1,5 +1,7 @@
 # Defense Slackers
 
+# Game Url
+    https://slackers1.gitlab.io/defense-slackers 
 # Local Server
     -npm i -g http-server
     -http-server
