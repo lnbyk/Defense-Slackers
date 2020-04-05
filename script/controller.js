@@ -5,7 +5,7 @@ var set = new Set([]);
 var imgArray = [2, 6, 11, 16];
 var gameSpeed = 1;
 var cccname;
-var curGameLevel;
+var curGameLevel, curLevelRank;
 
 /* define string replace charAt function */
 String.prototype.replaceAt = function (index, replacement) {
@@ -114,6 +114,7 @@ $(function () {
 
     $('[id^=level]').click('on', function () {
         var curLevel = $(this).attr('id');
+        console.log(curLevel);
         switch (curLevel) {
             case 'level1':
                 game.level = gameLevel.LEVEL_1;
@@ -130,7 +131,8 @@ $(function () {
             default:
                 return;
         }
-        var curLevelRank = (parseInt(curLevel.charAt(5))) - 1;
+        
+        curLevelRank = (parseInt(curLevel.charAt(5))) - 1;
         curGameLevel = "gameScreen" + curLevelRank;
         setPitPosition(curLevelRank);
         $("#mainMenu, #levelSMenu").fadeOut('slow', function () {
@@ -138,6 +140,24 @@ $(function () {
             $("#backgroundMusic").get(0).pause();
         });
         $("[id^=tBtn]").show();
+        
+        game.setUp();
+    })
+
+    /* win the game, go to next level */
+
+    $("#winLevelNext").click(function() {
+
+        $('#winScene').fadeOut('fast',function(){
+            $("#gameScreen" + curLevelRank).slideUp('fast');
+        });
+        game.pause();
+        game = new Game();
+        var nextLevelRank = curLevelRank + 1;
+        setPitPosition(nextLevelRank);
+        curGameLevel = "gameScreen" + (nextLevelRank);
+        game.level = gameLevel['LEVEL_' +(nextLevelRank  + 1)];
+        $("#gameScreen" + nextLevelRank).fadeIn('slow');
         game.setUp();
     })
 
@@ -363,7 +383,7 @@ $(function () {
 
     // quickGame button
     $("[id^=quickGame").click(function () {
-        gameSpeed = gameSpeed == 1 ? 2 : 1;
+        gameSpeed = gameSpeed == 1 ? 10 : 1;
         $("[id^=quickGame]").css({
             opacity: gameSpeed / 2
         });
