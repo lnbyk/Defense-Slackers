@@ -36,3 +36,39 @@ function setPitPosition(cur) {
         }).addClass('tbtn').appendTo('#' + curGameLevel);
     }
 }
+
+function readyGo() {
+   var readGo =  $('<img />').attr({
+        id : "readyGo",
+        src : './assets/tableMenu/num_3.png'
+    }).css({
+        "position" : "absolute",
+        "left" : "50%",
+        "top" : "50%",
+        "transform" : "translateX(-50%) translateY(-50%)",
+        'width' : "8%",
+        "height" : "15%"
+    });
+    game.pause();
+    setTimeout(function(){
+        readGo.appendTo('#' + curGameLevel)}, 1000);
+    
+    setTimeout(function() {
+        $("#readyGo").fadeOut('fast', function(){
+            $("#readyGo").attr('src', './assets/tableMenu/num_2.png').fadeIn('fast');
+        });
+    }, 2000);
+    setTimeout(function() {
+        $("#readyGo").fadeOut('fast', function(){
+            $("#readyGo").attr('src','./assets/tableMenu/num_1.png').fadeIn('fast');
+        });
+    }, 3000);
+    setTimeout(function() {
+        $("#readyGo").remove();
+    }, 4000);
+
+    setTimeout(
+        function(){
+            game.resume();
+        }, 3000);
+}

@@ -28,6 +28,7 @@ class Game {
         this.level = undefined;
     }
 
+    /*start game with ready icon */ 
     /*set up game
     call it when click the start botton*/
     setUp() {
@@ -43,6 +44,8 @@ class Game {
         $("[id^=tBtn").attr('rank', '0').attr('name', 'pit');
         $("[id^='enemy']").remove();
         $('[id^=heart], [id^=diamond], #backMenuBtn, #pauseGame, #quickGame').fadeIn('fast');
+       
+        
         //$(".skilCdNum").hide();
         //$(".skilCdNum").remove();
         // clear enemy before 
@@ -97,6 +100,10 @@ class Game {
                 self.timer++;
             }
         }, 1000);
+
+        $("[id^=diamondNum]").text(this.gold);
+        $('[id^=heartNum]').text(this.health);
+        readyGo();
     }
 
     /* */
