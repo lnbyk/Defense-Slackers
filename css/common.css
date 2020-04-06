@@ -1,4 +1,6 @@
-body { -ms-overflow-style: none; }
+body {
+    -ms-overflow-style: none;
+}
 
 .btn {
     background-color: transparent;
@@ -9,10 +11,12 @@ body { -ms-overflow-style: none; }
 
     cursor: pointer;
 }
+
 .btn img {
-    width:  100%;
+    width: 100%;
     height: 100%;
 }
+
 .btn img:hover {
     opacity: 0.6;
 }
@@ -145,4 +149,27 @@ body { -ms-overflow-style: none; }
 [id^=towerImg] {
     width: 12% !important;
     height: 17% !important;
+}
+
+
+#loading {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#loading>i {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: url("/images/loading.gif") no-repeat;
 }
