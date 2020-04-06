@@ -125,14 +125,3 @@ function readyGo() {
             game.resume();
         }, 3000);
 }
-
-function mute(className) {
-    $(className).each(function() {
-        $(this).get(0).volume = 0;
-    })
-}
-function unmute(className) {
-    $(className).each(function() {
-        $(this).get(0).volume = 1.0;
-    })
-}

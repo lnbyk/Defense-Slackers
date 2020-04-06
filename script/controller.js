@@ -434,14 +434,15 @@ $(function () {
     /* gameScreen turn off music */
     $("#settingMusicBtn").click(function() {
         var curName = $(this).attr('name');
+        var aduio = $('#bgm').get(0);
         switch (curName) {
             case 'on':
-                mute('.bgm');
+                aduio.volume=0.0;
                 $('#settingMusicBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_off.png");
                 $(this).attr('name', 'off');
                 break;
             case 'off':
-                unmute('.bgm');
+                aduio.volume=1.0;
                 $('#settingMusicBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_on.png");
                 $(this).attr('name', 'on');
                 break;
