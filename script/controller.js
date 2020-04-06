@@ -136,7 +136,7 @@ $(function () {
                 game.level = gameLevel.LEVEL_2;         
                 break;
             case 'level3':
-                game.level = gameLevel.LEVEL_2;     
+                game.level = gameLevel.LEVEL_3;     
                 break;
             case 'level4':
                 game.level = gameLevel.LEVEL_2;     

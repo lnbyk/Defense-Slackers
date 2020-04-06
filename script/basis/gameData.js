@@ -2,7 +2,8 @@
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const levelPath = {
     LEVEL_1 : [CONTROL_POINTS_11, CONTROL_POINTS_12, CONTROL_POINTS_13],
-    LEVEL_2 : [CONTROL_POINTS_21, CONTROL_POINTS_22]
+    LEVEL_2 : [CONTROL_POINTS_21, CONTROL_POINTS_22],
+    LEVEL_3 : [CONTROL_POINTS_31, CONTROL_POINTS_32]
 }
 /*---------------------------------------------------------------------------------------------------------------------------------------------*/ 
 const enemyType = {
@@ -31,6 +32,7 @@ const gameLevel = {
     //  [name,home_health, initial_gola]
     LEVEL_1 : ["level_1", 100000, 300, levelPath.LEVEL_1, levelProcess.LEVEL_1],
     LEVEL_2 : ["level_2", 100000, 300, levelPath.LEVEL_2, levelProcess.LEVEL_2],
+    LEVEL_3 : ["level_3", 100000, 300, levelPath.LEVEL_3, levelProcess.LEVEL_2],
     Test : ["test", 1000, 10000]
 }
 
