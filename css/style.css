@@ -436,6 +436,15 @@ body {
     height: 20%;
 }
 
+#skillMenuBtn {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 50%;
+    width: 20%;
+    height: 20%;
+}
+
 #towerType img,
 #help img {
     width: 100%;

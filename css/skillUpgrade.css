@@ -1,0 +1,73 @@
+#skillMenu {
+    position: absolute;
+    background-image: url('../gameAsset/td-gui/PNG/upgrade/table.png');
+    width: 80% !important;
+    height: 90% !important;
+    overflow: visible !important;
+}
+[id^=upgradeWindow]{
+    position: absolute;
+    width: 13% !important;
+    height: 70% !important;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%
+}
+#upgradeWindow0 {
+    left:11%;
+}
+#upgradeWindow1 {
+    
+    left:25%;
+}
+#upgradeWindow2 {
+    left:39%;
+}
+#upgradeWindow3 {
+    left:53%;
+}
+#upgradeWindow4 {
+    left:88%;
+}
+#upgradeWindow5 {
+    left:74%;
+}
+#upgradeHeader{
+    width:30%;
+    height:20%;
+    z-index:2;
+    position: absolute;
+    left: 50%;
+    top: 8%;
+    transform: translateX(-50%) translateY(-50%);
+}
+#upgradeClose {
+    width:8%;
+    height:10%;
+    position: absolute;
+    right: -1.5%;
+    top: -1%;
+}
+#totalStarWindow, #upgradeReset, #upgradeDone{
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    left: 4%;
+    bottom: 4%;
+}
+#totalStarNum {
+    position: absolute;
+    bottom : 10%;
+    left: 6%;
+    width: 2%;
+    height: 2%;
+    text-align: center;
+    font-size : 110%;
+    color : orange;
+}
+
+#upgradeReset{
+    left:71%;
+}
+#upgradeDone{
+    left: 83%;
+ }
