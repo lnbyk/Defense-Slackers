@@ -20,6 +20,11 @@ function imgDefault() {
     }
 }
 $(function () {
+    document.onreadystatechange = function () {
+        if(document.readyState === "complete"){
+            $("#loading").fadeOut();
+        }
+    }
     // create game here
     game = new Game();
     
