@@ -437,12 +437,12 @@ $(function () {
         var aduio = $('#bgm').get(0);
         switch (curName) {
             case 'on':
-                aduio.volume=0.0;
+                $('#bgm' + curGameLevel).get(0).volume = 0;
                 $('#settingMusicBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_off.png");
                 $(this).attr('name', 'off');
                 break;
             case 'off':
-                aduio.volume=1.0;
+                $('#bgm' + curGameLevel).get(0).volume = 1;
                 $('#settingMusicBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_on.png");
                 $(this).attr('name', 'on');
                 break;
