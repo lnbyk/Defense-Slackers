@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/towerSMenu.css">
+    <link rel="stylesheet" href="css/skillUpgrade.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script/basis/element.js"></script>
     <script src="script/pathFinding.js"></script>
@@ -46,6 +47,7 @@
     <div id="mainSettingMenu" class="menuTable">
         <button id='help' class="btn"> <img src="gameAsset/td-gui/PNG/shop/button_help.png"></button>
         <button id='towerType' class='btn'> <img src="gameAsset/td-gui/PNG/shop/button_tower.png"></button>
+        <button id='skillMenuBtn' class='btn'> <img src="gameAsset/td-gui/PNG/shop/button_skill.png"> </button>
     </div>
 
     <div id="mainHelp" class="menuTable">
@@ -263,6 +265,21 @@
         <img id='failHeader' src='gameAsset/td-gui/PNG/failed/header_failed.png'>
         <btn id='failLevelS' class='btn'><img src='gameAsset/td-gui/PNG/win/button_menu.png'></btn>
         <btn id='failLevelNext' class='btn'><img src="gameAsset/td-gui/PNG/failed/button_restart.png"></btn>
+    </div>
+
+    <div id='skillMenu' class='menuTable'>
+        <img id='upgradeHeader' src='gameAsset/td-gui/PNG/upgrade/header_upgrade.png'>
+        <button id='upgradeClose' class='btn'><img src='gameAsset/td-gui/PNG/upgrade/button_close.png'> </button> 
+        <img id='upgradeWindow0' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='upgradeWindow1' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='upgradeWindow2' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='upgradeWindow3' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='upgradeWindow4' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='upgradeWindow5' src='gameAsset/td-gui/PNG/upgrade/window_3.png'>
+        <img id='totalStarWindow' src='gameAsset/td-gui/PNG/upgrade/window_1.png'>
+        <div id='totalStarNum'> 56</div> 
+        <button id='upgradeReset' class='btn'> <img src='gameAsset/td-gui/PNG/upgrade/button_reset.png'></button>
+        <button id='upgradeDone' class='btn'> <img src='gameAsset/td-gui/PNG/upgrade/button_done.png'></button>
     </div>
 
     <div id='popUpWindow' class='menuTable'>

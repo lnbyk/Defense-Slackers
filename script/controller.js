@@ -22,8 +22,9 @@ function imgDefault() {
 $(function () {
     // create game here
     game = new Game();
+    
     $("[id^=gameScreen]").hide();
-    $("#towerSelection").hide();
+    $("#towerSelection, #skillMenu").hide();
     $("#setting").hide();
     $('#mainHelp, #towerIntro, #levelSMenu').hide();
     $("#mainSettingMenu").hide();
@@ -84,8 +85,12 @@ $(function () {
                 $("#mainSettingMenu, #closeMainSetting").fadeIn('slow');
             });
         })
-
     });
+
+    $('#upgradeClose').click(function() {
+        $('#skillMenu').fadeOut('fast',function() {
+            $('#mainMenu').fadeIn('fast');
+        });})
     /*button use to open tower introduction menu */
     $('#towerType').click(function () {
         $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function () {
@@ -103,6 +108,15 @@ $(function () {
         var nUrl = $('#helpEnemy').attr('src').replaceAt(24, cur + "");
         $('#helpEnemy').attr('src', nUrl);
     });
+
+    /* skill upgrade menu */
+    $('#skillMenuBtn').click(function(){
+        setSkillUpgradePos();
+        $('#mainMenu').fadeOut("fast", function() {
+            $('#skillMenu').fadeIn('fast');
+        })
+
+    })
 
 
     /* game play button */
@@ -454,8 +468,8 @@ $(function () {
                 break;
         }
     })
-
-    $("body").on("click", 'button' , function () {
+    /* skill menu button on click */
+    $("body").on("click", '.btn, button' , function () {
         $('#btnClick').get(0).play();
     })
 

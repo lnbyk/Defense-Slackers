@@ -37,38 +37,91 @@ function setPitPosition(cur) {
     }
 }
 
+function setSkillUpgradePos() {
+    var skillPos = ["16 17", "33 17", "50 17", "67 17",
+        "16 31", "33 31", "50 31", "67 31",
+        "16 45", "33 45", "50 45", "67 45",
+        "16 59", "33 59", "50 59", "67 59",
+        "16 80", "33 80", "50 80", "67 80",
+        "16 94", "33 94", "50 94", "67 94"
+    ]
+    for (var i = 0; i < skillPos.length; i++) {
+        var curSkillId = 'ico_' + (i + 1);
+        var thisPos = skillPos[i].split(" ");
+        $("<buttton> </button>").attr({
+            'rank': '1',
+            'id' : curSkillId
+        }).css({
+            'position': "absolute",
+            "top": thisPos[0] + "%",
+            'left': thisPos[1] + "%",
+            'transform': 'translateX(-50%) translate(-50%)',
+            'width': '12%',
+            'height': '16.5%'
+        }).addClass('btn').append($('<img />').attr({
+            src: './gameAsset/td-gui/PNG/upgrade/' + curSkillId + '.png'
+        })).appendTo('#skillMenu');
+
+        $("<img />").attr({
+            'src': "./gameAsset/td-gui/PNG/upgrade/window_.png",
+            'id' : curSkillId + 'window'
+        }).css({
+            'position': "absolute",
+            "top": parseInt(thisPos[0]) + 12 + "%",
+            'left': parseInt(thisPos[1]) + (-0.5) + "%",
+            'transform': 'translateX(-50%) translate(-50%)',
+            'width': '4%',
+            'height': '4%'
+        }).appendTo('#skillMenu');
+
+        $('<div> </div>').attr('id', curSkillId + 'rank').css({
+            'position': "absolute",
+            "top": parseInt(thisPos[0]) + 12.5 + "%",
+            'left': parseInt(thisPos[1]) + (-2.3) + "%",
+            'transform': 'translateX(-50%) translate(-50%)',
+            'width': '2%',
+            'height': '2%',
+            'text-align': 'center',
+            'font-size' : '60%',
+            'color' : 'orange'
+        }).text('1').appendTo('#skillMenu');
+    }
+
+}
+
 function readyGo() {
-   var readGo =  $('<img />').attr({
-        id : "readyGo",
-        src : './assets/tableMenu/num_3.png'
+    var readGo = $('<img />').attr({
+        id: "readyGo",
+        src: './assets/tableMenu/num_3.png'
     }).css({
-        "position" : "absolute",
-        "left" : "50%",
-        "top" : "50%",
-        "transform" : "translateX(-50%) translateY(-50%)",
-        'width' : "8%",
-        "height" : "15%"
+        "position": "absolute",
+        "left": "50%",
+        "top": "50%",
+        "transform": "translateX(-50%) translateY(-50%)",
+        'width': "8%",
+        "height": "15%"
     });
     game.pause();
-    setTimeout(function(){
-        readGo.appendTo('#' + curGameLevel)}, 1000);
-    
-    setTimeout(function() {
-        $("#readyGo").fadeOut('fast', function(){
+    setTimeout(function () {
+        readGo.appendTo('#' + curGameLevel)
+    }, 1000);
+
+    setTimeout(function () {
+        $("#readyGo").fadeOut('fast', function () {
             $("#readyGo").attr('src', './assets/tableMenu/num_2.png').fadeIn('fast');
         });
     }, 2000);
-    setTimeout(function() {
-        $("#readyGo").fadeOut('fast', function(){
-            $("#readyGo").attr('src','./assets/tableMenu/num_1.png').fadeIn('fast');
+    setTimeout(function () {
+        $("#readyGo").fadeOut('fast', function () {
+            $("#readyGo").attr('src', './assets/tableMenu/num_1.png').fadeIn('fast');
         });
     }, 3000);
-    setTimeout(function() {
+    setTimeout(function () {
         $("#readyGo").remove();
     }, 4000);
 
     setTimeout(
-        function(){
+        function () {
             game.resume();
         }, 3000);
 }
