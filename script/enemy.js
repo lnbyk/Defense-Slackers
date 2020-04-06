@@ -14,7 +14,8 @@ class Enemy extends MovingObject {
         this.fired = 0;
         this.fireBall = undefined;
         this.iPos = iPos
-        this.flip = iPos == 3 ? -1 : 1;
+        this.flip = (path[path.length-1].position.x - path[0].position.x) / Math.abs(path[path.length-1].position.x - path[0].position.x);//iPos == 3 ? -1 : 1;
+        //console.log("!!!!!!!!!!!!!!!!here: " + this.flip);
         this.die = 0;
         // debuff
 
@@ -65,7 +66,6 @@ class Enemy extends MovingObject {
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
-
         }).appendTo("#" + curGameLevel);
         var x; // = docuemnt.querySelector('#' + lifeId);
         ///var myImg = document.getElementById(lifeId);
@@ -82,7 +82,7 @@ class Enemy extends MovingObject {
         }).css({
             'width': LIFE_SIZE_PERCENTAGE,
             'height': '1%',
-            'overflow': 'hidden'
+            'overflow': 'hidden',
         }).appendTo("#" + curGameLevel);
         //this.black_hand_egg();
     }

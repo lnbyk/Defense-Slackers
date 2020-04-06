@@ -71,19 +71,19 @@ class Game {
         this.stoneSkill = new BuffSkill(skillType.ARCHER);
 
         // test control_points (comment it when playing game )
-        //drawControlPoints(CONTROL_POINTS_21);
-        //drawControlPoints(CONTROL_POINTS_22);
-        //this.scalePath(CONTROL_POINTS_21);
-        //this.scalePath(CONTROL_POINTS_22);
+        //drawControlPoints(CONTROL_POINTS_31);
+        //drawControlPoints(CONTROL_POINTS_32);
+        // this.scalePath(CONTROL_POINTS_31);
+        // this.scalePath(CONTROL_POINTS_32);
         //drawControlPoints(CONTROL_POINTS_12);
         // drawControlPoints(CONTROL_POINTS_13);
         this.path_list = new Array();
         for (var i = 0; i < this.level[3].length; i++) {
             this.path_list.push(this.scalePath(this.level[3][i]));
         }
-        this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
-        this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
-        this.enemy_path_13 = this.scalePath(CONTROL_POINTS_13);
+        //this.enemy_path_11 = this.scalePath(CONTROL_POINTS_11);
+        //this.enemy_path_12 = this.scalePath(CONTROL_POINTS_12);
+        //this.enemy_path_13 = this.scalePath(CONTROL_POINTS_13);
 
         // skillCondition element
         this.curElement = undefined;

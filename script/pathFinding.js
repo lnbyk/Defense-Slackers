@@ -18,7 +18,11 @@ var CONTROL_POINTS_13 = new Array(new Element(1496, 685), new Element(1496, 685)
 var CONTROL_POINTS_21 = new Array(new Element(0, 465), new Element (0, 465), new Element(150, 465), new Element(300, 465), new Element(450, 465), new Element(600, 465), new Element(750, 465),
                                     new Element(890, 490), new Element(1020, 530), new Element(1170, 520), new Element(1230, 410), new Element(1270, 300), new Element(1390,255), new Element(1520, 255), new Element(1520, 255));
 var CONTROL_POINTS_22 = new Array(new Element(470, 860), new Element(470,860), new Element(470, 740), new Element(470, 620), new Element(500, 515), new Element(600, 465), new Element(750, 465),
-                                    new Element(890, 490), new Element(1020, 530), new Element(1170, 520), new Element(1230, 410), new Element(1270, 300), new Element(1390,255), new Element(1520, 255), new Element(1520, 255)); 
+                                    new Element(890, 490), new Element(1020, 530), new Element(1170, 520), new Element(1230, 410), new Element(1270, 300), new Element(1390,255), new Element(1520, 255), new Element(1520, 255));
+var CONTROL_POINTS_31 = new Array(new Element(1520, 290), new Element(1520, 290), new Element(1395, 240), new Element(1250, 220), new Element(1100, 220), new Element(985, 330), new Element(945, 455), new Element(805, 500), new Element(685, 430), new Element(550, 428), new Element(440, 360),
+                                    new Element(290, 360), new Element(150 ,350), new Element(60, 255), new Element(35, 155), new Element(-30, 95), new Element(-30, 95));
+var CONTROL_POINTS_32 = new Array(new Element(1310, 855), new Element(1310, 855), new Element(1250, 740), new Element(1105, 700), new Element(950, 695), new Element(820, 625), new Element(805, 500), new Element(685, 430), new Element(550, 428), new Element(440, 360),
+                                    new Element(290, 360), new Element(150 ,350), new Element(60, 255), new Element(35, 155), new Element(-30, 95), new Element(-30, 95));
 // implement Catmull-rom Spline
 // getSplinePoints(float, array of control_points)
 function getSplinePoints(t, control_points) {
