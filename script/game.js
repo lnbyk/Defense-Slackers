@@ -10,9 +10,7 @@ class Game {
         $("[id^='health']").remove();
         $("[id^='Debuff']").remove();
         $("[id^='Buff']").remove();
-        $('.bgm').each(function() {
-            $(this).get(0).pause();
-        })
+        $('#bgm').get(0).pause();
         $('#levelSMenu').hide();
         //$(".skilCdNum").remove();
         self = this;
@@ -113,7 +111,7 @@ class Game {
         var self = this;
         switch (this.game_state) {
             case gameState.PLAY:
-                $('#bgm' + curGameLevel).get(0).play();
+                $('#bgm').get(0).play();
                 if (this.health <= 0) {
                     self.lose();
                     console.log("you lose!!!!!!!!!!!!!!!!!!!!!!!!");
