@@ -171,5 +171,5 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    background: url("/images/loading.gif") no-repeat;
+    background: url("/assets/gif/ball.gif") no-repeat;
 }
