@@ -125,3 +125,14 @@ function readyGo() {
             game.resume();
         }, 3000);
 }
+
+function setSkillCdPos(level) {
+    var mappp = [1,2,3,6];
+    for (var i = 0; i < 4; i++) {
+        $('<button> </button>').attr({
+            id : "skill" + i + "" + level
+        }).addClass('skillBtn').appendTo('#gameScreen' + level);
+
+        $('<img/>').attr('src', 'gameAsset/td-gui/PNG/interface_game/ico_' + mappp[i] + '.png').appendTo('#' + "skill" + i + "" + level);
+    }
+}

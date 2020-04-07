@@ -21,13 +21,13 @@ function imgDefault() {
 }
 $(function () {
     document.onreadystatechange = function () {
-        if(document.readyState === "complete"){
+        if (document.readyState === "complete") {
             $("#loading").fadeOut();
         }
     }
     // create game here
     game = new Game();
-    
+
     $("[id^=gameScreen]").hide();
     $("#towerSelection, #skillMenu").hide();
     $("#setting").hide();
@@ -92,10 +92,11 @@ $(function () {
         })
     });
 
-    $('#upgradeClose').click(function() {
-        $('#skillMenu').fadeOut('fast',function() {
+    $('#upgradeClose').click(function () {
+        $('#skillMenu').fadeOut('fast', function () {
             $('#mainMenu').fadeIn('fast');
-        });})
+        });
+    })
     /*button use to open tower introduction menu */
     $('#towerType').click(function () {
         $("#mainSettingMenu, #closeMainSetting").fadeOut('fast', function () {
@@ -115,9 +116,9 @@ $(function () {
     });
 
     /* skill upgrade menu */
-    $('#skillMenuBtn').click(function(){
+    $('#skillMenuBtn').click(function () {
         setSkillUpgradePos();
-        $('#mainMenu').fadeOut("fast", function() {
+        $('#mainMenu').fadeOut("fast", function () {
             $('#skillMenu').fadeIn('fast');
         })
 
@@ -137,14 +138,14 @@ $(function () {
             case 'level1':
                 game.level = gameLevel.LEVEL_1;
                 break;
-            case 'level2': 
-                game.level = gameLevel.LEVEL_2;         
+            case 'level2':
+                game.level = gameLevel.LEVEL_2;
                 break;
             case 'level3':
-                game.level = gameLevel.LEVEL_3;     
+                game.level = gameLevel.LEVEL_3;
                 break;
             case 'level4':
-                game.level = gameLevel.LEVEL_2;     
+                game.level = gameLevel.LEVEL_2;
                 break;
             default:
                 return;
@@ -152,6 +153,7 @@ $(function () {
         var curLevelRank = (parseInt(curLevel.charAt(5))) - 1;
         curGameLevel = "gameScreen" + curLevelRank;
         setPitPosition(curLevelRank);
+        setSkillCdPos(curLevelRank);
         $("#mainMenu, #levelSMenu").fadeOut('slow', function () {
             $("#" + curGameLevel).fadeIn('slow');
             $("#backgroundMusic").get(0).pause();
@@ -164,49 +166,52 @@ $(function () {
 
 
     /* build tower button */
-    $('[id^=gameScreen').on( 'click', 'button', function () {
-        if( ! $(this).hasClass('tbtn'))
-            return;
-        imgDefault();
-        if ($('#' + cccname).length != 0)
-            $('#' + cccname).show();
-        buttonPos = '#' + $(this).attr('id');
-        curName = $(this).attr('name');
-        console.log(curName);
-        curRank = $(this).attr('rank')
-        if (curName != 'pit') {
-            for (var curpos = 0; curpos < 4; curpos++) {
-                var oldUrl = $('#' + curpos).attr('src');
-                if (curName == curpos && curRank < 3) {
-                    oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank)) + '.png';
-                } else if (curName == curpos && curRank == 3) {
-                    $('#tower' + curpos).hide();
-                } else if (parseInt(curRank) > 0) {
-                    oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank) - 1) + '.png';
+    $('[id^=gameScreen').on('click', 'button', function () {
+        if ($(this).hasClass('skillBtn')) {
+            var skill = '#' + $(this).attr('id');
+            // call elementSkill to implement skill
+            game.elementSkill(skill);
+        } else if ($(this).hasClass('tbtn')) {
+            imgDefault();
+            if ($('#' + cccname).length != 0)
+                $('#' + cccname).show();
+            buttonPos = '#' + $(this).attr('id');
+            curName = $(this).attr('name');
+            console.log(curName);
+            curRank = $(this).attr('rank')
+            if (curName != 'pit') {
+                for (var curpos = 0; curpos < 4; curpos++) {
+                    var oldUrl = $('#' + curpos).attr('src');
+                    if (curName == curpos && curRank < 3) {
+                        oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank)) + '.png';
+                    } else if (curName == curpos && curRank == 3) {
+                        $('#tower' + curpos).hide();
+                    } else if (parseInt(curRank) > 0) {
+                        oldUrl = oldUrl.substring(0, 38) + (imgArray[curpos] + parseInt(curRank) - 1) + '.png';
+                    }
+                    $('#' + curpos).attr('src', oldUrl);
                 }
-                $('#' + curpos).attr('src', oldUrl);
             }
+            cccname = 'tower' + curName;
+            // switch (curRank) {
+            //case '0':
+            var position = $(this).position();
+            var width = $(window).width()
+            var height = $(window).height()
+            $('#towerSelection').css({
+                top: position.top * 1,
+                left: position.left * 1.05,
+                tranform: 'translateX(-50%) translateY(-50%)'
+            }).fadeIn('fast', function () {
+                $("#closeTowerSelection").fadeIn();
+                /* choose certain tower and then change our name for the btn */
+            });
+            //  break;
+            //   case '1':
+            //     break;
+            //
+            //}
         }
-        cccname = 'tower' + curName;
-        // switch (curRank) {
-        //case '0':
-        var position = $(this).position();
-        var width = $(window).width()
-        var height = $(window).height()
-        $('#towerSelection').css({
-            top: position.top * 1,
-            left: position.left * 1.05,
-            tranform: 'translateX(-50%) translateY(-50%)'
-        }).fadeIn('fast', function () {
-            $("#closeTowerSelection").fadeIn();
-            /* choose certain tower and then change our name for the btn */
-        });
-        //  break;
-        //   case '1':
-        //     break;
-        //
-        //}
-
     });
 
     /* button use to close tower selection menu */
@@ -287,12 +292,6 @@ $(function () {
         //console.log("build tower: " + buttonPos);
         //console.log("x: " + $(buttonPos).position().left + ", y: " + $(buttonPos).position().top);
 
-    });
-
-    $('.skillBtn').click(function () {
-        var skill = '#' + $(this).attr('id');
-        // call elementSkill to implement skill
-        game.elementSkill(skill);
     });
 
     $('[id^=backMenuBtn]').click(function () {
@@ -437,7 +436,7 @@ $(function () {
 
 
     /* gameScreen turn off music */
-    $("#settingMusicBtn").click(function() {
+    $("#settingMusicBtn").click(function () {
         var curName = $(this).attr('name');
         var aduio = $('#bgm').get(0);
         switch (curName) {
@@ -454,27 +453,27 @@ $(function () {
         }
     })
 
-    $("#settingSoundBtn").click(function() {
+    $("#settingSoundBtn").click(function () {
         var curName = $(this).attr('name');
         switch (curName) {
             case 'on':
-                $('.gameSound').each(function(){
+                $('.gameSound').each(function () {
                     $(this).get(0).volume = 0;
-                  });
+                });
                 $('#settingSoundBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_off.png");
                 $(this).attr('name', 'off');
                 break;
             case 'off':
-                $('.gameSound').each(function(){
+                $('.gameSound').each(function () {
                     $(this).get(0).volume = 1;
-                  });
+                });
                 $('#settingSoundBtn img').attr('src', "gameAsset/td-gui/PNG/settings/button_on.png");
                 $(this).attr('name', 'on');
                 break;
         }
     })
     /* skill menu button on click */
-    $("body").on("click", '.btn, button' , function () {
+    $("body").on("click", '.btn, button', function () {
         $('#btnClick').get(0).play();
     })
 
